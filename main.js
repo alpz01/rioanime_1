@@ -158,5 +158,5 @@ class PlayerSection extends React.Component {
     }
 }
 
-const root = createRoot(document.getElementById('myApp'));
+const root = createRoot(document.getElementById('playerSection'));
 root.render(<PlayerSection />);
