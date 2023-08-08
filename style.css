@@ -1,0 +1,371 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 17px;
+    line-height: 1.42857143;
+    background-color: rgb(25,25,25);
+    font-family: 'Lexend deca',sans-serif;
+    overscroll-behavior: none;
+}
+
+.playerpage {
+    position: relative;
+    margin: 0 auto;
+    font-size: 16px;
+    color: white;
+    width: 1100px;
+    box-shadow: none;
+    margin-top: 60px;
+    background-color: rgb(35,35,35);
+    border-radius: 4px;
+    transition: all .5s ease-in-out;
+    transition-property: margin,height,width;
+}
+
+.subpart {
+    font-size: 21px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.eptitle {
+    padding: 5px;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 16px;
+    margin-top: -30px;
+    border-radius: 4px 4px 0 0;
+}
+
+#eptitle {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: calc(100% - 145px);
+    opacity: .9;
+}
+
+.altsourcenotif {
+    opacity: .5;
+    margin-left: 7px;
+    border-left: 2px solid #515151;
+    padding-left: 7px;
+}
+
+#toprightplayer {
+    float: right;
+    margin-right: 7px;
+    text-decoration: none;
+    margin-top: -24px;
+    font-size: 17px;
+}
+
+.dlbutton, .autoplaybutton, .proxybtn, .lightbtn {
+    margin-right: 8px;
+}
+
+#nextbtn, .dlbutton, .proxybtn, .autoplaybutton, .lightbtn {
+    cursor: pointer;
+}
+
+.glyphicon {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    font-family: "Glyphicons Halflings";
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 90px;
+    background-color: rgb(51 51 51);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 4px;
+    bottom: 27px;
+    left: 50%;
+    margin-left: -45px;
+    position: absolute;
+    z-index: 20;
+    font-family: 'Lexend deca',sans-serif;
+    font-size: 14px;
+}
+
+.glyphicon-transfer:before {
+    content: "\e178";
+}
+
+#iframeplayer, #iframeplayer2 {
+    display: block;
+    margin-bottom: 5px;
+    height: 619px;
+    width: 100%;
+    border: none;
+    overflow: hidden;
+    background-color: #3a3a3a;
+}
+
+#lowerplayerpage {
+    padding: 15px;
+    margin-top: -5px;
+    padding-bottom: 0;
+}
+
+#aligncenter {
+    margin-bottom: 3px;
+}
+
+#streamtypecontainer {
+    margin: -9px -10px 4px 0;
+}
+
+#streamtype {
+    font-size: 13px;
+    opacity: .6;
+    display: inline;
+}
+
+#showrecomendbtn {
+    font-size: 13px;
+    padding: 2px 5px 0 5px;
+    display: inline;
+    margin-left: 8px;
+    display: none;
+    cursor: pointer;
+    opacity: .9;
+    color: #99d4ff;
+    border-left: 1px solid #515151;
+    padding-left: 8px;
+}
+
+#sharebtn, #openreport, #syncbtn, #screenshotbtn, #widescreenbtn {
+    float: right;
+    cursor: pointer;
+    font-size: 12px;
+    color: #74a4cc;
+    display: none;
+    margin-top: 3px;
+    margin-right: 10px;
+}
+
+#sharebtn {
+    color: #76a2c6;
+    font-size: 13px;
+}
+
+#reloadbtn, #sandboxbtn {
+    float: right;
+    cursor: pointer;
+    margin-right: 10px;
+    display: none;
+    color: #79abd5;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+#screenshotbtn, #widescreenbtn {
+    display: block;
+    font-size: 15px;
+    margin-top: 1px;
+}
+
+#animebtn {
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.lowerplayerpage a {
+    background-color: transparent;
+    color: #a7ccea;
+    text-decoration: none;
+}
+
+#foldersvg {
+    margin-bottom: -3px;
+}
+
+.animetitle {
+    font-size: 22px;
+    display: inline;
+    margin-right: 10px;
+}
+
+#followbtn, #trackbtn {
+    display: none;
+    font-size: 12px;
+    padding: 1px 8px 1px 7px;
+    width: unset;
+    margin-bottom: 2px;
+    border-color: #323b46;
+    transform: translateY(-3px);
+    outline: none;
+}
+
+.changepassbtn, #manualtrackbtn, .changeuserbtn, #followbtn, #trackbtn {
+    font-size: 14px;
+    margin: 0 auto;
+    width: 120px;
+    padding: 6px;
+    margin-top: 7px
+}
+
+.loginbtn, .registerbtn, .changepassbtn, #manualtrackbtn, .changeuserbtn, #followbtn, #trackbtn {
+    background-color: rgba(134,187,255,.17);
+    color: #99d4ff;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid rgba(91,217,255,.2);
+    border-radius: 2px;
+    outline: none;
+}
+
+button, input {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+button, html input[type=button], input[type=reset], input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+button {
+    overflow: visible;
+    text-transform: none;
+}
+
+#animeimage {
+    display: none;
+    margin-top: 10px;
+    opacity: .8;
+}
+
+#notice {
+    color: rgba(255,255,255,.5);
+    font-size: 14px;
+}
+
+#epslistplace {
+    margin-top: 5px;
+    max-height: 140px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+    display: grid;
+    opacity: .9;
+    gap: 4px;
+    grid-template-columns: repeat(auto-fill,minmax(47px,1fr));
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 6px 4px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #3d698c;
+    border-color: #28455e;
+}
+
+.playbutton, .playbuttonextra {
+    padding: 4px;
+    font-size: 15px;
+}
+
+.btn[disabled] {
+    cursor: not-allowed;
+    opacity: .65;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.playbutton:disabled, .playbutton[disabled], .playbuttonextra:disabled, .playbuttonextra[disabled] {
+    background-color: #4d7944!important;
+    border-color: #244a1c;
+}
+
+#flexbottom {
+    display: flex;
+    border-top: 1px solid rgba(255,255,255,.2);
+    padding: 10px 0 15px 0;
+    margin-bottom: -10px;
+    opacity: .85;
+}
+
+#bottomleft {
+    flex: 0 0 calc(100% - 125px);
+}
+
+#status, #genres {
+    float: left;
+    font-size: 13px;
+    color: rgba(255,255,255,.7);
+}
+
+#genres a {
+    color: rgba(158,209,253,.76);
+}
+
+#animeinfobottom {
+    display: none;
+    float: left;
+    font-size: 13px;
+    margin-left: 8px;
+    padding-left: 8px;
+    border-left: 1px solid #4f4f4f;
+}
+
+#animebtn2 {
+    background-color: #2f2f2f;
+    padding: 1px 7px;
+    border: 1px solid #4c4c4c;
+}
+
+.epsavailable {
+    float: right;
+    flex: 1;
+    font-size: 13px;
+    text-align: right;
+    color: rgba(255,255,255,.7);
+}
+
+#updatebtn {
+    display: none;
+    cursor: pointer;
+}
+.epsavailable a {
+    color: rgba(105,198,220,.5);
+}
+
+#playercountdown {
+    color: yellow;
+    white-space: nowrap;
+}
+
