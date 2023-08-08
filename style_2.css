@@ -306,7 +306,7 @@ button {
     box-shadow: none;
 }
 
-.playbutton:disabled, .playbutton[disabled], .playbuttonextra:disabled, .playbuttonextra[disabled] {
+.playerpage .playbutton:disabled, .playerpage .playbutton[disabled], .playerpage .playbuttonextra:disabled, .playerpage .playbuttonextra[disabled] {
     background-color: #4d7944!important;
     border-color: #244a1c;
 }
