@@ -267,7 +267,7 @@ button {
     grid-template-columns: repeat(auto-fill,minmax(47px,1fr));
 }
 
-.btn {
+.playerpage .btn {
     display: inline-block;
     margin-bottom: 0;
     font-weight: 400;
@@ -288,7 +288,7 @@ button {
     user-select: none;
 }
 
-.btn-primary {
+.playerpage .btn-primary {
     color: #fff;
     background-color: #3d698c;
     border-color: #28455e;
@@ -299,7 +299,7 @@ button {
     font-size: 15px;
 }
 
-.btn[disabled] {
+.playerpage .btn[disabled] {
     cursor: not-allowed;
     opacity: .65;
     -webkit-box-shadow: none;
@@ -323,13 +323,13 @@ button {
     flex: 0 0 calc(100% - 125px);
 }
 
-#status, #genres {
+.playerpage #status, .playerpage #genres {
     float: left;
     font-size: 13px;
     color: rgba(255,255,255,.7);
 }
 
-#genres a {
+.playerpage #genres a {
     color: rgba(158,209,253,.76);
 }
 
@@ -364,7 +364,7 @@ button {
     color: rgba(105,198,220,.5);
 }
 
-#playercountdown {
+.playerpage #playercountdown {
     color: yellow;
     white-space: nowrap;
 }
