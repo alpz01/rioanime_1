@@ -103,7 +103,7 @@ function showPostData(label) {
         console.log("NO POST");
     } else {
       	clearPosts();
-        const root = ReactDOM.createRoot(document.getElementById('testPostLang'));
+        const root = document.getElementById('testPostLang');
         for (let i = 0; i < dataToDisplay.length; i++) {
             let post = dataToDisplay[i];
             console.log(`Title: ${post.Title} | Scores: ${post.Scores} | PostLink: ${post.PostLink} | Ep: ${post.Ep} | Type: ${post.Type} | View: ${post.View} | Thumbnail: ${post.Thumbnail}`);
@@ -114,7 +114,11 @@ function showPostData(label) {
 
 function clearPosts() {
     let container = document.getElementById("testPostLang");
-    container.innerHTML = "";
+    container.style.opacity = 0;
+    setTimeout(() => {
+        container.innerHTML = "";
+        container.style.opacity = 1;
+    }, 500);
 }
 
 
