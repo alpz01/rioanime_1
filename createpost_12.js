@@ -88,6 +88,8 @@ function storedPost(data, label, count) {
     showPostData(label);
 }
 
+let root = null;
+
 function showPostData(label) {
     let dataToDisplay;
     if (label === "Dub") {
@@ -104,11 +106,14 @@ function showPostData(label) {
     } else {
       	clearPosts();
         const container = document.getElementById('testPostLang');
-        const root = ReactDOM.createRoot(container);
+        if (!root) {
+            root = ReactDOM.createRoot(container);
+        }
         const posts = dataToDisplay.map(post => <CreatePost key={post.PostLink} post={post} />);
         root.render(<>{posts}</>);
     }
 }
+
 
 
 function clearPosts() {
