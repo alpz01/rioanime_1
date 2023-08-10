@@ -108,7 +108,8 @@ function showPostData(label) {
         for (let i = 0; i < dataToDisplay.length; i++) {
             let post = dataToDisplay[i];
             console.log(`Title: ${post.Title} | Scores: ${post.Scores} | PostLink: ${post.PostLink} | Ep: ${post.Ep} | Type: ${post.Type} | View: ${post.View} | Thumbnail: ${post.Thumbnail}`);
-          	createPost(post);
+          	const postElement = CreatePost(post);
+            ReactDOM.render(postElement, document.getElementById('testPostLang'));
         }
     }
 }
@@ -118,8 +119,7 @@ function clearPosts() {
     container.innerHTML = "";
 }
 
-  
-function createPost(post) {
+function CreatePost(post) {
     return (
         <div className="hentry play c:hover-eee" role="feed">
             <a className="block ofc relative poster r3 oh" href={post.PostLink} title={post.Title}>
@@ -147,5 +147,5 @@ function createPost(post) {
     );
 }
 
-const root = createRoot(document.getElementById('testPostLang'));
-root.render(<createPost(post) />);
+const root = ReactDOM.createRoot(document.getElementById('testPostLang'));
+root.render(<CreatePost post={post} />);
