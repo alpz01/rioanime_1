@@ -105,11 +105,8 @@ function showPostData(label) {
       	clearPosts();
         const container = document.getElementById('testPostLang');
         const root = ReactDOM.createRoot(container);
-        for (let i = 0; i < dataToDisplay.length; i++) {
-            let post = dataToDisplay[i];
-            console.log(`Title: ${post.Title} | Scores: ${post.Scores} | PostLink: ${post.PostLink} | Ep: ${post.Ep} | Type: ${post.Type} | View: ${post.View} | Thumbnail: ${post.Thumbnail}`);
-          	root.render(<CreatePost post={post} />);
-        }
+        const posts = dataToDisplay.map(post => <CreatePost key={post.PostLink} post={post} />);
+        root.render(<>{posts}</>);
     }
 }
 
