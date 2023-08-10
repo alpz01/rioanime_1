@@ -114,11 +114,7 @@ function showPostData(label) {
 
 function clearPosts() {
     let container = document.getElementById("testPostLang");
-    container.style.opacity = 0;
-    setTimeout(() => {
-        container.innerHTML = "";
-        container.style.opacity = 1;
-    }, 500);
+    container.innerHTML = "";
 }
 
 
