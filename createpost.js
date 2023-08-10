@@ -146,3 +146,6 @@ function createPost(post) {
         </div>
     );
 }
+
+const root = createRoot(document.getElementById('testPostLang'));
+root.render(<createPost(post) />);
