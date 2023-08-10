@@ -39,6 +39,8 @@ function trackPost(position) {
 }
 
 
+
+
 function storedPost(data, label, count) {
     let items = data.items;
     let dataToStore;
@@ -103,47 +105,46 @@ function showPostData(label) {
         console.log("NO POST");
     } else {
       	clearPosts();
-        const container = document.getElementById('testPostLang');
-        const root = ReactDOM.createRoot(container);
-        const posts = dataToDisplay.map(post => <CreatePost key={post.PostLink} post={post} />);
-        root.render(<>{posts}</>);
+        for (let i = 0; i < dataToDisplay.length; i++) {
+            let post = dataToDisplay[i];
+            console.log(`Title: ${post.Title} | Scores: ${post.Scores} | PostLink: ${post.PostLink} | Ep: ${post.Ep} | Type: ${post.Type} | View: ${post.View} | Thumbnail: ${post.Thumbnail}`);
+          	createPost(post);
+        }
     }
 }
-
-
-
-
+  
 function clearPosts() {
     let container = document.getElementById("testPostLang");
     container.innerHTML = "";
 }
 
-function CreatePost({ post }) {
-    return (
-        <div className="hentry play c:hover-eee" role="feed">
-            <a className="block ofc relative poster r3 oh" href={post.PostLink} title={post.Title}>
-                <img alt={post.Title} className="ar-2sx h-max w-max" loading="lazy" src={post.Thumbnail} />
-                <div className="absolute b-0 p-y2x6b0 ep fs-13 c-eee blr5 trr8">
-                    <span>Ep {post.Ep}</span>
-                </div>
-                <div className="absolute t-0 p-y2x6b0 sc fs-13 c-eee tlr5 brr8">
-                    <div className="rating-prc">
-                        <div className="rtp">
-                            <div className="rtb"><span style={{width: `${post.Scores * 10}%`}}></span></div>
-                        </div>
-                        <div className="num" content={post.Scores}>{post.Scores}</div>
+function createPost(post) {
+    let container = document.getElementById("testPostLang");
+    let postElement = document.createElement('div');
+    postElement.className = "hentry play c:hover-eee";
+    postElement.setAttribute("role", "feed");
+    postElement.innerHTML = `
+        <a class="block ofc relative poster r3 oh" href="${post.PostLink}" title="${post.Title}">
+            <img alt="${post.Title}" class="ar-2sx h-max w-max" loading="lazy" src="${post.Thumbnail}" />
+            <div class="absolute b-0 p-y2x6b0 ep fs-13 c-eee blr5 trr8">
+                <span>Ep ${post.Ep}</span>
+            </div>
+            <div class="absolute t-0 p-y2x6b0 sc fs-13 c-eee tlr5 brr8">
+                <div class="rating-prc">
+                    <div class="rtp">
+                        <div class="rtb"><span style="width: ${post.Scores * 10}%"></span></div>
                     </div>
+                    <div class="num" content="${post.Scores}">${post.Scores}</div>
                 </div>
-                <div className="absolute b-0 r-0 fs-13 c-eee brr5 tlr8 dir ttu">
-                    <span className={post.Type.toLowerCase()}>{post.Type}</span>
-                    <span className={post.View.toLowerCase()}>{post.View}</span>
-                </div>
-            </a>
-            <h3 className="clamp oh tac mt-8">
-                <a className="fs-md fw-400 c-aba" href={post.PostLink}>{post.Title}</a>
-            </h3>
-        </div>
-    );
+            </div>
+            <div class="absolute b-0 r-0 fs-13 c-eee brr5 tlr8 dir ttu">
+                <span class="${post.Type.toLowerCase()}">${post.Type}</span>
+                <span class="${post.View.toLowerCase()}">${post.View}</span>
+            </div>
+        </a>
+        <h3 class="clamp oh tac mt-8">
+            <a class="fs-md fw-400 c-aba" href="${post.PostLink}">${post.Title}</a>
+        </h3>
+    `;
+    container.appendChild(postElement);
 }
-
-
