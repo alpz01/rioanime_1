@@ -103,16 +103,15 @@ function showPostData(label) {
         console.log("NO POST");
     } else {
       	clearPosts();
+        const root = ReactDOM.createRoot(document.getElementById('testPostLang'));
         for (let i = 0; i < dataToDisplay.length; i++) {
             let post = dataToDisplay[i];
             console.log(`Title: ${post.Title} | Scores: ${post.Scores} | PostLink: ${post.PostLink} | Ep: ${post.Ep} | Type: ${post.Type} | View: ${post.View} | Thumbnail: ${post.Thumbnail}`);
-          	const postElement = CreatePost({ post });
-            ReactDOM.render(postElement, document.getElementById('testPostLang'));
+          	root.render(<CreatePost post={post} />);
         }
     }
 }
 
-  
 function clearPosts() {
     let container = document.getElementById("testPostLang");
     container.innerHTML = "";
@@ -145,4 +144,5 @@ function CreatePost({ post }) {
         </div>
     );
 }
+
 
