@@ -169,6 +169,18 @@ function storedPost(data, label, count) {
 }
 
 
+function Posts({ posts }) {
+  return (
+    <>
+      {posts.map((post) => (
+        <CreatePost key={post.Title} post={post} />
+      ))}
+    </>
+  );
+}
+
+// ...
+
 function showPostData(label) {
   // Get the data to display based on the label
   let dataToDisplay;
@@ -202,16 +214,8 @@ function showPostData(label) {
     const container = document.getElementById('testPostLang1');
     const root = ReactDOM.createRoot(container);
 
-    // Iterate over the data and display each post
-    dataToDisplay.forEach((post) => {
-      // Log the post details
-      console.log(
-        `Title: ${post.Title} | Scores: ${post.Scores} | PostLink: ${post.PostLink} | Ep: ${post.Ep} | Type: ${post.Type} | View: ${post.View} | Thumbnail: ${post.Thumbnail}`
-      );
-
-      // Update the content by calling the render method on the existing root
-      root.render(<CreatePost post={post} />);
-    });
+    // Render all posts at once
+    root.render(<Posts posts={dataToDisplay} />);
   }
 }
 
