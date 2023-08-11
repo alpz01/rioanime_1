@@ -181,6 +181,10 @@ function Posts({ posts }) {
 
 // ...
 
+// Create the root once
+const container = document.getElementById('testPostLang1');
+const root = ReactDOM.createRoot(container);
+
 function showPostData(label) {
   // Get the data to display based on the label
   let dataToDisplay;
@@ -210,12 +214,14 @@ function showPostData(label) {
     // Clear existing posts
     clearPosts();
 
-    // Create the root once
-    const container = document.getElementById('testPostLang1');
-    const root = ReactDOM.createRoot(container);
-
-    // Render all posts at once
-    root.render(<Posts posts={dataToDisplay} />);
+    // Update the content by calling the render method on the existing root
+    root.render(
+      <>
+        {dataToDisplay.map((post) => (
+          <CreatePost key={post.Title} post={post} />
+        ))}
+      </>
+    );
   }
 }
 
