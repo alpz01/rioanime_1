@@ -77,18 +77,15 @@ async function fetchData(label, count) {
 function trackPost(e) {
     switch (e) {
         case "next":
-            prevBtn.disabled = !1, page++;
+            prevBtn.disabled = !1;
+            page++;
             break;
         case "prev":
             if (nextBtnBall.disabled = !1, !(page > 0)) return void(prevBtn.disabled = !0);
             page--;
-            if (page * postTargetCount >= storedDubData.length || page * postTargetCount >= storedSubData.length || page * postTargetCount >= storedMovieData.length || page * postTargetCount >= storedAllData.length) {
-                page--;
-            }
     }
     fetchData(postTargetLabel, postTargetCount)
 }
-
 
 function storedPost(data, label, count) {
     let items = data.items;
