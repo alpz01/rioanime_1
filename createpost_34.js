@@ -74,30 +74,21 @@ async function fetchData(label, count) {
 }
 
 
-function trackPost(position) {
-    switch (position) {
+function trackPost(e) {
+    switch (e) {
         case "next":
-            prevBtn.disabled = false;
-            page++;
+            prevBtn.disabled = !1, page++;
             break;
         case "prev":
-            nextBtnBall.disabled = false;
-
-            if (page > 0) {
+            if (nextBtnBall.disabled = !1, !(page > 0)) return void(prevBtn.disabled = !0);
+            page--;
+            if (page * postTargetCount >= storedDubData.length || page * postTargetCount >= storedSubData.length || page * postTargetCount >= storedMovieData.length || page * postTargetCount >= storedAllData.length) {
                 page--;
-
-                if (page * postTargetCount >= storedDubData.length) {
-                    page--;
-                }
-            } else {
-                prevBtn.disabled = true;
-                return;
             }
-            break;
     }
-
-    fetchData(postTargetLabel, postTargetCount);
+    fetchData(postTargetLabel, postTargetCount)
 }
+
 
 function storedPost(data, label, count) {
     let items = data.items;
