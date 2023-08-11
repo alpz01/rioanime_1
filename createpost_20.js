@@ -8,12 +8,20 @@ async function fetchData(label, count) {
     let startIndex = page * count;
     let url = `https://www.googleapis.com/blogger/v3/blogs/1287659878380255414/posts?labels=${label}&key=AIzaSyCJ6jdZ4LyxrYTxLUg9QxnM8N0Rs8I73_E`;
 
-    const response = await fetch(url);
-    const data = await response.json();
-    const items = data.items.slice(startIndex, startIndex + count);
-
-    storedPost({items}, label, count);
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.items) {
+            const items = data.items.slice(startIndex, startIndex + count);
+            storedPost({items}, label, count);
+        } else {
+            console.error('No items found for label:', label);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 }
+
 
 function trackPost(position) {
     const prevBtn = document.getElementById("prevbtn");
