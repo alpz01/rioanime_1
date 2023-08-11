@@ -1,7 +1,6 @@
 let storedDubData = [];
 let storedSubData = [];
 let storedMovieData = [];
-let count = 1;
 let page = 0;
 
 async function fetchData(label, count) {
