@@ -170,50 +170,51 @@ function storedPost(data, label, count) {
 
 
 function showPostData(label) {
-    // Get the data to display based on the label
-    let dataToDisplay;
-    switch (label) {
-      case 'Dub':
-        dataToDisplay = storedDubData;
-        break;
-      case 'Sub':
-        dataToDisplay = storedSubData;
-        break;
-      case 'Movie':
-        dataToDisplay = storedMovieData;
-        break;
-      case 'All':
-        dataToDisplay = storedAllData;
-        break;
-      default:
-        dataToDisplay = [];
-    }
-  
-    // If there is no data to display
-    if (dataToDisplay.length === 0) {
-      document.getElementById('nextbtnBall').disabled = true;
-      page--;
-      console.log('NO POST');
-    } else {
-      // Clear existing posts
-      clearPosts();
-  
-      // Iterate over the data and display each post
-      dataToDisplay.forEach((post) => {
-        // Log the post details
-        console.log(
-          `Title: ${post.Title} | Scores: ${post.Scores} | PostLink: ${post.PostLink} | Ep: ${post.Ep} | Type: ${post.Type} | View: ${post.View} | Thumbnail: ${post.Thumbnail}`
-        );
-  
-        // Create the root once
-        const container = document.getElementById('testPostLang1');
-        const root = ReactDOM.createRoot(container);
-
-        // Update the content by calling the render method on the existing root
-        root.render(<CreatePost post={post} />);
-      });
-    }
+  // Get the data to display based on the label
+  let dataToDisplay;
+  switch (label) {
+    case 'Dub':
+      dataToDisplay = storedDubData;
+      break;
+    case 'Sub':
+      dataToDisplay = storedSubData;
+      break;
+    case 'Movie':
+      dataToDisplay = storedMovieData;
+      break;
+    case 'All':
+      dataToDisplay = storedAllData;
+      break;
+    default:
+      dataToDisplay = [];
   }
+
+  // If there is no data to display
+  if (dataToDisplay.length === 0) {
+    document.getElementById('nextbtnBall').disabled = true;
+    page--;
+    console.log('NO POST');
+  } else {
+    // Clear existing posts
+    clearPosts();
+
+    // Create the root once
+    const container = document.getElementById('testPostLang1');
+    const root = ReactDOM.createRoot(container);
+
+    // Iterate over the data and display each post
+    dataToDisplay.forEach((post) => {
+      // Log the post details
+      console.log(
+        `Title: ${post.Title} | Scores: ${post.Scores} | PostLink: ${post.PostLink} | Ep: ${post.Ep} | Type: ${post.Type} | View: ${post.View} | Thumbnail: ${post.Thumbnail}`
+      );
+
+      // Update the content by calling the render method on the existing root
+      root.render(<CreatePost post={post} />);
+    });
+  }
+}
+
   
   function clearPosts() {
     let postContainer = document.getElementById('testPostLang1');
