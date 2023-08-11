@@ -6,6 +6,8 @@ let postTargetCount = 0;
 let page = 0;
 
 async function fetchData(label, count) {
+    page = 0;
+    
     let startIndex = page * count;
     let url = `https://www.googleapis.com/blogger/v3/blogs/1287659878380255414/posts?labels=${label}&key=AIzaSyCJ6jdZ4LyxrYTxLUg9QxnM8N0Rs8I73_E`;
     postTargetLabel = label;
