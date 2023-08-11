@@ -79,8 +79,8 @@ function trackPost(e) {
         case "next":
             prevBtn.disabled = !1;
             page++;
-            // Disable the next button if there are no more posts to display
-            if (page * postTargetCount >= storedDubData.length || page * postTargetCount >= storedSubData.length || page * postTargetCount >= storedMovieData.length || page * postTargetCount >= storedAllData.length) {
+            // Disable the next button if there are no more posts to display after clicking it
+            if ((page + 1) * postTargetCount >= storedDubData.length || (page + 1) * postTargetCount >= storedSubData.length || (page + 1) * postTargetCount >= storedMovieData.length || (page + 1) * postTargetCount >= storedAllData.length) {
                 nextBtnBall.disabled = true;
             }
             break;
@@ -90,7 +90,6 @@ function trackPost(e) {
     }
     fetchData(postTargetLabel, postTargetCount)
 }
-
 
 
 function storedPost(data, label, count) {
