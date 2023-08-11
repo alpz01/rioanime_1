@@ -1,3 +1,6 @@
+import React from 'react';
+import { createRoot } from 'react-dom';
+
 let storedDubData = [];
 let storedSubData = [];
 let storedMovieData = [];
