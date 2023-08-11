@@ -1,5 +1,3 @@
-import { createRoot } from 'react-dom';
-
 let storedDubData = [];
 let storedSubData = [];
 let storedMovieData = [];
