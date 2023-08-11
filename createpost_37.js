@@ -79,6 +79,10 @@ function trackPost(e) {
         case "next":
             prevBtn.disabled = !1;
             page++;
+            // Disable the next button if there are no more posts to display
+            if (page * postTargetCount >= storedDubData.length || page * postTargetCount >= storedSubData.length || page * postTargetCount >= storedMovieData.length || page * postTargetCount >= storedAllData.length) {
+                nextBtnBall.disabled = true;
+            }
             break;
         case "prev":
             if (nextBtnBall.disabled = !1, !(page > 0)) return void(prevBtn.disabled = !0);
@@ -86,6 +90,7 @@ function trackPost(e) {
     }
     fetchData(postTargetLabel, postTargetCount)
 }
+
 
 function storedPost(data, label, count) {
     let items = data.items;
