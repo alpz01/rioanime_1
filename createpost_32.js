@@ -35,7 +35,7 @@ function handleClick(btn) {
             break;
     }
 
-    fetchData(btn, 1);
+    fetchData(btn, 2);
 }
 
 subBtn.addEventListener("click", () => handleClick("Sub"));
@@ -63,6 +63,7 @@ async function fetchData(label, count) {
         if (data.items) {
             // Slice the items based on the startIndex and count
             const items = data.items.slice(startIndex, startIndex + count);
+            console.log(items)
             storedPost({ items }, label, count);
         } else {
             console.error('No items found for label:', label);
