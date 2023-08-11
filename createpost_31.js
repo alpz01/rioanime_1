@@ -61,14 +61,8 @@ async function fetchData(label, count) {
         const response = await fetch(url);
         const data = await response.json();
         if (data.items) {
-            let items;
-            if (label === "All") {
-                // If the label is "All", display all items
-                items = data.items;
-            } else {
-                // Otherwise, slice the items based on the startIndex and count
-                items = data.items.slice(startIndex, startIndex + count);
-            }
+            // Slice the items based on the startIndex and count
+            const items = data.items.slice(startIndex, startIndex + count);
             storedPost({ items }, label, count);
         } else {
             console.error('No items found for label:', label);
@@ -77,6 +71,7 @@ async function fetchData(label, count) {
         console.error('Error fetching data:', error);
     }
 }
+
 
 function trackPost(position) {
     switch (position) {
