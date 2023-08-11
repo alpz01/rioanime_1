@@ -1,13 +1,14 @@
 let storedDubData = [];
 let storedSubData = [];
 let storedMovieData = [];
-let count = 1;
-let label = "Dub";
 let page = 0;
 
-fetchData(label, count, page);
 
-async function fetchData(label, count, page) {
+function startPost() {
+    fetchData(label, count);
+}
+
+async function fetchData(label, count) {
     let startIndex = page * count;
     let url = `https://www.googleapis.com/blogger/v3/blogs/1287659878380255414/posts?labels=${label}&key=AIzaSyCJ6jdZ4LyxrYTxLUg9QxnM8N0Rs8I73_E`;
 
