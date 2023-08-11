@@ -177,16 +177,24 @@ function storedPost(data, label, count) {
 }
 
 function showPostData(label) {
-    // Map of data based on the label
-    const dataMap = {
-        "Dub": storedDubData,
-        "Sub": storedSubData,
-        "Movie": storedMovieData,
-        "All": storedAllData
-    };
-
     // Get the data to display based on the label
-    const dataToDisplay = dataMap[label] || [];
+    let dataToDisplay;
+    switch (label) {
+        case "Dub":
+            dataToDisplay = storedDubData;
+            break;
+        case "Sub":
+            dataToDisplay = storedSubData;
+            break;
+        case "Movie":
+            dataToDisplay = storedMovieData;
+            break;
+        case "All":
+            dataToDisplay = storedAllData;
+            break;
+        default:
+            dataToDisplay = [];
+    }
 
     // If there is no data to display
     if (dataToDisplay.length === 0) {
@@ -206,6 +214,7 @@ function showPostData(label) {
         });
     }
 }
+
            
   
 function clearPosts() {
