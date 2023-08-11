@@ -1,12 +1,8 @@
 let storedDubData = [];
 let storedSubData = [];
 let storedMovieData = [];
+let count = 1;
 let page = 0;
-
-
-async function startPost(label, count) {
-    await fetchData(label, count);
-}
 
 async function fetchData(label, count) {
     let startIndex = page * count;
@@ -162,7 +158,7 @@ function clearPosts() {
 }
 
 function createPost(post) {
-    const container = document.getElementById("testPostLang");
+    const container = document.getElementsByClassName("hfeed");
     const postElement = document.createElement('div');
     postElement.className = "hentry play c:hover-eee";
     postElement.setAttribute("role", "feed");
