@@ -161,7 +161,7 @@ function showPostData(label) {
            
   
 function clearPosts() {
-    let postContainer = document.getElementById("testPostLang");
+    let postContainer = document.getElementsByClassName("hfeed");
     postContainer.innerHTML = "";
 }
 
