@@ -1,6 +1,3 @@
-const { createRoot } = ReactDOM;
-
-
 const switchToLive = () => {
     console.log('switch to live')
 }
