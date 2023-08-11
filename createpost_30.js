@@ -104,19 +104,22 @@ function trackPost(position) {
 }
 
 function storedPost(data, label, count) {
+    let items = data.items;
+    let dataToStore;
+
+    // Determine the dataToStore based on the label
     switch (label) {
         case "Dub":
-            storedDubData = data.items;
+            dataToStore = storedDubData;
             break;
         case "Sub":
-            storedSubData = data.items;
+            dataToStore = storedSubData;
             break;
         case "Movie":
-            storedMovieData = data.items;
+            dataToStore = storedMovieData;
             break;
-        case "All":
-            storedAllData = data.items;
-            break;
+        default:
+            dataToStore = [];
     }
 
     // Clear the dataToStore array
