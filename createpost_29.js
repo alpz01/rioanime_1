@@ -1,6 +1,7 @@
 let storedDubData = [];
 let storedSubData = [];
 let storedMovieData = [];
+let storedAllData = [];
 let postTargetLabel = "";
 let postTargetCount = 0;
 let page = 0;
@@ -8,16 +9,18 @@ let page = 0;
 const subBtn = document.getElementById("subBtnhome");
 const dubBtn = document.getElementById("dubBtnhome");
 const movieBtn = document.getElementById("movieBtnhome");
+const allBtn = document.getElementById("allBtnhome");
 
 const prevBtn = document.getElementById("prevbtn");
 const nextBtnBall = document.getElementById("nextbtnBall");
 
-function handleClick(type) {
+function handleClick(btn) {
     prevBtn.disabled = false;
     nextBtnBall.disabled = false;
     page = 0;
 
-    switch (type) {
+    // Clear the appropriate stored data array based on the button that was clicked
+    switch (btn) {
         case "Sub":
             storedSubData = [];
             break;
@@ -27,19 +30,30 @@ function handleClick(type) {
         case "Movie":
             storedMovieData = [];
             break;
+        case "All":
+            storedAllData = [];
+            break;
     }
 
-    fetchData(type, 1);
+    fetchData(btn, 1);
 }
 
 subBtn.addEventListener("click", () => handleClick("Sub"));
 dubBtn.addEventListener("click", () => handleClick("Dub"));
 movieBtn.addEventListener("click", () => handleClick("Movie"));
+allBtn.addEventListener("click", () => handleClick("All"));
 
 
 async function fetchData(label, count) {
     let startIndex = page * count;
-    let url = `https://www.googleapis.com/blogger/v3/blogs/1287659878380255414/posts?labels=${label}&key=AIzaSyCJ6jdZ4LyxrYTxLUg9QxnM8N0Rs8I73_E`;
+    let url;
+    if (label === "All") {
+        // If the label is "All", remove the labels query parameter from the URL
+        url = `https://www.googleapis.com/blogger/v3/blogs/1287659878380255414/posts?key=AIzaSyCJ6jdZ4LyxrYTxLUg9QxnM8N0Rs8I73_E`;
+    } else {
+        // Otherwise, include the labels query parameter in the URL
+        url = `https://www.googleapis.com/blogger/v3/blogs/1287659878380255414/posts?labels=${label}&key=AIzaSyCJ6jdZ4LyxrYTxLUg9QxnM8N0Rs8I73_E`;
+    }
     postTargetLabel = label;
     postTargetCount = count;
 
@@ -47,8 +61,15 @@ async function fetchData(label, count) {
         const response = await fetch(url);
         const data = await response.json();
         if (data.items) {
-            const items = data.items.slice(startIndex, startIndex + count);
-            storedPost({items}, label, count);
+            let items;
+            if (label === "All") {
+                // If the label is "All", display all items
+                items = data.items;
+            } else {
+                // Otherwise, slice the items based on the startIndex and count
+                items = data.items.slice(startIndex, startIndex + count);
+            }
+            storedPost({ items }, label, count);
         } else {
             console.error('No items found for label:', label);
         }
@@ -57,50 +78,45 @@ async function fetchData(label, count) {
     }
 }
 
-
 function trackPost(position) {
     switch (position) {
-      case "next":
-        prevBtn.disabled = false;
-        page++;
-        break;
-      case "prev":
-        nextBtnBall.disabled = false;
-  
-        if (page > 0) {
-          page--;
-  
-          if (page * postTargetCount >= storedDubData.length) {
-            page--;
-          }
-        } else {
-          prevBtn.disabled = true;
-          return;
-        }
-        break;
-    }
-  
-    fetchData(postTargetLabel, postTargetCount);
-  }
+        case "next":
+            prevBtn.disabled = false;
+            page++;
+            break;
+        case "prev":
+            nextBtnBall.disabled = false;
 
+            if (page > 0) {
+                page--;
+
+                if (page * postTargetCount >= storedDubData.length) {
+                    page--;
+                }
+            } else {
+                prevBtn.disabled = true;
+                return;
+            }
+            break;
+    }
+
+    fetchData(postTargetLabel, postTargetCount);
+}
 
 function storedPost(data, label, count) {
-    let items = data.items;
-    let dataToStore;
-
-    // Determine the dataToStore based on the label
     switch (label) {
         case "Dub":
-            dataToStore = storedDubData;
+            storedDubData = data.items;
             break;
         case "Sub":
-            dataToStore = storedSubData;
+            storedSubData = data.items;
             break;
         case "Movie":
-            dataToStore = storedMovieData;
+            storedMovieData = data.items;
             break;
-        default:
-            dataToStore = [];
+        case "All":
+            storedAllData = data.items;
+            break;
     }
 
     // Clear the dataToStore array
@@ -166,7 +182,8 @@ function showPostData(label) {
     const dataMap = {
         "Dub": storedDubData,
         "Sub": storedSubData,
-        "Movie": storedMovieData
+        "Movie": storedMovieData,
+        "All": storedAllData
     };
 
     // Get the data to display based on the label
