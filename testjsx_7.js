@@ -205,9 +205,12 @@ function showPostData(label) {
           `Title: ${post.Title} | Scores: ${post.Scores} | PostLink: ${post.PostLink} | Ep: ${post.Ep} | Type: ${post.Type} | View: ${post.View} | Thumbnail: ${post.Thumbnail}`
         );
   
-        // Create the post element
-        const root = document.getElementById('testPostLang1');
-        ReactDOM.createRoot(root).render(<CreatePost post={post} />)
+        // Create the root once
+        const container = document.getElementById('testPostLang1');
+        const root = ReactDOM.createRoot(container);
+
+        // Update the content by calling the render method on the existing root
+        root.render(<CreatePost post={post} />);
       });
     }
   }
