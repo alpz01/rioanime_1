@@ -192,6 +192,7 @@ function showPostData(label) {
     // If there is no data to display
     if (dataToDisplay.length === 0) {
         document.getElementById("nextbtnBall").disabled = true;
+        page--;
         console.log("NO POST");
     } else {
         // Clear existing posts
