@@ -5,6 +5,38 @@ let postTargetLabel = "";
 let postTargetCount = 0;
 let page = 0;
 
+const subBtn = document.getElementById("subBtnhome");
+const dubBtn = document.getElementById("dubBtnhome");
+const movieBtn = document.getElementById("movieBtnhome");
+
+const prevBtn = document.getElementById("prevbtn");
+const nextBtnBall = document.getElementById("nextbtnBall");
+
+function handleClick(type) {
+    prevBtn.disabled = false;
+    nextBtnBall.disabled = false;
+    page = 0;
+
+    switch (type) {
+        case "Sub":
+            storedSubData = [];
+            break;
+        case "Dub":
+            storedDubData = [];
+            break;
+        case "Movie":
+            storedMovieData = [];
+            break;
+    }
+
+    fetchData(type, 1);
+}
+
+subBtn.addEventListener("click", () => handleClick("Sub"));
+dubBtn.addEventListener("click", () => handleClick("Dub"));
+movieBtn.addEventListener("click", () => handleClick("Movie"));
+
+
 async function fetchData(label, count) {
     let startIndex = page * count;
     let url = `https://www.googleapis.com/blogger/v3/blogs/1287659878380255414/posts?labels=${label}&key=AIzaSyCJ6jdZ4LyxrYTxLUg9QxnM8N0Rs8I73_E`;
@@ -27,9 +59,6 @@ async function fetchData(label, count) {
 
 
 function trackPost(position) {
-    const prevBtn = document.getElementById("prevbtn");
-    const nextBtnBall = document.getElementById("nextbtnBall");
-  
     switch (position) {
       case "next":
         prevBtn.disabled = false;
