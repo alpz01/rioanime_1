@@ -4,8 +4,8 @@ let storedMovieData = [];
 let page = 0;
 
 
-function startPost(label, count) {
-    fetchData(label, count);
+async function startPost(label, count) {
+    await fetchData(label, count);
 }
 
 async function fetchData(label, count) {
