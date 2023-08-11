@@ -41,7 +41,7 @@ function trackPost(position) {
         if (page > 0) {
           page--;
   
-          if (page * count >= storedDubData.length) {
+          if (page * postTargetCount >= storedDubData.length) {
             page--;
           }
         } else {
