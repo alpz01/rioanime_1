@@ -105,6 +105,9 @@ function storedPost(data, label, count) {
         case "Movie":
             dataToStore = storedMovieData;
             break;
+        case "All":
+            dataToStore = storedAllData;
+            break;
         default:
             dataToStore = [];
     }
