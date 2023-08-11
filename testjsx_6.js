@@ -206,7 +206,8 @@ function showPostData(label) {
         );
   
         // Create the post element
-        createRoot(document.getElementById('testPostLang1')).render(<CreatePost post={post} />);
+        const root = document.getElementById('testPostLang1');
+        ReactDOM.createRoot(root).render(<CreatePost post={post} />)
       });
     }
   }
