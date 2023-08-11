@@ -4,7 +4,7 @@ let storedMovieData = [];
 let page = 0;
 
 
-function startPost() {
+function startPost(label, count) {
     fetchData(label, count);
 }
 
