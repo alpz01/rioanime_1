@@ -1,11 +1,15 @@
 let storedDubData = [];
 let storedSubData = [];
 let storedMovieData = [];
+let postTargetLabel = "";
+let postTargetCount = 0;
 let page = 0;
 
 async function fetchData(label, count) {
     let startIndex = page * count;
     let url = `https://www.googleapis.com/blogger/v3/blogs/1287659878380255414/posts?labels=${label}&key=AIzaSyCJ6jdZ4LyxrYTxLUg9QxnM8N0Rs8I73_E`;
+    postTargetLabel = label;
+    postTargetCount = count;
 
     try {
         const response = await fetch(url);
@@ -47,7 +51,7 @@ function trackPost(position) {
         break;
     }
   
-    fetchData(label, count, page);
+    fetchData(postTargetLabel, postTargetCount);
   }
 
 
