@@ -160,12 +160,12 @@ function showPostData(label) {
            
   
 function clearPosts() {
-    let postContainer = document.getElementsByClassName("hfeed");
+    let postContainer = document.getElementById("testPostLang1");
     postContainer.innerHTML = "";
 }
 
 function createPost(post) {
-    const container = document.getElementsByClassName("hfeed");
+    const container = document.getElementById("testPostLang1");
     const postElement = document.createElement('div');
     postElement.className = "hentry play c:hover-eee";
     postElement.setAttribute("role", "feed");
