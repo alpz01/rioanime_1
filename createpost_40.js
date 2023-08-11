@@ -74,21 +74,29 @@ async function fetchData(label, count) {
 }
 
 
-function trackPost(e) {
-    switch (e) {
+function trackPost(position) {
+    switch (position) {
         case "next":
-            prevBtn.disabled = !1;
+            prevBtn.disabled = false;
             page++;
-            // Disable the next button if there are no more posts to display after clicking it
-            if ((page + 1) * postTargetCount >= storedDubData.length || (page + 1) * postTargetCount >= storedSubData.length || (page + 1) * postTargetCount >= storedMovieData.length || (page + 1) * postTargetCount >= storedAllData.length) {
-                nextBtnBall.disabled = true;
-            }
             break;
         case "prev":
-            if (nextBtnBall.disabled = !1, !(page > 0)) return void(prevBtn.disabled = !0);
-            page--;
+            nextBtnBall.disabled = false;
+
+            if (page > 0) {
+                page--;
+
+                if (page * postTargetCount >= storedDubData.length) {
+                    page--;
+                }
+            } else {
+                prevBtn.disabled = true;
+                return;
+            }
+            break;
     }
-    fetchData(postTargetLabel, postTargetCount)
+
+    fetchData(postTargetLabel, postTargetCount);
 }
 
 
@@ -211,8 +219,6 @@ function showPostData(label) {
     }
 }
 
-           
-  
 function clearPosts() {
     let postContainer = document.getElementById("testPostLang1");
     postContainer.innerHTML = "";
