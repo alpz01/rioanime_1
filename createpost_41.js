@@ -74,30 +74,19 @@ async function fetchData(label, count) {
 }
 
 
-function trackPost(position) {
-    switch (position) {
+function trackPost(e) {
+    switch (e) {
         case "next":
-            prevBtn.disabled = false;
+            prevBtn.disabled = !1;
             page++;
             break;
         case "prev":
-            nextBtnBall.disabled = false;
-
-            if (page > 0) {
-                page--;
-
-                if (page * postTargetCount >= storedDubData.length) {
-                    page--;
-                }
-            } else {
-                prevBtn.disabled = true;
-                return;
-            }
-            break;
+            if (nextBtnBall.disabled = !1, !(page > 0)) return void(prevBtn.disabled = !0);
+            page--;
     }
-
-    fetchData(postTargetLabel, postTargetCount);
+    fetchData(postTargetLabel, postTargetCount)
 }
+
 
 
 function storedPost(data, label, count) {
