@@ -169,92 +169,94 @@ function storedPost(data, label, count) {
 }
 
 
-const ShowPostData = ({ e }) => {
-  let t;
-  switch (e) {
-    case 'Dub':
-      t = storedDubData;
-      break;
-    case 'Sub':
-      t = storedSubData;
-      break;
-    case 'Movie':
-      t = storedMovieData;
-      break;
-    case 'All':
-      t = storedAllData;
-      break;
-    default:
-      t = [];
+function showPostData(label) {
+    // Get the data to display based on the label
+    let dataToDisplay;
+    switch (label) {
+      case 'Dub':
+        dataToDisplay = storedDubData;
+        break;
+      case 'Sub':
+        dataToDisplay = storedSubData;
+        break;
+      case 'Movie':
+        dataToDisplay = storedMovieData;
+        break;
+      case 'All':
+        dataToDisplay = storedAllData;
+        break;
+      default:
+        dataToDisplay = [];
+    }
+  
+    // If there is no data to display
+    if (dataToDisplay.length === 0) {
+      document.getElementById('nextbtnBall').disabled = true;
+      page--;
+      console.log('NO POST');
+    } else {
+      // Clear existing posts
+      clearPosts();
+  
+      // Iterate over the data and display each post
+      dataToDisplay.forEach((post) => {
+        // Log the post details
+        console.log(
+          `Title: ${post.Title} | Scores: ${post.Scores} | PostLink: ${post.PostLink} | Ep: ${post.Ep} | Type: ${post.Type} | View: ${post.View} | Thumbnail: ${post.Thumbnail}`
+        );
+  
+        // Create the post element
+        const root = document.getElementById('testPostLang1');
+        ReactDOM.render(<CreatePost post={post} />, root);
+      });
+    }
   }
-  if (t.length === 0) {
-    document.getElementById('nextbtnBall').disabled = true;
-    page--;
-    console.log('NO POST');
-  } else {
-    clearPosts();
+  
+  function clearPosts() {
+    let postContainer = document.getElementById('testPostLang1');
+    postContainer.innerHTML = '';
+  }
+  
+  function CreatePost ({ post }) {
     return (
-      <>
-        {t.map((e) => (
-          <div key={e.Title}>
-            <p>
-              Title: {e.Title} | Scores: {e.Scores} | PostLink: {e.PostLink} |
-              Ep: {e.Ep} | Type: {e.Type} | View: {e.View} | Thumbnail:{' '}
-              {e.Thumbnail}
-            </p>
-            <CreatePost e={e} />
+      <div className="hentry play c:hover-eee" role="feed">
+        <a
+          className="block ofc relative poster r3 oh"
+          href={post.PostLink}
+          title={post.Title}
+        >
+          <img
+            alt={post.Title}
+            className="ar-2sx h-max w-max"
+            loading="lazy"
+            src={post.Thumbnail}
+          />
+          <div className="absolute b-0 p-y2x6b0 ep fs-13 c-eee blr5 trr8">
+            Ep {post.Ep}
           </div>
-        ))}
-      </>
-    );
-  }
-};
-
-function clearPosts() {
-  document.getElementById('testPostLang1').innerHTML = '';
-};
-
-const CreatePost = ({ e }) => {
-  return (
-    <div className="hentry play c:hover-eee" role="feed">
-      <a
-        className="block ofc relative poster r3 oh"
-        href={e.PostLink}
-        title={e.Title}
-      >
-        <img
-          alt={e.Title}
-          className="ar-2sx h-max w-max"
-          loading="lazy"
-          src={e.Thumbnail}
-        />
-        <div className="absolute b-0 p-y2x6b0 ep fs-13 c-eee blr5 trr8">
-          Ep {e.Ep}
-        </div>
-        <div className="absolute t-0 p-y2x6b0 sc fs-13 c-eee tlr5 brr8">
-          <div className="rating-prc">
-            <div className="rtp">
-              <div className="rtb">
-                <span style={{ width: 10 * e.Scores + '%' }}></span>
+          <div className="absolute t-0 p-y2x6b0 sc fs-13 c-eee tlr5 brr8">
+            <div className="rating-prc">
+              <div className="rtp">
+                <div className="rtb">
+                  <span style={{ width: 10 * post.Scores + '%' }}></span>
+                </div>
+              </div>
+              <div className="num" content={post.Scores}>
+                {post.Scores}
               </div>
             </div>
-            <div className="num" content={e.Scores}>
-              {e.Scores}
-            </div>
           </div>
-        </div>
-        <div className="absolute b-0 r-0 fs-13 c-eee brr5 tlr8 dir ttu">
-          <span className={e.Type.toLowerCase()}>{e.Type}</span>
-          <span className={e.View.toLowerCase()}>{e.View}</span>
-        </div>
-      </a>
-      <h3 className="clamp oh tac mt-8">
-        <a className="fs-md fw-400 c-aba" href={e.PostLink}>
-          {e.Title}
+          <div className="absolute b-0 r-0 fs-13 c-eee brr5 tlr8 dir ttu">
+            <span className={post.Type.toLowerCase()}>{post.Type}</span>
+            <span className={post.View.toLowerCase()}>{post.View}</span>
+          </div>
         </a>
-      </h3>
-    </div>
-  );
-};
-
-ReactDOM.render(<ShowPostData e="Dub" />,document.getElementById('testPostLang1'));
+        <h3 className="clamp oh tac mt-8">
+          <a className="fs-md fw-400 c-aba" href={post.PostLink}>
+            {post.Title}
+          </a>
+        </h3>
+      </div>
+    );
+  };
+  
