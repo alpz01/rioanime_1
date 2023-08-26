@@ -53,13 +53,13 @@ const openiframe = (event) => {
 
 const openlink = (value) => {
     let iframe = document.getElementById("iframeplayer");
-    iframe.src = videoLinks[value - 1];
+    iframe.src = videoLinks[parseInt(value) - 1];
 }
 
 function generateButton(btnEpNum) {
     let buttons = [];
     for (let i = 0; i < btnEpNum; i++) {
-        buttons.push(<button key={i} className="playbutton btn btn-primary">{i + 1}</button>);
+        buttons.push(<button key={i} className="playbutton btn btn-primary" onClick={openiframe}>{i + 1}</button>);
     }
     return buttons;
 }
