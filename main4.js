@@ -56,6 +56,13 @@ const openlink = (value) => {
     iframe.src = listOfLinks[value - 1];
 }
 
+function generateButton(btnEpNum) {
+    let buttons = [];
+    for (let i = 0; i <= btnEpNum; i++) {
+        buttons.push(<button key={i} className="playbutton btn btn-primary">{i}</button>);
+    }
+    return buttons;
+}
 
 
 class PlayerSection extends React.Component {
@@ -132,11 +139,7 @@ class PlayerSection extends React.Component {
                         </span>
                     </div>
                     <div id="epslistplace" onClick={openiframe}>
-                        <button className="playbutton btn btn-primary">1</button>
-                        <button className="playbutton btn btn-primary">2</button>
-                        <button className="playbutton btn btn-primary">3</button>
-                        <button className="playbutton btn btn-primary">4</button>
-                        <button className="playbutton btn btn-primary">5</button>
+                        {generateButton(btnEpNum)}
                     </div>
                     <div id="flexbottom">
                         <div id="bottomleft">
