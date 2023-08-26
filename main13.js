@@ -175,4 +175,4 @@ function PlayerSection() {
 }
 
 
-ReactDOM.render(<PlayerSection />, ocument.getElementById('playerSection'));
+ReactDOM.render(<PlayerSection />, document.getElementById('playerSection'));
