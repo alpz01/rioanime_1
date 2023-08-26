@@ -53,7 +53,7 @@ const openiframe = (event) => {
 
 const openlink = (value) => {
     let iframe = document.getElementById("iframeplayer");
-    iframe.src = `https://www.youtube.com/embed/${value - 1}`;
+    iframe.src = `https://www.youtube.com/embed/${videoLinks[value - 1]}`;
 }
 
 function generateButton(btnEpNum) {
