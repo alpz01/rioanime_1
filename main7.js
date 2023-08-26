@@ -52,8 +52,7 @@ const openiframe = (event) => {
 
 
 const openlink = (value) => {
-    let iframe = document.getElementById("iframeplayer");
-    iframe.src = videoLinks[parseInt(value) - 1];
+    console.log(videoLinks[parseInt(value) - 1]);
 }
 
 function generateButton(btnEpNum) {
