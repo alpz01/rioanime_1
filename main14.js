@@ -62,7 +62,11 @@ const openlink = (value) => {
 function generateButton(btnEpNum) {
     let buttons = [];
     for (let i = 0; i < btnEpNum; i++) {
-        buttons.push(<button key={i} className="playbutton btn btn-primary" onClick={openiframe}>{i + 1}</button>);
+        if (i == 0) {
+            buttons.push(<button key={i} className="playbutton btn btn-primary"  disabled={true} onClick={openiframe}>{i + 1}</button>);
+        } else {
+            buttons.push(<button key={i} className="playbutton btn btn-primary" onClick={openiframe}>{i + 1}</button>);
+        }
     }
     return buttons;
 }
@@ -74,12 +78,13 @@ function PlayerSection() {
 
     const reloadIframe = () => {
         if (!isReloading) {
-            let iframe = document.getElementById("iframePlayer");
-            iframe.contentWindow.location.reload();
+            console.log("Reloaded");
             setIsReloading(true);
             setTimeout(() => {
                 setIsReloading(false);
             }, 10000);
+        } else {
+            console.log("Don't Spam");
         }
     }
 
