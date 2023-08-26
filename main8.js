@@ -52,7 +52,8 @@ const openiframe = (event) => {
 
 
 const openlink = (value) => {
-    console.log(videoLinks[parseInt(value) - 1]);
+    let iframe = document.getElementById("iframeplayer");
+    iframe.src = `https://www.youtube.com/embed/${value - 1}`;
 }
 
 function generateButton(btnEpNum) {
