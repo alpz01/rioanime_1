@@ -53,13 +53,13 @@ const openiframe = (event) => {
 
 const openlink = (value) => {
     let iframe = document.getElementById("iframeplayer");
-    iframe.src = listOfLinks[value - 1];
+    iframe.src = videoLinks[value - 1];
 }
 
 function generateButton(btnEpNum) {
     let buttons = [];
-    for (let i = 0; i <= btnEpNum; i++) {
-        buttons.push(<button key={i} className="playbutton btn btn-primary">{i}</button>);
+    for (let i = 0; i < btnEpNum; i++) {
+        buttons.push(<button key={i} className="playbutton btn btn-primary">{i + 1}</button>);
     }
     return buttons;
 }
@@ -89,8 +89,9 @@ class PlayerSection extends React.Component {
                         </i>
                     </div>
                 </div>
+
                 <div id="iframecontainer">
-                    <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="https://www.youtube.com/embed/QczGoCmX-pI" style={{ minHeight: '0px' }}></iframe>
+                    <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="https://www.youtube.com/embed/${videoLinks[0]}" style={{ minHeight: '0px' }}></iframe>
                 </div>
 
                 <div id="lowerplayerpage">
