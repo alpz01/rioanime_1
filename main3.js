@@ -27,7 +27,7 @@ const startTrack = () => {
 }
 
 const followtoggle = () => {
-    console.log('follow toggle')
+    console.log(btnEpNum);
 }
 
 const updatecheck = () => {
