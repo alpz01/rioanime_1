@@ -1,19 +1,3 @@
-const switchToLive = () => {
-    console.log('switch to live')
-}
-
-const lighttoggle = () => {
-    console.log('light toggle')
-}
-
-const download = () => {
-    console.log('download')
-}
-
-const toggleautoplay = () => {
-    console.log('toggle autoplay')
-}
-
 const showrecomendmenu = () => {
     console.log('show recomend menu')
 }
@@ -126,16 +110,16 @@ function PlayerSection() {
             <div className="subpart eptitle">
                 <div id="eptitle"><span id="eptitleplace">EP 5</span><span className="altsourcenotif">Internal Player</span></div>
                 <div id="toprightplayer">
-                    <i onClick={switchToLive} className="proxybtn glyphicon glyphicon-transfer" style={{ color: 'white' }}>
+                    <i className="fa-solid fa-repeat">
                         <span className="tooltiptext">Switch</span>
                     </i>
-                    <i onClick={lighttoggle} className="lightbtn glyphicon glyphicon-sunglasses">
+                    <i className="fa-solid fa-lightbulb">
                         <span className="tooltiptext">Lights</span>
                     </i>
-                    <i onClick={download} className="dlbutton glyphicon glyphicon-download-alt">
+                    <i className="fa-solid fa-download">
                         <span className="tooltiptext">Download</span>
                     </i>
-                    <i onClick={toggleautoplay} className="autoplaybutton glyphicon glyphicon-flash">
+                    <i class="fa-solid fa-wand-sparkles">
                         <span className="tooltiptext">Autoplay</span>
                     </i>
                     <i onClick={null} id="nextbtn" className="glyphicon glyphicon-forward" style={{ color: 'gray', cursor: 'default' }}>
@@ -161,11 +145,11 @@ function PlayerSection() {
                             <span id="shareText" style={{ display: 'inline' }}>Share</span>
                         </div>
                         <div id="openreport" onClick={reportError} style={{ display: 'block' }}>
-                            <i className="glyphicon glyphicon-exclamation-sign"></i>
+                        <i class="fa-solid fa-circle-exclamation"></i>
                             <span className="reportText">Report</span>
                         </div>
                         <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe} disabled={isReloading}>
-                            <i className="glyphicon glyphicon-repeat"></i>
+                            <i className="fa fa-refresh" aria-hidden="true"></i>
                             <span className="reportText">Reload</span>
                         </div>
                         <div id="screenshotbtn" style={{ display: 'block' }}>
@@ -198,7 +182,7 @@ function PlayerSection() {
                 </div>
                 <div id="flexbottom">
                     <div id="bottomleft">
-                        <span id="genres">Genres:{postGenres()}</span>
+                        <span id="genres">Genres:{postGenres()}</span><br/>
                         <span id="status">Status : {postStatus}</span>
                         <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2" onClick={showMore}>More info</a></span>
                     </div>
