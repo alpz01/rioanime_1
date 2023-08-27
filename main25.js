@@ -90,7 +90,7 @@ function PlayerSection() {
 
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
-    let postLabel = document.querySelector('#postDLabel').textContent;
+    let postLabel = document.querySelectorAll('#postDLabel a').textContent;
 
 
     return (
