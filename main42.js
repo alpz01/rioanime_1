@@ -195,4 +195,6 @@ function postGenres() {
 }
 
 
-ReactDOM.render(<PlayerSection />, document.getElementById('playerSection'));
+const container = document.getElementById('playerSection');
+const root = ReactDOM.createRoot(container);
+root.render(<PlayerSection />);
