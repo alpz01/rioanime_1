@@ -74,7 +74,7 @@ function generateButton(btnEpNum) {
 
 function showMore() {
     let hidecomment = document.querySelector('#comments');
-    const info = document.querySelector('.info');
+    const info = document.querySelector('#info');
     const animeBtn2 = document.getElementById('animebtn2');
   
     if (info.style.display === 'block') {
