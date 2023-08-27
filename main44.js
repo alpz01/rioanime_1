@@ -63,7 +63,7 @@ function generateButton(btnEpNum) {
     let buttons = [];
     for (let i = 0; i < btnEpNum; i++) {
         if (i == 0) {
-            buttons.push(<button key={i} className="playbutton btn btn-primary"  disabled={true} onClick={openiframe}>{i + 1}</button>);
+            buttons.push(<button key={i} className="playbutton btn btn-primary" disabled={true} onClick={openiframe}>{i + 1}</button>);
         } else {
             buttons.push(<button key={i} className="playbutton btn btn-primary" onClick={openiframe}>{i + 1}</button>);
         }
@@ -71,6 +71,20 @@ function generateButton(btnEpNum) {
     return buttons;
 }
 
+
+document.getElementById('animeinfobottom').onclick = () => {
+    const gridElement = document.querySelector('.grid');
+    const animeBtn2 = document.getElementById('animebtn2');
+  
+    if (gridElement.style.display === 'block') {
+      gridElement.style.display = 'none';
+      animeBtn2.textContent = 'More info';
+    } else {
+      gridElement.style.display = 'block';
+      animeBtn2.textContent = 'Less info';
+    }
+  };
+  
 
 function PlayerSection() {
     const [isReloading, setIsReloading] = React.useState(false);
@@ -88,18 +102,19 @@ function PlayerSection() {
         }
     }
 
-function postGenres() {
-  const genresSpan = document.getElementById('postDGenre');
-  const genreLinks = genresSpan.getElementsByTagName('a');
-  const genres = Array.from(genreLinks).map((link, index) => (
-    <a key={index} href={link.href} rel={link.rel}>
-      {link.textContent}
-    </a>
-  ));
+    function postGenres() {
+        const genresSpan = document.getElementById('postDGenre');
+        const genreLinks = genresSpan.getElementsByTagName('a');
+        const genres = Array.from(genreLinks).map((link, index) => (
+            <a key={index} href={link.href} rel={link.rel}>
+                {link.textContent}
+            </a>
+        ));
 
-  return <>{genres}</>;
-}
+        return <>{genres}</>;
+    }
       
+
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
 
@@ -125,11 +140,11 @@ function postGenres() {
                     </i>
                 </div>
             </div>
-    
+
             <div id="iframecontainer">
                 <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src={`https://www.youtube.com/embed/${videoLinks[0]}`} style={{ minHeight: '0px' }}></iframe>
             </div>
-    
+
             <div id="lowerplayerpage">
                 <div id="aligncenter">
                     <div id="streamtypecontainer">
@@ -180,9 +195,9 @@ function postGenres() {
                 </div>
                 <div id="flexbottom">
                     <div id="bottomleft">
-                        <span id="genres">Genres: {postGenres()}</span><br/>
+                        <span id="genres">Genres:{postGenres()}</span>
                         <span id="status">Status : {postStatus}</span>
-                        <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2" href="/anime/50203">More info</a></span>
+                        <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2">More info</a></span>
                     </div>
                     <div className="epsavailable">
                         Ep total : <span id="epsavailable">{btnEpNum}</span> <a onClick={updatecheck} id="updatebtn"><i className="glyphicon glyphicon-refresh"></i></a>
