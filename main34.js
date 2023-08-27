@@ -88,12 +88,16 @@ function PlayerSection() {
         }
     }
 
-function postGenres() {
+function PostGenres() {
   const genresSpan = document.getElementById('postDGenre');
   const genreLinks = genresSpan.getElementsByTagName('a');
-  const genres = Array.from(genreLinks).map((link) => link.textContent);
+  const genres = Array.from(genreLinks).map((link) => (
+    <a href={link.href} rel={link.rel}>
+      {link.textContent}
+    </a>
+  ));
 
-  return genres;
+  return <>{genres}</>;
 }
       
     let postTitle = document.querySelector('.info .title').textContent;
