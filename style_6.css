@@ -64,11 +64,11 @@ body {
     font-size: 17px;
 }
 
-.dlbutton, .autoplaybutton, .proxybtn, .lightbtn {
+.fa-repeat, .fa-lightbulb, .fa-download, .fa-wand-sparkles {
     margin-right: 8px;
 }
 
-#nextbtn, .fa-repeat, fa-lightbulb, fa-download, .fa-wand-sparkles{
+#nextbtn, .fa-repeat, .fa-lightbulb, .fa-download, .fa-wand-sparkles{
     cursor: pointer;
 }
 
