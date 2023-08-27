@@ -176,7 +176,7 @@ function PlayerSection() {
                 </div>
                 <div id="flexbottom">
                     <div id="bottomleft">
-                        <span id="genres">Genres: {postGenres}</span>
+                        <span id="genres">Genres: {postGenres()}</span>
                         <span id="status">Status : {postStatus}</span>
                         <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2" href="/anime/50203">More info</a></span>
                     </div>
