@@ -72,16 +72,19 @@ function generateButton(btnEpNum) {
 }
 
 
-document.getElementById('animeinfobottom').onclick = () => {
-    const gridElement = document.querySelector('.grid');
+function showMore() {
+    let hidecomment = document.querySelector('#comments');
+    const info = document.querySelector('.info');
     const animeBtn2 = document.getElementById('animebtn2');
   
-    if (gridElement.style.display === 'block') {
-      gridElement.style.display = 'none';
+    if (info.style.display === 'block') {
+      info.style.display = 'none';
       animeBtn2.textContent = 'More info';
+      hidecomment.style.margin = '1.66rem 0';
     } else {
-      gridElement.style.display = 'block';
+      info.style.display = 'block';
       animeBtn2.textContent = 'Less info';
+      hidecomment.style.margin = '0';
     }
   };
   
@@ -197,10 +200,10 @@ function PlayerSection() {
                     <div id="bottomleft">
                         <span id="genres">Genres:{postGenres()}</span>
                         <span id="status">Status : {postStatus}</span>
-                        <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2">More info</a></span>
+                        <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2" onClick={showMore}>More info</a></span>
                     </div>
                     <div className="epsavailable">
-                        Ep total : <span id="epsavailable">{btnEpNum}</span> <a onClick={updatecheck} id="updatebtn"><i className="glyphicon glyphicon-refresh"></i></a>
+                        Ep total : <span id="epsavailable">{btnEpNum}</span> <a onClick={updatecheck()} id="updatebtn"><i className="glyphicon glyphicon-refresh"></i></a>
                         <div id="playercountdown" style={{ color: 'gray' }}>Next: Unknown</div>
                     </div>
                 </div>
