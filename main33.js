@@ -88,13 +88,13 @@ function PlayerSection() {
         }
     }
 
-    function postGenres() {
-        const genresSpan = document.getElementById('postDGenre');
-        const genreLinks = genresSpan.getElementsByTagName('a');
-        const genres = Array.from(genreLinks).map((link) => link.outerHTML);
-      
-        return genres;
-      }
+function postGenres() {
+  const genresSpan = document.getElementById('postDGenre');
+  const genreLinks = genresSpan.getElementsByTagName('a');
+  const genres = Array.from(genreLinks).map((link) => link.textContent);
+
+  return genres;
+}
       
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
