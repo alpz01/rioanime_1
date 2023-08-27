@@ -88,10 +88,14 @@ function PlayerSection() {
         }
     }
 
+    function postLabel() {
+        let genres = Array.from(document.querySelectorAll('#postDGenre a'), aElement => aElement.textContent.trim());
+        let genreLinks = genres.map(genre => `<a href='https://dev-testing-website.blogspot.com/search/label/${genre}'>${genre}</a>`);
+        return genreLinks.join(', ');
+    }
+
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
-    let postLabel = document.querySelectorAll('#postDLabel a').textContent;
-
 
     return (
         <div className="playerpage">
@@ -170,7 +174,7 @@ function PlayerSection() {
                 </div>
                 <div id="flexbottom">
                     <div id="bottomleft">
-                        <span id="genres">Genres : {postLabel}</span><br />
+                        <span id="genres">Genres : {postLabel()}</span><br />
                         <span id="status">Status : {postStatus}</span>
                         <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2" href="/anime/50203">More info</a></span>
                     </div>
