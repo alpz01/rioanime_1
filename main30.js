@@ -88,22 +88,13 @@ function PlayerSection() {
         }
     }
 
-function postLabel() {
-    let genres = Array.from(
-        document.querySelectorAll("#postDGenre a"),
-        (aElement) => aElement.textContent.trim()
-    ).filter((genre) => genre); // Filter out empty or null values
-    let genreLinks = genres.map((genre, index) => (
-        <React.Fragment key={index}>
-            <a href={`https://dev-testing-website.blogspot.com/search/label/${genre}`}>
-                {genre}
-            </a>
-            {index < genres.length - 1 && ", "}
-        </React.Fragment>
-    ));
-    return genreLinks;
-}
-
+    function postGenres() {
+        const genresSpan = document.getElementById('postDGenre');
+        const genreLinks = genresSpan.getElementsByTagName('a');
+        const genres = Array.from(genreLinks).map((link) => link.outerHTML);
+      
+        return genres;
+      }
       
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
@@ -185,12 +176,7 @@ function postLabel() {
                 </div>
                 <div id="flexbottom">
                     <div id="bottomleft">
-                        <span id="genres">
-                            Genres :{" "}
-                            {React.Children.toArray(postLabel()).map((link, index, array) =>
-                                index < array.length - 1 ? [link, ", "] : link
-                            )}
-                        </span><br />
+                        <span id="genres">Genres: {genres}</span>
                         <span id="status">Status : {postStatus}</span>
                         <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2" href="/anime/50203">More info</a></span>
                     </div>
