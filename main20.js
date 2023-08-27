@@ -88,9 +88,7 @@ function PlayerSection() {
         }
     }
 
-    let postTitle = "nothing"
-    let weeh = document.querySelector('.info .title').textContent;
-    console.log(weeh);
+    let postTitle = document.querySelector('.info .title').textContent;
 
     return (
         <div className="playerpage">
