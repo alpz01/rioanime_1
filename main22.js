@@ -89,8 +89,7 @@ function PlayerSection() {
     }
 
     let postTitle = document.querySelector('.info .title').textContent;
-    let test = "<data:post.title>";
-    console.log(test)
+    console.log(getTitle);
 
     return (
         <div className="playerpage">
