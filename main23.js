@@ -89,7 +89,9 @@ function PlayerSection() {
     }
 
     let postTitle = document.querySelector('.info .title').textContent;
-    console.log(getTitle);
+    let postStatus = document.querySelector('#postDStatus').textContent;
+    let postLabel = document.querySelector('#postDLabel').querySelectorAll('a');
+
 
     return (
         <div className="playerpage">
@@ -168,12 +170,12 @@ function PlayerSection() {
                 </div>
                 <div id="flexbottom">
                     <div id="bottomleft">
-                        <span id="genres">Genres : <a href="/?genre=Slice of Life">Slice of Life</a>, <a href="/?genre=Idols-Female">Idols-Female</a>, <a href="/?genre=Music">Music</a>, <a href="/?genre=School">School</a></span><br />
-                        <span id="status">Status : Ongoing</span>
+                        <span id="genres">Genres : {postLabel}</span><br />
+                        <span id="status">Status : {postStatus}</span>
                         <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2" href="/anime/50203">More info</a></span>
                     </div>
                     <div className="epsavailable">
-                        Ep total : <span id="epsavailable">5</span> <a onClick={updatecheck} id="updatebtn"><i className="glyphicon glyphicon-refresh"></i></a>
+                        Ep total : <span id="epsavailable">{btnEpNum}</span> <a onClick={updatecheck} id="updatebtn"><i className="glyphicon glyphicon-refresh"></i></a>
                         <div id="playercountdown" style={{ color: 'gray' }}>Next: Unknown</div>
                     </div>
                 </div>
