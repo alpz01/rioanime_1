@@ -68,7 +68,7 @@ body {
     margin-right: 8px;
 }
 
-#nextbtn, .dlbutton, .proxybtn, .autoplaybutton, .lightbtn {
+#nextbtn, .fa-repeat, fa-lightbulb, fa-download, .fa-wand-sparkles{
     cursor: pointer;
 }
 
