@@ -88,7 +88,7 @@ function PlayerSection() {
         }
     }
 
-function PostGenres() {
+function postGenres() {
   const genresSpan = document.getElementById('postDGenre');
   const genreLinks = genresSpan.getElementsByTagName('a');
   const genres = Array.from(genreLinks).map((link, index) => (
