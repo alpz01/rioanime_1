@@ -90,13 +90,16 @@ function PlayerSection() {
 
     function postLabel() {
         let genres = Array.from(
-          document.querySelectorAll("#postDGenre a"),
-          (aElement) => aElement.textContent.trim()
-        );
-        let genreLinks = genres.map((genre) => (
-          <a href={`https://dev-testing-website.blogspot.com/search/label/${genre}`}>
-            {genre}
-          </a>
+            document.querySelectorAll("#postDGenre a"),
+            (aElement) => aElement.textContent.trim()
+        ).filter((genre) => genre); // Filter out empty or null values
+        let genreLinks = genres.map((genre, index) => (
+            <React.Fragment key={index}>
+                <a href={`https://dev-testing-website.blogspot.com/search/label/${genre}`}>
+                    {genre}
+                </a>
+                {index < genres.length - 1 && ", "}
+            </React.Fragment>
         ));
         return genreLinks;
     }
