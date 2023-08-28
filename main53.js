@@ -11,20 +11,7 @@ const startTrack = () => {
 }
 
 const followtoggle = () => {
-    const postTitle = document.querySelector('.info .title').textContent
-    const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
-    const followBtn = document.getElementById('followbtn');
-    if (followedPosts.includes(postTitle)) {
-        followedPosts.splice(followedPosts.indexOf(postTitle), 1);
-        localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
-        followBtn.innerHTML = 'Follow';
-        console.log("Removed");
-    } else {
-        followedPosts.push(postTitle);
-        localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
-        followBtn.innerHTML = 'Followed <i class="fa-solid fa-bell"></i>';
-        console.log("Saved");
-    }
+    console.log("follow");
 }
 
 const updatecheck = () => {
