@@ -111,12 +111,13 @@ function PlayerSection() {
 
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
-
+    
         if (!isReloading) {
             console.log("Reloaded");
             notif.style.display = 'block';
-            notif.textContent = "Reloading";
-            set
+            setTimeout(() => {
+                notif.textContent = "Reloading";
+            }, 2000);
             setIsReloading(true);
             setTimeout(() => {
                 setIsReloading(false);
