@@ -86,10 +86,12 @@ function stream() {
 
 function PlayerSection() {
     const [isReloading, setIsReloading] = React.useState(false);
-    const [isFollowed, setIsFollowed] = React.useState(false);
 
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
+
+    const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
+    const [isFollowed, setIsFollowed] = React.useState(followedPosts.includes(postTitle));
 
     const followToggle = () => {
         const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
@@ -206,7 +208,7 @@ function PlayerSection() {
                         <i className="glyphicon glyphicon-plus"></i> Watchlist
                     </button>
                     <button id="followbtn" onClick={followToggle} style={{ display: 'inline' }}>
-                        <i class="fa-solid fa-bell"></i> {isFollowed ? 'Followed' : 'Follow'}
+                        <i className="fa-solid fa-bell"></i> {isFollowed ? 'Followed' : 'Follow'}
                     </button>
                     <br />
                     <div id="animeimage"></div>
