@@ -368,3 +368,18 @@ button {
     color: yellow;
     white-space: nowrap;
 }
+
+#notifprompt {
+    display: block;
+    position: absolute;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #1c1c1c;
+    color: white;
+    text-align: center;
+    z-index: 10;
+    top: 40%;
+    font-size: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
