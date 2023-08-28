@@ -85,8 +85,6 @@ function stream() {
 }
 
 function PlayerSection() {
-    const [isReloading, setIsReloading] = React.useState(false);
-
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
 
@@ -109,27 +107,30 @@ function PlayerSection() {
         }
     }
 
+    let isRealoded = false;
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
     
-        if (!isReloading) {
-            console.log("Reloaded");
+        if (!isRealoded) {
             notif.style.display = 'block';
             setTimeout(() => {
                 notif.textContent = "Reloading";
-                notif.style.display = 'none';
             }, 2000);
-            setIsReloading(true);
-            setTimeout(() => {
-                setIsReloading(false);
-            }, 10000);
+            isRealoded = true;
+            notify.style.display = 'none';
+            timeSet();
         } else {
-            notif.style.display = 'block';
-            notif.textContent = "Don't Spam";
             setTimeout(() => {
-                notif.style.display = 'none';
-            }, 2000);
-            console.log("Don't Spam");
+                notif.style.display = 'block';
+                notif.textContent = "Don't Spam";
+            }, 2000)
+            notif.style.display = 'none';
+        }
+    
+        function timeSet() {
+            setTimeout(() => {
+                isRealoded = true;
+            }, 10000)
         }
     }
     
@@ -188,11 +189,10 @@ function PlayerSection() {
                             <i className="fa-solid fa-circle-exclamation"></i>
                             <span className="reportText">Report</span>
                         </div>
-                        <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe} disabled={isReloading}>
+                        <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe}>
                             <i className="fa fa-refresh" aria-hidden="true"></i>
                             <span className="reportText">Reload</span>
                         </div>
-
                         <div id="screenshotbtn" style={{ display: 'block' }}>
                             <i className="glyphicon glyphicon-camera"></i>
                         </div>
