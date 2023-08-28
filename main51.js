@@ -11,7 +11,20 @@ const startTrack = () => {
 }
 
 const followtoggle = () => {
-    console.log(btnEpNum);
+    const postTitle = document.querySelector('.info .title').textContent
+    const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
+    const followBtn = document.getElementById('followbtn');
+    if (followedPosts.includes(postTitle)) {
+        followedPosts.splice(followedPosts.indexOf(postTitle), 1);
+        localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
+        followBtn.innerHTML = 'Follow';
+        console.log("Removed");
+    } else {
+        followedPosts.push(postTitle);
+        localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
+        followBtn.innerHTML = 'Followed <i class="fa-solid fa-bell"></i>';
+        console.log("Saved");
+    }
 }
 
 const updatecheck = () => {
@@ -91,18 +104,25 @@ function stream() {
 function PlayerSection() {
     const [isReloading, setIsReloading] = React.useState(false);
 
-
     const reloadIframe = () => {
         if (!isReloading) {
             console.log("Reloaded");
             setIsReloading(true);
             setTimeout(() => {
                 setIsReloading(false);
+                document.getElementById('notifprompt').style.display = 'none';
             }, 10000);
         } else {
+            const notif = document.getElementById('notifprompt');
+            notif.style.display = 'block';
+            notif.textContent = "Don't Spam";
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 2000);
             console.log("Don't Spam");
         }
     }
+    
 
     function postGenres() {
         const genresSpan = document.getElementById('postDGenre');
