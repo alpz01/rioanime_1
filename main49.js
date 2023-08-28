@@ -39,6 +39,8 @@ const openiframe = (event) => {
 const openlink = (value) => {
     let iframe = document.getElementById("iframeplayer");
     iframe.src = `https://www.youtube.com/embed/${videoLinks[value - 1]}`;
+
+    document.getElementById("eptitleplace").textContent = `EP ${value}`;
 }
 
 
@@ -72,18 +74,17 @@ function showMore() {
   };
 
 
-function streamType() {
+function stream() {
     const url = videoLinks[0];
-    let streamType = 'Video Stream'
+    let streamType = 'Video Stream';
     if (url.includes('youtube.com')) {
         streamType = 'YouTube Stream';
     } else if (url.includes('drive.google.com')) {
         streamType = 'Gdrive Stream';
     }
 
-    document.getElementById('streamType').textContent = streamType;
+    return <div id="streamtype">{streamType}</div>;
 }
-streamType();
 
 function PlayerSection() {
     const [isReloading, setIsReloading] = React.useState(false);
@@ -120,7 +121,7 @@ function PlayerSection() {
     return (
         <div className="playerpage">
             <div className="subpart eptitle">
-                <div id="eptitle"><span id="eptitleplace">EP 5</span><span className="altsourcenotif">Internal Player</span></div>
+                <div id="eptitle"><span id="eptitleplace">EP 1</span><span className="altsourcenotif">Internal Player</span></div>
                 <div id="toprightplayer">
                     <i className="fa-solid fa-repeat">
                         <span className="tooltiptext">Switch</span>
@@ -147,7 +148,7 @@ function PlayerSection() {
             <div id="lowerplayerpage">
                 <div id="aligncenter">
                     <div id="streamtypecontainer">
-                        <div id="streamtype">GOGO Stream</div>
+                        {stream()}
                         <div id="showrecomendbtn" onClick={showrecomendmenu} style={{ display: 'inline-block' }}>
                             <i className="glyphicon glyphicon-cog"></i>
                             <span id="changetext">Change</span>
