@@ -11,7 +11,28 @@ const startTrack = () => {
 }
 
 const followtoggle = () => {
-    console.log("follow");
+    const [isFollowed, setIsFollowed] = React.useState(false);
+    const postTitle = document.querySelector('.info .title').textContent;
+    const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
+
+    if (followedPosts.includes(postTitle)) {
+        followedPosts.splice(followedPosts.indexOf(postTitle), 1);
+        localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
+        setIsFollowed(false);
+        console.log("Removed");
+    } else {
+        followedPosts.push(postTitle);
+        localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
+        setIsFollowed(true);
+        console.log("Saved");
+    }
+
+    return (
+        <button onClick={followtoggle}>
+            <i className="glyphicon glyphicon-bell"></i> {isFollowed ? 'Followed' : 'Follow'}
+        </button>
+    );
+    
 }
 
 const updatecheck = () => {
@@ -60,17 +81,17 @@ function showMore() {
     let hidecomment = document.querySelector('#comments');
     const info = document.querySelector('#info');
     const animeBtn2 = document.getElementById('animebtn2');
-  
+
     if (info.style.display === 'block') {
-      info.style.display = 'none';
-      animeBtn2.textContent = 'More info';
-      hidecomment.style.margin = '1.66rem 0';
+        info.style.display = 'none';
+        animeBtn2.textContent = 'More info';
+        hidecomment.style.margin = '1.66rem 0';
     } else {
-      info.style.display = 'block';
-      animeBtn2.textContent = 'Less info';
-      hidecomment.style.margin = '0';
+        info.style.display = 'block';
+        animeBtn2.textContent = 'Less info';
+        hidecomment.style.margin = '0';
     }
-  };
+};
 
 
 function stream() {
@@ -91,9 +112,24 @@ function PlayerSection() {
     const [isReloading, setIsReloading] = React.useState(false);
 
     const reloadIframe = () => {
-        console.log("follow");
+        if (!isReloading) {
+            console.log("Reloaded");
+            setIsReloading(true);
+            setTimeout(() => {
+                setIsReloading(false);
+                document.getElementById('notifprompt').style.display = 'none';
+            }, 10000);
+        } else {
+            const notif = document.getElementById('notifprompt');
+            notif.style.display = 'block';
+            notif.textContent = "Don't Spam";
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 2000);
+            console.log("Don't Spam");
+        }
     }
-    
+
 
     function postGenres() {
         const genresSpan = document.getElementById('postDGenre');
@@ -106,7 +142,7 @@ function PlayerSection() {
 
         return <>{genres}</>;
     }
-      
+
 
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
@@ -151,7 +187,7 @@ function PlayerSection() {
                             <span id="shareText" style={{ display: 'inline' }}>Share</span>
                         </div>
                         <div id="openreport" onClick={reportError} style={{ display: 'block' }}>
-                        <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-exclamation"></i>
                             <span className="reportText">Report</span>
                         </div>
                         <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe()} disabled={isReloading}>
@@ -174,7 +210,7 @@ function PlayerSection() {
                     <button id="trackbtn" onClick={startTrack()}>
                         <i className="glyphicon glyphicon-plus"></i> Watchlist
                     </button>
-                    <button id="followbtn" onClick={followtoggle()} style={{ display: 'inline' }}>
+                    <button id="followbtn" onClick={followtoggle} style={{ display: 'inline' }}>
                         <i className="glyphicon glyphicon-bell"></i> Follow
                     </button>
                     <br />
@@ -188,7 +224,7 @@ function PlayerSection() {
                 </div>
                 <div id="flexbottom">
                     <div id="bottomleft">
-                        <span id="genres">Genres:{postGenres()}</span><br/>
+                        <span id="genres">Genres:{postGenres()}</span><br />
                         <span id="status">Status : {postStatus}</span>
                         <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2" onClick={showMore}>More info</a></span>
                     </div>
