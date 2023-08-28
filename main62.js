@@ -118,10 +118,10 @@ function PlayerSection() {
             setTimeout(() => {
                 notif.textContent = "Reloading";
             }, 2000);
+            document.getElementById('notifprompt').style.display = 'none';
             setIsReloading(true);
             setTimeout(() => {
                 setIsReloading(false);
-                document.getElementById('notifprompt').style.display = 'none';
             }, 10000);
         } else {
             notif.style.display = 'block';
@@ -188,7 +188,7 @@ function PlayerSection() {
                             <i className="fa-solid fa-circle-exclamation"></i>
                             <span className="reportText">Report</span>
                         </div>
-                        <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe} disabled={isReloading}>
+                        <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe()} disabled={isReloading}>
                             <i className="fa fa-refresh" aria-hidden="true"></i>
                             <span className="reportText">Reload</span>
                         </div>
