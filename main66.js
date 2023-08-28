@@ -113,24 +113,20 @@ function PlayerSection() {
     
         if (!isRealoded) {
             notif.style.display = 'block';
+            notif.textContent = "Reloading";
             setTimeout(() => {
-                notif.textContent = "Reloading";
+                notif.style.display = 'none';
             }, 2000);
             isRealoded = true;
-            notify.style.display = 'none';
-            timeSet();
+            setTimeout(() => {
+                isRealoded = false;
+            }, 10000);
         } else {
+            notif.style.display = 'block';
+            notif.textContent = "Don't Spam";
             setTimeout(() => {
-                notif.style.display = 'block';
-                notif.textContent = "Don't Spam";
-            }, 2000)
-            notif.style.display = 'none';
-        }
-    
-        function timeSet() {
-            setTimeout(() => {
-                isRealoded = true;
-            }, 10000)
+                notif.style.display = 'none';
+            }, 2000);
         }
     }
     
