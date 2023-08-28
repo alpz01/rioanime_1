@@ -91,22 +91,7 @@ function PlayerSection() {
     const [isReloading, setIsReloading] = React.useState(false);
 
     const reloadIframe = () => {
-        if (!isReloading) {
-            console.log("Reloaded");
-            setIsReloading(true);
-            setTimeout(() => {
-                setIsReloading(false);
-                document.getElementById('notifprompt').style.display = 'none';
-            }, 10000);
-        } else {
-            const notif = document.getElementById('notifprompt');
-            notif.style.display = 'block';
-            notif.textContent = "Don't Spam";
-            setTimeout(() => {
-                notif.style.display = 'none';
-            }, 2000);
-            console.log("Don't Spam");
-        }
+        console.log("follow");
     }
     
 
