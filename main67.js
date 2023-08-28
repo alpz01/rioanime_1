@@ -172,7 +172,7 @@ function PlayerSection() {
             <div id="lowerplayerpage">
                 <div id="aligncenter">
                     <div id="streamtypecontainer">
-                        {stream()}
+                        {stream}
                         <div id="showrecomendbtn" onClick={showrecomendmenu} style={{ display: 'inline-block' }}>
                             <i className="glyphicon glyphicon-cog"></i>
                             <span id="changetext">Change</span>
