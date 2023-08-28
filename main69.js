@@ -92,6 +92,7 @@ function PlayerSection() {
     const [isFollowed, setIsFollowed] = React.useState(followedPosts.includes(postTitle));
 
     const followToggle = () => {
+        event.stopPropagation();
         const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
     
         if (followedPosts.includes(postTitle)) {
