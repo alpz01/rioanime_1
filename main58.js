@@ -88,8 +88,10 @@ function PlayerSection() {
     const [isReloading, setIsReloading] = React.useState(false);
     const [isFollowed, setIsFollowed] = React.useState(false);
 
+    let postTitle = document.querySelector('.info .title').textContent;
+    let postStatus = document.querySelector('#postDStatus').textContent;
+
     const followtoggle = () => {
-        const postTitle = document.querySelector('.info .title').textContent;
         const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
     
         if (followedPosts.includes(postTitle)) {
@@ -113,6 +115,8 @@ function PlayerSection() {
     }
 
     const reloadIframe = () => {
+        const notif = document.getElementById('notifprompt');
+        
         if (!isReloading) {
             console.log("Reloaded");
             notif.style.display = 'block';
@@ -123,7 +127,6 @@ function PlayerSection() {
                 document.getElementById('notifprompt').style.display = 'none';
             }, 10000);
         } else {
-            const notif = document.getElementById('notifprompt');
             notif.style.display = 'block';
             notif.textContent = "Don't Spam";
             setTimeout(() => {
@@ -144,10 +147,6 @@ function PlayerSection() {
 
         return <>{genres}</>;
     }
-
-
-    let postTitle = document.querySelector('.info .title').textContent;
-    let postStatus = document.querySelector('#postDStatus').textContent;
 
     return (
         <div className="playerpage">
@@ -189,7 +188,7 @@ function PlayerSection() {
                             <span id="shareText" style={{ display: 'inline' }}>Share</span>
                         </div>
                         <div id="openreport" onClick={reportError} style={{ display: 'block' }}>
-                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i className="fa-solid fa-circle-exclamation"></i>
                             <span className="reportText">Report</span>
                         </div>
                         <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe} disabled={isReloading}>
