@@ -31,7 +31,6 @@ const updatecheck = () => {
     console.log('update check')
 }
 
-document.getElementById('reloadbtn')
 
 const openiframe = (event) => {
     if (event.target.matches('.playbutton')) {
@@ -183,9 +182,9 @@ function PlayerSection() {
                         <i class="fa-solid fa-circle-exclamation"></i>
                             <span className="reportText">Report</span>
                         </div>
-                        <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe} disabled={isReloading}>
+                        <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe()} disabled={isReloading}>
                             <i className="fa fa-refresh" aria-hidden="true"></i>
-                            <span className="reportText" onClick={reloadIframe()}>Reload</span>
+                            <span className="reportText">Reload</span>
                         </div>
                         <div id="screenshotbtn" style={{ display: 'block' }}>
                             <i className="glyphicon glyphicon-camera"></i>
