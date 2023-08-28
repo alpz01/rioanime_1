@@ -81,7 +81,7 @@ function stream() {
             streamType = 'Gdrive Stream';
         }
     }
-    return <div id="streamtype">{streamType}</div>;
+    return streamType;
 }
 
 function PlayerSection() {
@@ -172,7 +172,7 @@ function PlayerSection() {
             <div id="lowerplayerpage">
                 <div id="aligncenter">
                     <div id="streamtypecontainer">
-                        {stream}
+                        <div id="streamtype">{stream()}</div>
                         <div id="showrecomendbtn" onClick={showrecomendmenu} style={{ display: 'inline-block' }}>
                             <i className="glyphicon glyphicon-cog"></i>
                             <span id="changetext">Change</span>
