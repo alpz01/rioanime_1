@@ -91,7 +91,7 @@ function PlayerSection() {
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
 
-    const followtoggle = () => {
+    const followToggle = () => {
         const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
     
         if (followedPosts.includes(postTitle)) {
@@ -105,22 +105,16 @@ function PlayerSection() {
             setIsFollowed(true);
             console.log("Saved");
         }
-    
-        return (
-            <button onClick={followtoggle}>
-                <i className="glyphicon glyphicon-bell"></i> {isFollowed ? 'Followed' : 'Follow'}
-            </button>
-        );
-        
     }
 
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
-        
+
         if (!isReloading) {
             console.log("Reloaded");
             notif.style.display = 'block';
             notif.textContent = "Reloading";
+            set
             setIsReloading(true);
             setTimeout(() => {
                 setIsReloading(false);
@@ -211,8 +205,8 @@ function PlayerSection() {
                     <button id="trackbtn" onClick={startTrack()}>
                         <i className="glyphicon glyphicon-plus"></i> Watchlist
                     </button>
-                    <button id="followbtn" onClick={followtoggle} style={{ display: 'inline' }}>
-                        <i className="glyphicon glyphicon-bell"></i> Follow
+                    <button id="followbtn" onClick={followToggle} style={{ display: 'inline' }}>
+                        <i class="fa-solid fa-bell"></i> {isFollowed ? 'Followed' : 'Follow'}
                     </button>
                     <br />
                     <div id="animeimage"></div>
