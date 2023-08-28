@@ -117,8 +117,8 @@ function PlayerSection() {
             notif.style.display = 'block';
             setTimeout(() => {
                 notif.textContent = "Reloading";
+                notif.style.display = 'none';
             }, 2000);
-            notif.style.display = 'none';
             setIsReloading(true);
             setTimeout(() => {
                 setIsReloading(false);
@@ -132,7 +132,7 @@ function PlayerSection() {
             console.log("Don't Spam");
         }
     }
-
+    
     function postGenres() {
         const genresSpan = document.getElementById('postDGenre');
         const genreLinks = genresSpan.getElementsByTagName('a');
@@ -192,6 +192,7 @@ function PlayerSection() {
                             <i className="fa fa-refresh" aria-hidden="true"></i>
                             <span className="reportText">Reload</span>
                         </div>
+
                         <div id="screenshotbtn" style={{ display: 'block' }}>
                             <i className="glyphicon glyphicon-camera"></i>
                         </div>
