@@ -36,7 +36,6 @@ const openiframe = (event) => {
     }
 }
 
-
 const openlink = (value) => {
     let iframe = document.getElementById("iframeplayer");
     iframe.src = `https://www.youtube.com/embed/${videoLinks[value - 1]}`;
@@ -71,7 +70,20 @@ function showMore() {
       hidecomment.style.margin = '0';
     }
   };
-  
+
+
+function streamType() {
+    const url = videoLinks[0];
+    let streamType = 'Video Stream'
+    if (url.includes('youtube.com')) {
+        streamType = 'YouTube Stream';
+    } else if (url.includes('drive.google.com')) {
+        streamType = 'Gdrive Stream';
+    }
+
+    document.getElementById('streamType').textContent = streamType;
+}
+streamType();
 
 function PlayerSection() {
     const [isReloading, setIsReloading] = React.useState(false);
@@ -150,7 +162,7 @@ function PlayerSection() {
                         </div>
                         <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe} disabled={isReloading}>
                             <i className="fa fa-refresh" aria-hidden="true"></i>
-                            <span className="reportText">Reload</span>
+                            <span className="reportText" onClick={reloadIframe()}>Reload</span>
                         </div>
                         <div id="screenshotbtn" style={{ display: 'block' }}>
                             <i className="glyphicon glyphicon-camera"></i>
@@ -192,6 +204,7 @@ function PlayerSection() {
                     </div>
                 </div>
             </div>
+            <div id="notifprompt">Don't Spam</div>
         </div>
     )
 }
