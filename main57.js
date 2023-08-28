@@ -10,30 +10,6 @@ const startTrack = () => {
     console.log('start track')
 }
 
-const followtoggle = () => {
-    const [isFollowed, setIsFollowed] = React.useState(false);
-    const postTitle = document.querySelector('.info .title').textContent;
-    const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
-
-    if (followedPosts.includes(postTitle)) {
-        followedPosts.splice(followedPosts.indexOf(postTitle), 1);
-        localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
-        setIsFollowed(false);
-        console.log("Removed");
-    } else {
-        followedPosts.push(postTitle);
-        localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
-        setIsFollowed(true);
-        console.log("Saved");
-    }
-
-    return (
-        <button onClick={followtoggle}>
-            <i className="glyphicon glyphicon-bell"></i> {isFollowed ? 'Followed' : 'Follow'}
-        </button>
-    );
-    
-}
 
 const updatecheck = () => {
     console.log('update check')
@@ -110,10 +86,37 @@ function stream() {
 
 function PlayerSection() {
     const [isReloading, setIsReloading] = React.useState(false);
+    const [isFollowed, setIsFollowed] = React.useState(false);
+
+    const followtoggle = () => {
+        const postTitle = document.querySelector('.info .title').textContent;
+        const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
+    
+        if (followedPosts.includes(postTitle)) {
+            followedPosts.splice(followedPosts.indexOf(postTitle), 1);
+            localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
+            setIsFollowed(false);
+            console.log("Removed");
+        } else {
+            followedPosts.push(postTitle);
+            localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
+            setIsFollowed(true);
+            console.log("Saved");
+        }
+    
+        return (
+            <button onClick={followtoggle}>
+                <i className="glyphicon glyphicon-bell"></i> {isFollowed ? 'Followed' : 'Follow'}
+            </button>
+        );
+        
+    }
 
     const reloadIframe = () => {
         if (!isReloading) {
             console.log("Reloaded");
+            notif.style.display = 'block';
+            notif.textContent = "Reloading";
             setIsReloading(true);
             setTimeout(() => {
                 setIsReloading(false);
@@ -129,7 +132,6 @@ function PlayerSection() {
             console.log("Don't Spam");
         }
     }
-
 
     function postGenres() {
         const genresSpan = document.getElementById('postDGenre');
