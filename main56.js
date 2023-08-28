@@ -190,14 +190,14 @@ function PlayerSection() {
                             <i class="fa-solid fa-circle-exclamation"></i>
                             <span className="reportText">Report</span>
                         </div>
-                        <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe()} disabled={isReloading}>
+                        <div id="reloadbtn" style={{ display: 'block' }} onClick={reloadIframe} disabled={isReloading}>
                             <i className="fa fa-refresh" aria-hidden="true"></i>
                             <span className="reportText">Reload</span>
                         </div>
                         <div id="screenshotbtn" style={{ display: 'block' }}>
                             <i className="glyphicon glyphicon-camera"></i>
                         </div>
-                        <div id="widescreenbtn">
+                        <div id="widescreenbtn">  
                             <i className="glyphicon glyphicon-fullscreen"></i>
                         </div>
                     </div>
