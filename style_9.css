@@ -370,7 +370,7 @@ button {
 }
 
 #notifprompt {
-    display: block;
+    display: none;
     position: absolute;
     padding: 10px 20px;
     border-radius: 10px;
