@@ -75,14 +75,16 @@ function showMore() {
 
 
 function stream() {
-    const url = videoLinks[0];
+    const iframe = document.getElementById('iframeplayer');
     let streamType = 'Video Stream';
-    if (url.includes('youtube.com')) {
-        streamType = 'YouTube Stream';
-    } else if (url.includes('drive.google.com')) {
-        streamType = 'Gdrive Stream';
+    if (iframe) {
+        const url = iframe.src;
+        if (url.includes('youtube.com')) {
+            streamType = 'YouTube Stream';
+        } else if (url.includes('drive.google.com')) {
+            streamType = 'Gdrive Stream';
+        }
     }
-
     return <div id="streamtype">{streamType}</div>;
 }
 
@@ -132,7 +134,7 @@ function PlayerSection() {
                     <i className="fa-solid fa-download">
                         <span className="tooltiptext">Download</span>
                     </i>
-                    <i class="fa-solid fa-wand-sparkles">
+                    <i className="fa-solid fa-wand-sparkles">
                         <span className="tooltiptext">Autoplay</span>
                     </i>
                     <i onClick={null} id="nextbtn" className="glyphicon glyphicon-forward" style={{ color: 'gray', cursor: 'default' }}>
@@ -178,10 +180,10 @@ function PlayerSection() {
                         </svg>
                     </a>
                     <span className="animetitle">{postTitle}</span>
-                    <button id="trackbtn" onClick={startTrack}>
+                    <button id="trackbtn" onClick={startTrack()}>
                         <i className="glyphicon glyphicon-plus"></i> Watchlist
                     </button>
-                    <button id="followbtn" onClick={followtoggle} style={{ display: 'inline' }}>
+                    <button id="followbtn" onClick={followtoggle()} style={{ display: 'inline' }}>
                         <i className="glyphicon glyphicon-bell"></i> Follow
                     </button>
                     <br />
