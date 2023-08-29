@@ -178,6 +178,7 @@ function PlayerSection() {
 
             <div id="iframecontainer">
                 <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
+                <div id="overlay"></div>
             </div>
 
             <div id="lowerplayerpage">
