@@ -1,3 +1,6 @@
+const btnEpNum = postData[0];
+const sourceType = postData[1];
+
 const showrecomendmenu = () => {
     console.log('show recomend menu')
 }
@@ -5,11 +8,6 @@ const showrecomendmenu = () => {
 const reportError = () => {
     console.log('report error')
 }
-
-const startTrack = () => {
-    console.log('start track')
-}
-
 
 const updatecheck = () => {
     console.log('update check')
@@ -34,9 +32,13 @@ const openiframe = (event) => {
 
 const openlink = (value) => {
     let iframe = document.getElementById("iframeplayer");
-    iframe.src = `https://www.youtube.com/embed/${videoLinks[value - 1]}`;
-
     document.getElementById("eptitleplace").textContent = `EP ${value}`;
+
+    if (sourceType === "yt") {
+        iframe.src = `https://www.youtube.com/embed/${videoLinks[value - 1]}`;
+    } else if (sourceType === "gdrive") {
+        iframe.src = `https://drive.google.com/file/d/${driveLinks[value - 1]}/preview`;
+    }
 }
 
 
@@ -69,21 +71,6 @@ function showMore() {
     }
 };
 
-
-function stream() {
-    const iframe = document.getElementById('iframeplayer');
-    let streamType = 'Video Stream';
-    if (iframe) {
-        const url = iframe.src;
-        if (url.includes('youtube.com')) {
-            streamType = 'YouTube Stream';
-        } else if (url.includes('drive.google.com')) {
-            streamType = 'Gdrive Stream';
-        }
-    }
-    return streamType;
-}
-
 function PlayerSection() {
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
@@ -92,7 +79,6 @@ function PlayerSection() {
     const [isFollowed, setIsFollowed] = React.useState(followedPosts.includes(postTitle));
 
     const followToggle = () => {
-        event.stopPropagation();
         const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
     
         if (followedPosts.includes(postTitle)) {
@@ -142,6 +128,24 @@ function PlayerSection() {
 
         return <>{genres}</>;
     }
+
+    function stream() {
+        let streamType = "";
+
+        if (sourceType == "yt"){
+            streamType = "YouTube Stream";
+        } else if (sourceType == "gdrive"){
+            streamType = "GDrive Stream";
+        } else {
+            streamType = "Video Stream";
+        }
+
+        return streamType;
+    }
+
+    React.useEffect(() => {
+        openlink(0);
+    })
 
     return (
         <div className="playerpage">
@@ -203,9 +207,6 @@ function PlayerSection() {
                         </svg>
                     </a>
                     <span className="animetitle">{postTitle}</span>
-                    <button id="trackbtn" onClick={startTrack()}>
-                        <i className="glyphicon glyphicon-plus"></i> Watchlist
-                    </button>
                     <button id="followbtn" onClick={followToggle} style={{ display: 'inline' }}>
                         <i className="fa-solid fa-bell"></i> {isFollowed ? 'Followed' : 'Follow'}
                     </button>
@@ -225,7 +226,7 @@ function PlayerSection() {
                         <span id="animeinfobottom" style={{ display: 'block' }}><a id="animebtn2" onClick={showMore}>More info</a></span>
                     </div>
                     <div className="epsavailable">
-                        Ep total : <span id="epsavailable">{btnEpNum}</span> <a onClick={updatecheck()} id="updatebtn"><i className="glyphicon glyphicon-refresh"></i></a>
+                        Ep total : <span id="epsavailable">{btnEpNum}</span> <a onClick={updatecheck} id="updatebtn"><i className="glyphicon glyphicon-refresh"></i></a>
                         <div id="playercountdown" style={{ color: 'gray' }}>Next: Unknown</div>
                     </div>
                 </div>
