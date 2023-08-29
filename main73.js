@@ -97,10 +97,14 @@ function PlayerSection() {
     let isRealoded = false;
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
+        const iframe = document.getElementById('iframeplayer');
     
         if (!isRealoded) {
+            const tempSrc = iframe.src;
+            iframe.src = "";
             notif.style.display = 'block';
             notif.textContent = "Reloading";
+            iframe.src = tempSrc;
             setTimeout(() => {
                 notif.style.display = 'none';
             }, 2000);
