@@ -144,6 +144,13 @@ function PlayerSection() {
             streamType = "Video Stream";
         }
 
+        const playerType = document.querySelector(".altsourcenotif");
+        if (sourceType == "yt" || sourceType == "gdrive") { 
+            playerType.textContent = "External Player";
+        } else {
+            playerType.textContent = "Internal Player";
+        }
+
         return streamType;
     }
 
