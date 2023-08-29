@@ -37,7 +37,7 @@ const openlink = (value) => {
     if (sourceType === "yt") {
         iframe.src = `https://www.youtube.com/embed/${videoLinks[value - 1]}`;
     } else if (sourceType === "gdrive") {
-        iframe.src = `https://drive.google.com/file/d/${driveLinks[value - 1]}/preview`;
+        iframe.src = `https://drive.google.com/file/d/${videoLinks[value - 1]}/preview`;
     }
 }
 
@@ -144,8 +144,8 @@ function PlayerSection() {
     }
 
     React.useEffect(() => {
-        openlink(0);
-    })
+        openiframe('1');
+    }, []);
 
     return (
         <div className="playerpage">
