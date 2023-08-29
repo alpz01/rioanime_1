@@ -80,7 +80,7 @@ function PlayerSection() {
 
     const followToggle = () => {
         const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
-    
+
         if (followedPosts.includes(postTitle)) {
             followedPosts.splice(followedPosts.indexOf(postTitle), 1);
             localStorage.setItem('rioAnimePostData', JSON.stringify(followedPosts));
@@ -98,7 +98,7 @@ function PlayerSection() {
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
         const iframe = document.getElementById('iframeplayer');
-    
+
         if (!isRealoded) {
             const tempSrc = iframe.src;
             iframe.src = "";
@@ -120,7 +120,7 @@ function PlayerSection() {
             }, 2000);
         }
     }
-    
+
     function postGenres() {
         const genresSpan = document.getElementById('postDGenre');
         const genreLinks = genresSpan.getElementsByTagName('a');
@@ -136,9 +136,9 @@ function PlayerSection() {
     function stream() {
         let streamType = "";
 
-        if (sourceType == "yt"){
+        if (sourceType == "yt") {
             streamType = "YouTube Stream";
-        } else if (sourceType == "gdrive"){
+        } else if (sourceType == "gdrive") {
             streamType = "GDrive Stream";
         } else {
             streamType = "Video Stream";
@@ -175,7 +175,7 @@ function PlayerSection() {
                     </i>
                 </div>
             </div>
-            <div id="iframecontainer">
+            <div id="iframecontainer" className={sourceType === 'youtube' ? 'responYt' : ''}>
                 <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
                 {sourceType === 'gdrive' && (
                     <div id="overlay" onClick={(e) => {
@@ -183,6 +183,7 @@ function PlayerSection() {
                     }}></div>
                 )}
             </div>
+
             <div id="lowerplayerpage">
                 <div id="aligncenter">
                     <div id="streamtypecontainer">
@@ -206,7 +207,7 @@ function PlayerSection() {
                         <div id="screenshotbtn" style={{ display: 'block' }}>
                             <i className="glyphicon glyphicon-camera"></i>
                         </div>
-                        <div id="widescreenbtn">  
+                        <div id="widescreenbtn">
                             <i className="glyphicon glyphicon-fullscreen"></i>
                         </div>
                     </div>
