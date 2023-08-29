@@ -144,7 +144,7 @@ function PlayerSection() {
     }
 
     React.useEffect(() => {
-        openiframe('1');
+        openlink(1);
     }, []);
 
     return (
@@ -171,7 +171,7 @@ function PlayerSection() {
             </div>
 
             <div id="iframecontainer">
-                <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src={`https://www.youtube.com/embed/${videoLinks[0]}`} style={{ minHeight: '0px' }}></iframe>
+                <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
             </div>
 
             <div id="lowerplayerpage">
