@@ -144,13 +144,6 @@ function PlayerSection() {
             streamType = "Video Stream";
         }
 
-        const playerType = document.querySelector(".altsourcenotif");
-        if (sourceType == "yt" || sourceType == "gdrive") { 
-            playerType.textContent = "External Player";
-        } else {
-            playerType.textContent = "Internal Player";
-        }
-
         return streamType;
     }
 
@@ -161,7 +154,9 @@ function PlayerSection() {
     return (
         <div className="playerpage">
             <div className="subpart eptitle">
-                <div id="eptitle"><span id="eptitleplace">EP 1</span><span className="altsourcenotif">Internal Player</span></div>
+                <div id="eptitle"><span id="eptitleplace">EP 1</span><span className="altsourcenotif">
+                    {sourceType === 'yt' || sourceType === 'gdrive' ? 'External Player' : 'Internal Player'}
+                </span></div>
                 <div id="toprightplayer">
                     <i className="fa-solid fa-repeat">
                         <span className="tooltiptext">Switch</span>
