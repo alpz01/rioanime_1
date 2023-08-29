@@ -175,14 +175,14 @@ function PlayerSection() {
                     </i>
                 </div>
             </div>
-
             <div id="iframecontainer">
                 <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
-                <div id="overlay" onClick={(e) => {
-                    e.preventDefault();
-                }}></div>
+                {sourceType === 'gdrive' && (
+                    <div id="overlay" onClick={(e) => {
+                        e.preventDefault();
+                    }}></div>
+                )}
             </div>
-
             <div id="lowerplayerpage">
                 <div id="aligncenter">
                     <div id="streamtypecontainer">
