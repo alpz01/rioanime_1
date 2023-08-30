@@ -32,11 +32,11 @@ function GeneratePost() {
                     const term = category.term;
                     if (term == "Sub" || term == "Dub") {
                         type = term;
-                    } else if (term.startsWith("Ep") || term.startsWith("ep")) {
+                    } else if (term.startsWith("Ep")) {
                         ep = term;
                     } else if (!isNaN(term)) {
                         score = Number(term);
-                    } else if (term == "Movie" || term == "Ova" || term == "Tv") {
+                    } else if (term == "Movie" || term == "Ova" || term == "TV") {
                         view = term;
                     }
                 });
