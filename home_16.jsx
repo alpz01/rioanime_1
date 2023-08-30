@@ -2,7 +2,7 @@ const postSub = () => {
     const url = "https://www.dev-testing-website.blogspot.com/feeds/posts/default/-/sub?alt=json";
     axios.get(url)
         .then(data => {
-            console.log(data.feed.entry);
+            console.log(data);
         })
         .catch(error => {
             console.error('Error:', error);
