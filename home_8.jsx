@@ -1,5 +1,5 @@
 const GeneratePost = () => {
-    const [data, setData] = useState([]);
+    const [data, setData] = React.useState([]);
 
     useEffect(() => {
         const url = "https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25";
