@@ -37,39 +37,36 @@ const GeneratePost = () => {
         <>
             {data.map((post, index) => {
                 const key = index.toString();
-                let title = post.title.$t;
+                const { title, link, category, content } = post;
                 let score = -1;
                 let ep = "No Item";
                 let type = "No Item";
                 let view = "No Item";
-                let postLink = post.link[4].href;
+                let postLink = link[4].href;
                 let imageLink = "No Item";
 
-                post.category.forEach(category => {
+                category.forEach(category => {
                     const term = category.term;
-                    if (term == "Sub" || term == "Dub") {
+                    if (term === "Sub" || term === "Dub") {
                         type = term;
                     } else if (term.startsWith("Ep")) {
                         ep = term;
                     } else if (!isNaN(term)) {
                         score = Number(term);
-                    } else if (term == "Movie" || term == "Ova" || term == "TV") {
+                    } else if (term === "Movie" || term === "Ova" || term === "TV") {
                         view = term;
                     }
                 });
 
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(post.content.$t, "text/html");
-                const images = doc.getElementsByTagName("img");
-                const img = images.length > 0 ? images[0] : null;
-                if (img) {
-                    imageLink = img.src;
+                const images = content?.$t.match(/<img[^>]+src="([^">]+)/i);
+                if (images && images.length > 1) {
+                    imageLink = images[1];
                 }
 
                 return (
                     <div key={key} className="hentry play c:hover-eee">
-                        <a className="block ofc relative poster r3 oh" href={postLink} title={title}>
-                            <img alt={title} className="ar-2sx h-max w-max" loading="lazy" src={imageLink} />
+                        <a className="block ofc relative poster r3 oh" href={postLink} title={title.$t}>
+                            <img alt={title.$t} className="ar-2sx h-max w-max" loading="lazy" src={imageLink} />
                             <div className="absolute b-0 p-y2x6b0 ep fs-13 c-eee blr5 trr8">
                                 <span>{ep}</span>
                             </div>
@@ -91,8 +88,7 @@ const GeneratePost = () => {
             })}
         </>
     );
-}
-
+};
 
 const PostMenu = () => {
     return (
