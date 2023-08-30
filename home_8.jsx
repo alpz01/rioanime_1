@@ -1,20 +1,37 @@
-function GeneratePost() {
-    const [data, setData] = React.useState([]);
+const GeneratePost = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const url = "https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25";
+        const storedData = localStorage.getItem("pppDatapostrr");
+        if (storedData) {
+            setData(JSON.parse(storedData));
+        } else {
+            axios.get(url)
+                .then(response => {
+                    setData(response.data.feed.entry);
+                    localStorage.setItem("pppDatapostrr", JSON.stringify(response.data.feed.entry));
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }, []);
 
     React.useEffect(() => {
         const url = "https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25";
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                console.log(data.feed.entry);
-
-                setData(data.feed.entry);
+        axios.get(url)
+            .then(response => {
+                const newData = response.data.feed.entry;
+                if (newData.length > data.length) {
+                    setData(newData);
+                    localStorage.setItem("pppDatapostrr", JSON.stringify(newData));
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, []);
+    }, [data]);
 
     return (
         <>
@@ -43,7 +60,8 @@ function GeneratePost() {
 
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(post.content.$t, "text/html");
-                const img = doc.querySelector(".separator img");
+                const images = doc.getElementsByTagName("img");
+                const img = images.length > 0 ? images[0] : null;
                 if (img) {
                     imageLink = img.src;
                 }
@@ -76,7 +94,7 @@ function GeneratePost() {
 }
 
 
-function PostMenu() {
+const PostMenu = () => {
     return (
         <div>
             <a className='tablinks' href='/search'>All</a>
