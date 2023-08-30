@@ -1,14 +1,12 @@
 const postSub = () => {
     const url = "https://www.dev-testing-website.blogspot.com/feeds/posts/default/-/sub?alt=json";
-    React.useEffect(() => {
-        axios.get(url)
-            .then(data => {
-                console.log(data.feed.entry);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    })
+    axios.get(url)
+        .then(data => {
+            console.log(data.feed.entry);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 
 const GeneratePost = () => {
