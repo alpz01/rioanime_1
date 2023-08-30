@@ -1,5 +1,5 @@
 const postSub = () => {
-    const url = "http://www.dev-testing-website.blogspot.com/feeds/posts/default/-/sub?alt=json";
+    const url = "https://www.dev-testing-website.blogspot.com/feeds/posts/default/-/sub?alt=json";
     React.useEffect(() => {
         axios.get(url)
             .then(data => {
