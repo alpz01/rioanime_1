@@ -1,7 +1,7 @@
 const GeneratePost = () => {
     const [data, setData] = React.useState([]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         const url = "https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25";
         const storedData = localStorage.getItem("pppDatapostrr");
         if (storedData) {
