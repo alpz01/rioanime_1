@@ -20,6 +20,17 @@ const postBtnSDM = (label, setData) => {
         });
 }
 
+const randomPost = () => {
+    const storedData = localStorage.getItem("pppDatapostrr");
+    if (storedData) {
+        const data = JSON.parse(storedData);
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const postLink = data[randomIndex].link[4].href;
+        window.open(postLink, '_blank');
+    }
+}
+
+
 const generatePost = (data) => {
     return (
         <>
@@ -109,7 +120,7 @@ const PostContainer = () => {
                         <a className='tablinks' onClick={() => postBtnSDM('Sub', setData)}>Sub</a>
                         <a className='tablinks' onClick={() => postBtnSDM('Dub', setData)}>Dub</a>
                         <a className='tablinks' onClick={() => postBtnSDM('Movie', setData)}>Movie</a>
-                        <a className='tablinks'>Random</a>
+                        <a className='tablinks' onClick={randomPost}>Random</a>
                     </div>
                 </div>
             </div>
