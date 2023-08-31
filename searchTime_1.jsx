@@ -26,3 +26,8 @@ const RealTimeSearch = () => {
         </>
     )
 }
+
+
+const searchTime = document.getElementsByClassName('cari-isi');
+const root = ReactDOM.createRoot(searchTime);
+root.render(<RealTimeSearch />);
