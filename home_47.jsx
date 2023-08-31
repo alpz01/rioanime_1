@@ -162,10 +162,10 @@ const PostContainer = () => {
                             Random
                         </a>
                         <a className='tablinks' onClick={() => prevPost(page, setPage)}>
-                            <i class="fa-solid fa-angle-left"></i>
+                            <i className="fa-solid fa-angle-left"></i>
                         </a>
                         <a className='tablinks' onClick={() => nextPost(page, setPage, data.length)}>
-                            <i class="fa-solid fa-angle-right"></i>
+                            <i className="fa-solid fa-angle-right"></i>
                         </a>
                     </div>
                 </div>
