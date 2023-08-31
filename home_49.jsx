@@ -113,6 +113,24 @@ const generatePost = (data, page) => {
     });
 };
 
+const postFollowed = async (setData, setPage) => {
+    const followedPostsKey = 'rioAnimePostData';
+    const followedPostsDataKey = `ppRR${followedPostsKey}`;
+    const followedPostsStoredDataKey = localStorage.getItem(followedPostsDataKey);
+
+    if (followedPostsStoredDataKey) {
+        setData(JSON.parse(followedPostsStoredDataKey));
+    } else {
+        const followedPosts = JSON.parse(localStorage.getItem(followedPostsKey)) || [];
+        const storedDataKey = 'pppDatapostrr';
+        const storedData = JSON.parse(localStorage.getItem(storedDataKey)) || [];
+        const followedData = storedData.filter(post => followedPosts.includes(post.title.$t));
+        setData(followedData);
+        localStorage.setItem(followedPostsDataKey, JSON.stringify(followedData));
+    }
+    setPage(0);
+}
+
 const PostContainer = () => {
     const [data, setData] = React.useState([]);
     const [page, setPage] = React.useState(0);
@@ -123,7 +141,7 @@ const PostContainer = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                await Promise.all([getDataPost('Sub'), getDataPost('Dub'), getDataPost('Movie')]);
+                await Promise.all([getDataPost('Sub'), getDataPost('Dub'), getDataPost('Movie'), postFollowed(setData, setPage)]);
                 if (storedData) {
                     setData(JSON.parse(storedData));
                 } else {
@@ -136,7 +154,6 @@ const PostContainer = () => {
                 console.error('Error:', error);
             }
         };
-
         fetchData();
     }, []);
 
@@ -167,6 +184,11 @@ const PostContainer = () => {
                         <a className='tablinks' onClick={() => nextPost(page, setPage, data.length)}>
                             <i className="fa-solid fa-angle-right"></i>
                         </a>
+                        {localStorage.getItem('rioAnimePostData') && (
+                            <a className='tablinks' onClick={() => postFollowed(setData, setPage)}>
+                                Followed
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>
