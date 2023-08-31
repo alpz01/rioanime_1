@@ -1,5 +1,5 @@
 const postSub = () => {
-    const url = "https://dev-testing-website.blogspot.com/feeds/posts/default/-/sub?alt=json";
+    const url = "https://dev-testing-website.blogspot.com/feeds/posts/default/-/Sub?alt=json";
     axios.get(url)
         .then(response => {
             const data = response.data.feed.entry;
@@ -106,10 +106,11 @@ const PostContainer = () => {
                     </div>
                 </div>
             </div>
-            <div className='grid gtc-raf g-var hfeed'>{allPost()}</div>  
+            <div className='grid gtc-raf g-var hfeed'>{allPost()}</div>
         </>
     )
 }
 
 const post = document.getElementById('testPostLang1');
-ReactDOM.render(<PostContainer />, post);
+const root = ReactDOM.createRoot(post);
+root.render(<PostContainer />);
