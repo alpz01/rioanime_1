@@ -76,6 +76,6 @@ const RealTimeSearch = () => {
     );
 }
 
-const post = document.querySelector('.cari-input');
+const searchPT = document.querySelector('.cari-input');
 const root_k = ReactDOM.createRoot(searchPT);
 root_k.render(<RealTimeSearch />);
