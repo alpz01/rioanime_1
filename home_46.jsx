@@ -49,7 +49,12 @@ const nextPost = (page, setPage, dataLength) => {
     }
 };
 
-const generatePost = React.memo((data, page) => {
+const GeneratePostComponent = React.memo((props) => {
+    const { data, page } = props;
+    return generatePost(data, page);
+});
+
+const generatePost = (data, page) => {
     const startIndex = page * postsPerPage;
     const endIndex = Math.min(startIndex + postsPerPage, data.length);
     return data.slice(startIndex, endIndex).map((post, index) => {
@@ -106,7 +111,7 @@ const generatePost = React.memo((data, page) => {
             </div>
         );
     });
-});
+};
 
 const PostContainer = () => {
     const [data, setData] = React.useState([]);
@@ -165,7 +170,7 @@ const PostContainer = () => {
                     </div>
                 </div>
             </div>
-            <div className='grid gtc-raf g-var hfeed'>{generatePost(data, page)}</div>
+            <div className='grid gtc-raf g-var hfeed'><GeneratePostComponent data={data} page={page} /></div>
         </>
     );
 };
