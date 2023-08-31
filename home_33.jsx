@@ -20,28 +20,6 @@ const postBtnSDM = (label, setData) => {
         });
 }
 
-const allPost = (setData) => {
-    const url = "https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25";
-    const storedData = localStorage.getItem("pppDatapostrr");
-
-    React.useEffect(() => {
-        if (storedData) {
-            setData(JSON.parse(storedData));
-        } else {
-            axios.get(url)
-                .then(response => {
-                    setData(response.data.feed.entry);
-                    localStorage.setItem("pppDatapostrr", JSON.stringify(response.data.feed.entry));
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-    }, []);
-
-    return generatePost(data);
-}
-
 const generatePost = (data) => {
     return (
         <>
@@ -103,9 +81,22 @@ const generatePost = (data) => {
 
 const PostContainer = () => {
     const [data, setData] = React.useState([]);
+    const url = "https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25";
+    const storedData = localStorage.getItem("pppDatapostrr");
 
     React.useEffect(() => {
-        allPost(setData);
+        if (storedData) {
+            setData(JSON.parse(storedData));
+        } else {
+            axios.get(url)
+                .then(response => {
+                    setData(response.data.feed.entry);
+                    localStorage.setItem("pppDatapostrr", JSON.stringify(response.data.feed.entry));
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
     }, []);
 
     return (
@@ -114,7 +105,7 @@ const PostContainer = () => {
                 <h2 className='lh-2 c-fff fw-500'>Recently updated</h2>
                 <div className='flex aic'>
                     <div className='flex aic tabs'>
-                        <a className='tablinks' onClick={() => allPost(setData)}>All</a>
+                        <a className='tablinks' onClick={() => setData(JSON.parse(storedData))}>All</a>
                         <a className='tablinks' onClick={() => postBtnSDM('Sub', setData)}>Sub</a>
                         <a className='tablinks' onClick={() => postBtnSDM('Dub', setData)}>Dub</a>
                         <a className='tablinks' onClick={() => postBtnSDM('Movie', setData)}>Movie</a>
