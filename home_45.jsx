@@ -49,7 +49,7 @@ const nextPost = (page, setPage, dataLength) => {
     }
 };
 
-const generatePost = React.useCallback((data, page) => {
+const generatePost = React.memo((data, page) => {
     const startIndex = page * postsPerPage;
     const endIndex = Math.min(startIndex + postsPerPage, data.length);
     return data.slice(startIndex, endIndex).map((post, index) => {
@@ -106,32 +106,33 @@ const generatePost = React.useCallback((data, page) => {
             </div>
         );
     });
-}, []);
+});
 
 const PostContainer = () => {
     const [data, setData] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const url = 'https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25';
-    const storedDataKey ='pppDatapostrr';
-    const storedData=localStorage.getItem(storedDataKey);
+    const storedDataKey = 'pppDatapostrr';
+    const storedData = localStorage.getItem(storedDataKey);
 
     React.useEffect(() => {
-      async function fetchData() { 
-          try {
-              await Promise.all([getDataPost('Sub'), getDataPost('Dub'), getDataPost('Movie')]);
-              if (storedData) {
-                  setData(JSON.parse(storedData));
-              } else {
-                  const response = await axios.get(url);
-                  const responseData = response.data.feed.entry;
-                  setData(responseData);
-                  localStorage.setItem(storedDataKey, JSON.stringify(responseData));
-              }
-          } catch (error) {
-              console.error('Error:', error);
-          }
-      }
-      fetchData();
+        const fetchData = async () => {
+            try {
+                await Promise.all([getDataPost('Sub'), getDataPost('Dub'), getDataPost('Movie')]);
+                if (storedData) {
+                    setData(JSON.parse(storedData));
+                } else {
+                    const response = await axios.get(url);
+                    const responseData = response.data.feed.entry;
+                    setData(responseData);
+                    localStorage.setItem(storedDataKey, JSON.stringify(responseData));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (
