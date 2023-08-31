@@ -1,9 +1,19 @@
-const postSub = (setData) => {
-    const url = "https://dev-testing-website.blogspot.com/feeds/posts/default/-/Sub?alt=json";
+const postBtnSDM = (label, setData) => {
+    const url = `https://dev-testing-website.blogspot.com/feeds/posts/default/-/${label}?alt=json`;
+    const storedDataKey = `ppRR${label}`;
+    const storedData = localStorage.getItem(storedDataKey);
+
+    if (storedData) {
+        setData(JSON.parse(storedData));
+    }
+
     axios.get(url)
         .then(response => {
             const data = response.data.feed.entry;
-            setData(data);
+            if (!storedData || JSON.stringify(data) !== storedData) {
+                setData(data);
+                localStorage.setItem(storedDataKey, JSON.stringify(data));
+            }
         })
         .catch(error => {
             console.error('Error:', error);
@@ -14,18 +24,22 @@ const allPost = (setData) => {
     const url = "https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25";
     const storedData = localStorage.getItem("pppDatapostrr");
 
-    if (storedData) {
-        setData(JSON.parse(storedData));
-    } else {
-        axios.get(url)
-            .then(response => {
-                setData(response.data.feed.entry);
-                localStorage.setItem("pppDatapostrr", JSON.stringify(response.data.feed.entry));
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
+    React.useEffect(() => {
+        if (storedData) {
+            setData(JSON.parse(storedData));
+        } else {
+            axios.get(url)
+                .then(response => {
+                    setData(response.data.feed.entry);
+                    localStorage.setItem("pppDatapostrr", JSON.stringify(response.data.feed.entry));
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }, []);
+
+    return generatePost(data);
 }
 
 const generatePost = (data) => {
@@ -101,8 +115,9 @@ const PostContainer = () => {
                 <div className='flex aic'>
                     <div className='flex aic tabs'>
                         <a className='tablinks' onClick={() => allPost(setData)}>All</a>
-                        <a className='tablinks' onClick={() => postSub(setData)}>Sub</a>
-                        <a className='tablinks' href='/search/label/Dub'>Dub</a>
+                        <a className='tablinks' onClick={() => postBtnSDM('Sub', setData)}>Sub</a>
+                        <a className='tablinks' onClick={() => postBtnSDM('Dub', setData)}>Dub</a>
+                        <a className='tablinks' onClick={() => postBtnSDM('Movie', setData)}>Movie</a>
                         <a className='tablinks'>Random</a>
                     </div>
                 </div>
