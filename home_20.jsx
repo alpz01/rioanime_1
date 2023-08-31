@@ -47,7 +47,7 @@ const PostContainer = () => {
             <div className='mb-10 flex jcsb' id='newest'>
                 <h2 className='lh-2 c-fff fw-500'>Recently updated</h2>
                 <div className='flex aic'>
-                    <div class='flex aic tabs'>
+                    <div className='flex aic tabs'>
                         <a className='tablinks' >All</a>
                         <a className='tablinks' onClick={postSub}>Sub</a>
                         <a className='tablinks' href='/search/label/Dub'>Dub</a>
