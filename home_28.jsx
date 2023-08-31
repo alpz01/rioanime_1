@@ -1,36 +1,40 @@
-const postSub = () => {
+const postSub = (setData) => {
     const url = "https://dev-testing-website.blogspot.com/feeds/posts/default/-/Sub?alt=json";
+    const storedData = localStorage.getItem("ppRRsuB");
+
+    if (storedData) {
+        setData(JSON.parse(storedData));
+    }
     axios.get(url)
         .then(response => {
             const data = response.data.feed.entry;
-            generatePost(data);
+            if (!storedData || JSON.stringify(data) !== storedData) {
+                setData(data);
+                localStorage.setItem("ppRRsuB", JSON.stringify(data));
+            }
         })
         .catch(error => {
             console.error('Error:', error);
         });
 }
 
-const allPost = () => {
-    const [data, setData] = React.useState([]);
+
+const allPost = (setData) => {
     const url = "https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25";
     const storedData = localStorage.getItem("pppDatapostrr");
 
-    React.useEffect(() => {
-        if (storedData) {
-            setData(JSON.parse(storedData));
-        } else {
-            axios.get(url)
-                .then(response => {
-                    setData(response.data.feed.entry);
-                    localStorage.setItem("pppDatapostrr", JSON.stringify(response.data.feed.entry));
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-    }, []);
-
-    return generatePost(data);
+    if (storedData) {
+        setData(JSON.parse(storedData));
+    } else {
+        axios.get(url)
+            .then(response => {
+                setData(response.data.feed.entry);
+                localStorage.setItem("pppDatapostrr", JSON.stringify(response.data.feed.entry));
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 }
 
 const generatePost = (data) => {
@@ -93,24 +97,30 @@ const generatePost = (data) => {
 }
 
 const PostContainer = () => {
+    const [data, setData] = React.useState([]);
+
+    React.useEffect(() => {
+        allPost(setData);
+    }, []);
+
     return (
         <>
             <div className='mb-10 flex jcsb'>
                 <h2 className='lh-2 c-fff fw-500'>Recently updated</h2>
                 <div className='flex aic'>
                     <div className='flex aic tabs'>
-                        <a className='tablinks' onClick={allPost}>All</a>
-                        <a className='tablinks' onClick={postSub}>Sub</a>
+                        <a className='tablinks' onClick={() => allPost(setData)}>All</a>
+                        <a className='tablinks' onClick={() => postSub(setData)}>Sub</a>
                         <a className='tablinks' href='/search/label/Dub'>Dub</a>
                         <a className='tablinks'>Random</a>
                     </div>
                 </div>
             </div>
-            <div className='grid gtc-raf g-var hfeed'>{allPost()}</div>
+            <div className='grid gtc-raf g-var hfeed'>{generatePost(data)}</div>
         </>
     )
 }
 
 const post = document.getElementById('testPostLang1');
-const root = ReactDOM.createRoot(post);
+const root = React.createRoot(post);
 root.render(<PostContainer />);
