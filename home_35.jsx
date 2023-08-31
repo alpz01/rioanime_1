@@ -99,6 +99,12 @@ const PostContainer = () => {
         }
     }, []);
 
+    React.useEffect(() => {
+        postBtnSDM('Sub', setData);
+        postBtnSDM('Dub', setData);
+        postBtnSDM('Movie', setData);
+    }, []);
+
     return (
         <>
             <div className='mb-10 flex jcsb'>
@@ -117,6 +123,7 @@ const PostContainer = () => {
         </>
     )
 }
+
 
 const post = document.getElementById('testPostLang1');
 const root = ReactDOM.createRoot(post);
