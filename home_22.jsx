@@ -1,25 +1,16 @@
-const postSub = () => {
-    const url = "https://dev-testing-website.blogspot.com/feeds/posts/default/-/sub?alt=json";
-    axios.get(url)
-        .then(response => {
-            const data = response;
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-
 const PostContainer = () => {
     const [data, setData] = React.useState([]);
-    const url = "https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25";
+    const [subData, setSubData] = React.useState([]);
+    const [showSub, setShowSub] = React.useState(false);
+    const allUrl = "https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25";
+    const subUrl = "https://dev-testing-website.blogspot.com/feeds/posts/default/-/sub?alt=json";
     const storedData = localStorage.getItem("pppDatapostrr");
 
     React.useEffect(() => {
         if (storedData) {
             setData(JSON.parse(storedData));
         } else {
-            axios.get(url)
+            axios.get(allUrl)
                 .then(response => {
                     setData(response.data.feed.entry);
                     localStorage.setItem("pppDatapostrr", JSON.stringify(response.data.feed.entry));
@@ -31,7 +22,7 @@ const PostContainer = () => {
     }, []);
 
     React.useEffect(() => {
-        axios.get(url)
+        axios.get(allUrl)
             .then(response => {
                 const newData = response.data.feed.entry;
                 setData(newData);
@@ -42,13 +33,28 @@ const PostContainer = () => {
             });
     }, [data]);
 
+    const postSub = () => {
+        setShowSub(true);
+        axios.get(subUrl)
+            .then(response => {
+                setSubData(response.data.feed.entry);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    const postAll = () => {
+        setShowSub(false);
+    }
+
     return (
         <>
             <div className='mb-10 flex jcsb' id='newest'>
                 <h2 className='lh-2 c-fff fw-500'>Recently updated</h2>
                 <div className='flex aic'>
                     <div className='flex aic tabs'>
-                        <a className='tablinks' >All</a>
+                        <a className='tablinks' onClick={postAll}>All</a>
                         <a className='tablinks' onClick={postSub}>Sub</a>
                         <a className='tablinks' href='/search/label/Dub'>Dub</a>
                         <a className='tablinks'>Random</a>
@@ -56,7 +62,7 @@ const PostContainer = () => {
                 </div>
             </div>
             <div className='grid gtc-raf g-var hfeed'>
-                {data.map((post, index) => {
+                {(showSub ? subData : data).map((post, index) => {
                     const key = index.toString();
                     let title = post.title.$t;
                     let score = -1;
@@ -84,7 +90,7 @@ const PostContainer = () => {
                     if (match) {
                         imageLink = match[1];
                     }
-                    
+
                     return (
                         <div key={key} className="hentry play c:hover-eee">
                             <a className="block ofc relative poster r3 oh" href={postLink} title={title}>
