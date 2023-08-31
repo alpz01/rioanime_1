@@ -2,7 +2,7 @@ const postSub = () => {
     const url = "https://www.dev-testing-website.blogspot.com/feeds/posts/default/-/sub?alt=json";
     axios.get(url)
         .then(response => {
-            const data = response.data.feed.entry;
+            const data = response;
             console.log(data);
         })
         .catch(error => {
@@ -44,18 +44,18 @@ const PostContainer = () => {
 
     return (
         <>
-            <div class='mb-10 flex jcsb' id='newest'>
-                <h2 class='lh-2 c-fff fw-500'>Recently updated</h2>
-                <div class='flex aic'>
+            <div className='mb-10 flex jcsb' id='newest'>
+                <h2 className='lh-2 c-fff fw-500'>Recently updated</h2>
+                <div className='flex aic'>
                     <div class='flex aic tabs'>
-                        <a className='tablinks' href='/search'>All</a>
+                        <a className='tablinks' >All</a>
                         <a className='tablinks' onClick={postSub}>Sub</a>
                         <a className='tablinks' href='/search/label/Dub'>Dub</a>
                         <a className='tablinks'>Random</a>
                     </div>
                 </div>
             </div>
-            <div class='grid gtc-raf g-var hfeed'>
+            <div className='grid gtc-raf g-var hfeed'>
                 {data.map((post, index) => {
                     const key = index.toString();
                     let title = post.title.$t;
