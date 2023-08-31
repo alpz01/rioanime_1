@@ -1,5 +1,4 @@
 const postsPerPage = 2;
-
 const getDataPost = async (label) => {
     const url = `https://dev-testing-website.blogspot.com/feeds/posts/default/-/${label}?alt=json`;
     const storedDataKey = `ppRR${label}`;
@@ -50,7 +49,7 @@ const nextPost = (page, setPage, dataLength) => {
     }
 };
 
-const generatePost = (data, page) => {
+const generatePost = React.useCallback((data, page) => {
     const startIndex = page * postsPerPage;
     const endIndex = Math.min(startIndex + postsPerPage, data.length);
     return data.slice(startIndex, endIndex).map((post, index) => {
@@ -107,32 +106,32 @@ const generatePost = (data, page) => {
             </div>
         );
     });
-};
+}, []);
 
 const PostContainer = () => {
     const [data, setData] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const url = 'https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25';
-    const storedData = localStorage.getItem('pppDatapostrr');
+    const storedDataKey ='pppDatapostrr';
+    const storedData=localStorage.getItem(storedDataKey);
 
     React.useEffect(() => {
-        const fetchData = async () => {
-            try {
-                await Promise.all([getDataPost('Sub'), getDataPost('Dub'), getDataPost('Movie')]);
-                if (storedData) {
-                    setData(JSON.parse(storedData));
-                } else {
-                    const response = await axios.get(url);
-                    const responseData = response.data.feed.entry;
-                    setData(responseData);
-                    localStorage.setItem('pppDatapostrr', JSON.stringify(responseData));
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
-
-        fetchData();
+      async function fetchData() { 
+          try {
+              await Promise.all([getDataPost('Sub'), getDataPost('Dub'), getDataPost('Movie')]);
+              if (storedData) {
+                  setData(JSON.parse(storedData));
+              } else {
+                  const response = await axios.get(url);
+                  const responseData = response.data.feed.entry;
+                  setData(responseData);
+                  localStorage.setItem(storedDataKey, JSON.stringify(responseData));
+              }
+          } catch (error) {
+              console.error('Error:', error);
+          }
+      }
+      fetchData();
     }, []);
 
     return (
