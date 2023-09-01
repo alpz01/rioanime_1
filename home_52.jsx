@@ -122,7 +122,6 @@ const PostContainer = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                await Promise.all([getDataPost('Sub'), getDataPost('Dub'), getDataPost('Movie')]);
                 const response = await axios.get(url);
                 const responseData = response.data.feed.entry;
                 setData(responseData);
@@ -169,6 +168,7 @@ const PostContainer = () => {
         </>
     );
 };
+
 
 
 const post = document.getElementById('testPostLang1');
