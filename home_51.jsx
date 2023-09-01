@@ -118,20 +118,15 @@ const PostContainer = () => {
     const [page, setPage] = React.useState(0);
     const url = 'https://dev-testing-website.blogspot.com/feeds/posts/default?alt=json&max-results=25';
     const storedDataKey = 'pppDatapostrr';
-    const storedData = localStorage.getItem(storedDataKey);
 
     React.useEffect(() => {
         const fetchData = async () => {
             try {
                 await Promise.all([getDataPost('Sub'), getDataPost('Dub'), getDataPost('Movie')]);
-                if (storedData) {
-                    setData(JSON.parse(storedData));
-                } else {
-                    const response = await axios.get(url);
-                    const responseData = response.data.feed.entry;
-                    setData(responseData);
-                    localStorage.setItem(storedDataKey, JSON.stringify(responseData));
-                }
+                const response = await axios.get(url);
+                const responseData = response.data.feed.entry;
+                setData(responseData);
+                localStorage.setItem(storedDataKey, JSON.stringify(responseData));
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -146,7 +141,7 @@ const PostContainer = () => {
                 <h2 className='lh-2 c-fff fw-500'>Recently updated</h2>
                 <div className='flex aic'>
                     <div className='flex aic tabs'>
-                        <a className='tablinks' onClick={() => { setData(JSON.parse(storedData)); setPage(0); }}>
+                        <a className='tablinks' onClick={() => { setData(JSON.parse(localStorage.getItem(storedDataKey))); setPage(0); }}>
                             All
                         </a>
                         <a className='tablinks' onClick={() => postBtnSDM('Sub', setData, setPage)}>
@@ -174,6 +169,7 @@ const PostContainer = () => {
         </>
     );
 };
+
 
 const post = document.getElementById('testPostLang1');
 const root = ReactDOM.createRoot(post);
