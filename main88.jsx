@@ -78,7 +78,7 @@ const openlink = (value) => {
         playerIO();
         let video = document.querySelector("#player");
         let source = video.querySelector("source");
-        source.src = videoLink[value - 1];
+        source.src = videoLinks[value - 1];
         video.load();
     }
 }
@@ -241,7 +241,7 @@ function PlayerSection() {
             </div>
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
                 {sourceType === 'archive' ? (
-                    <video controls="" crossorigin="" playsinline="" poster="" id="player">
+                    <video controls="" crossOrigin="" playsInline="" poster="" id="player">
                         <source src="" type="video/mp4" />
                     </video>
                 ) : (
