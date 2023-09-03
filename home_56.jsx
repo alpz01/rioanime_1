@@ -155,12 +155,14 @@ const PostContainer = () => {
                         <a className='tablinks' onClick={() => randomPost(data)}>
                             Random
                         </a>
+                        <span className='paging'>
                         <a className='tablinks' onClick={() => prevPost(page, setPage)}>
                             <i className="fa-solid fa-angle-left"></i>
                         </a>
                         <a className='tablinks' onClick={() => nextPost(page, setPage, data.length)}>
                             <i className="fa-solid fa-angle-right"></i>
                         </a>
+                        </span>
                     </div>
                 </div>
             </div>
