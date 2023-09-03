@@ -13,6 +13,14 @@ const updatecheck = () => {
     console.log('update check')
 }
 
+const downloadVideo = () => {
+    const iframe = document.getElementById("iframeplayer");
+
+    if (iframe.src.includes("drive.google.com")) {
+        
+    }
+}
+
 
 const openiframe = (event) => {
     if (event.target.matches('.playbutton')) {
@@ -164,7 +172,7 @@ function PlayerSection() {
                     <i className="fa-solid fa-lightbulb">
                         <span className="tooltiptext">Lights</span>
                     </i>
-                    <i className="fa-solid fa-download">
+                    <i className="fa-solid fa-download" onClick={downloadVideo}>
                         <span className="tooltiptext">Download</span>
                     </i>
                     <i className="fa-solid fa-wand-sparkles">
