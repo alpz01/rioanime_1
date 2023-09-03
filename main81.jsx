@@ -17,10 +17,10 @@ const downloadVideo = () => {
     const iframe = document.getElementById("iframeplayer");
 
     if (iframe.src.includes("drive.google.com")) {
-        
+        const id = iframe.src.split("/")[5];
+        location.href = `https://drive.google.com/u/0/uc?id=${id}&export=download`;
     }
 }
-
 
 const openiframe = (event) => {
     if (event.target.matches('.playbutton')) {
