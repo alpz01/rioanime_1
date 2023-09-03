@@ -18,7 +18,13 @@ const displayCountdown = (callback) => {
     notifPrompt.textContent = "";
     let counter = 8;
     const intervalId = setInterval(() => {
-        notifPrompt.textContent = counter;
+        if (counter >= 5) {
+            notifPrompt.textContent = `Please wait ... ${counter}`;
+        } else if (counter >= 3) {
+            notifPrompt.textContent = `Getting Ready!!! ${counter}`;
+        } else if (counter >= 1) {
+            notifPrompt.textContent = `Let's Go!!! ${counter}`;
+        }
         notifPrompt.style.display = "block";
         counter--;
         if (counter < 0) {
@@ -31,7 +37,6 @@ const displayCountdown = (callback) => {
         }
     }, 1000);
 }
-
 
 const downloadVideo = () => {
     const iframe = document.getElementById("iframeplayer");
