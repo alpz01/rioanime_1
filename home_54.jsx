@@ -136,7 +136,7 @@ const PostContainer = () => {
 
     return (
         <>
-            <div className='mb-10 flex jcsb'>
+            <div className='mb-10 jcsb'>
                 <h2 className='lh-2 c-fff fw-500'>Recently updated</h2>
                 <div className='aic'>
                     <div className='aic tabs'>
