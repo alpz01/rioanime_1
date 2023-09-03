@@ -15,6 +15,7 @@ const updatecheck = () => {
 
 const displayCountdown = (callback) => {
     const notifPrompt = document.getElementById("notifprompt");
+    notifPrompt.textContent = "";
     notifPrompt.style.display = "block";
     let counter = 8;
     const intervalId = setInterval(() => {
