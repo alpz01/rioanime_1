@@ -74,9 +74,38 @@ const openlink = (value) => {
         iframe.src = `https://www.youtube.com/embed/${videoLinks[value - 1]}`;
     } else if (sourceType === "gdrive") {
         iframe.src = `https://drive.google.com/file/d/${videoLinks[value - 1]}/preview`;
+    } else if (sourceType === "archive") {
+        playerIO();
+        let video = document.querySelector("#player");
+        let source = video.querySelector("source");
+        source.src = videoLink[value - 1];
+        video.load();
     }
 }
 
+
+const playerIO = () => {
+    const controls = [
+        'play-large', // The large play button in the center
+        //'restart', 
+        'rewind', // Rewind by the seek time (default 10 seconds)
+        'play', // Play/pause playback
+        'fast-forward', // Fast forward by the seek time (default 10 seconds)
+        'progress', // The progress bar and scrubber for playback and buffering
+        'current-time', // The current time of playback
+        'duration', // The full duration of the media
+        'mute', // Toggle mute
+        'volume', // Volume control
+        'captions', // Toggle captions
+        //'settings',
+        'pip', // Picture-in-picture (currently Safari only)
+        'airplay', // Airplay (currently Safari only)
+        //'download',
+        'fullscreen' // Toggle fullscreen
+    ];
+
+    const player = Plyr.setup('#player', { controls });
+}
 
 function generateButton(btnEpNum) {
     let buttons = [];
@@ -89,7 +118,6 @@ function generateButton(btnEpNum) {
     }
     return buttons;
 }
-
 
 function showMore() {
     let hidecomment = document.querySelector('#comments');
@@ -212,14 +240,19 @@ function PlayerSection() {
                 </div>
             </div>
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
-                <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
+                {sourceType === 'archive' ? (
+                    <video controls="" crossorigin="" playsinline="" poster="" id="player">
+                        <source src="" type="video/mp4" />
+                    </video>
+                ) : (
+                    <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
+                )}
                 {sourceType === 'gdrive' && (
                     <div id="overlay" onClick={(e) => {
                         e.preventDefault();
                     }}></div>
                 )}
             </div>
-
             <div id="lowerplayerpage">
                 <div id="aligncenter">
                     <div id="streamtypecontainer">
