@@ -13,14 +13,35 @@ const updatecheck = () => {
     console.log('update check')
 }
 
+const displayCountdown = (callback) => {
+    const notifPrompt = document.getElementById("notifprompt");
+    notifPrompt.style.display = "block";
+    let counter = 8;
+    const intervalId = setInterval(() => {
+        notifPrompt.textContent = counter;
+        counter--;
+        if (counter < 0) {
+            clearInterval(intervalId);
+            notifPrompt.textContent = "Awesome!";
+            setTimeout(() => {
+                notifPrompt.style.display = "none";
+                callback();
+            }, 1000);
+        }
+    }, 1000);
+}
+
 const downloadVideo = () => {
     const iframe = document.getElementById("iframeplayer");
 
     if (iframe.src.includes("drive.google.com")) {
-        const id = iframe.src.split("/")[5];
-        location.href = `https://drive.google.com/u/0/uc?id=${id}&export=download`;
+        displayCountdown(() => {
+            const id = iframe.src.split("/")[5];
+            location.href = `https://drive.google.com/u/0/uc?id=${id}&export=download`;
+        });
     }
 }
+
 
 const openiframe = (event) => {
     if (event.target.matches('.playbutton')) {
