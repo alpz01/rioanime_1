@@ -183,7 +183,7 @@ function PlayerSection() {
                     </i>
                 </div>
             </div>
-            <div id="iframecontainer" className={sourceType === 'yt' ? 'responYt' : ''}>
+            <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
                 <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
                 {sourceType === 'gdrive' && (
                     <div id="overlay" onClick={(e) => {
