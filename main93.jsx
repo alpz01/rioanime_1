@@ -242,7 +242,7 @@ function PlayerSection() {
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
                 {sourceType === 'archive' ? (
                     <video controls="" crossOrigin="" playsInline="" poster="" id="player">
-                        <source src="" type="video/mp4" accesscontrolalloworigin />
+                        <source src="" type="video/mp4" accesscontrolalloworigin="true" />
                     </video>
                 ) : (
                     <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
