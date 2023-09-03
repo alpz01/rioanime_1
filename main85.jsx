@@ -16,10 +16,10 @@ const updatecheck = () => {
 const displayCountdown = (callback) => {
     const notifPrompt = document.getElementById("notifprompt");
     notifPrompt.textContent = "";
-    notifPrompt.style.display = "block";
     let counter = 8;
     const intervalId = setInterval(() => {
         notifPrompt.textContent = counter;
+        notifPrompt.style.display = "block";
         counter--;
         if (counter < 0) {
             clearInterval(intervalId);
@@ -31,6 +31,7 @@ const displayCountdown = (callback) => {
         }
     }, 1000);
 }
+
 
 const downloadVideo = () => {
     const iframe = document.getElementById("iframeplayer");
