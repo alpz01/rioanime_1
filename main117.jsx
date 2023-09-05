@@ -192,7 +192,6 @@ function PlayerSection() {
 
         if (!isReloaded) {
             if (sourceType === "archive") {
-                player.restart();
                 console.log("working");
             } else {
                 const tempSrc = iframe.src;
