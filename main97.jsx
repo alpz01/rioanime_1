@@ -49,34 +49,31 @@ const downloadVideo = () => {
     }
 }
 
+const plyrIo = (value) => {
+    return <VideoPlayer videoSources={[videoLinks[value - 1]]} />;
+};
 
-const openiframe = (event) => {
-    if (event.target.matches('.playbutton')) {
-        // Re-enable all buttons
-        const buttons = document.querySelectorAll('.playbutton');
-        buttons.forEach((button) => {
-            button.disabled = false;
-        });
-
-        // Disable the clicked button
-        const value = event.target.textContent;
-        openlink(value);
-        console.log(value);
-        event.target.disabled = true;
+function generateButton(btnEpNum) {
+    let buttons = [];
+    for (let i = 0; i < btnEpNum; i++) {
+        if (i == 0) {
+            buttons.push(<button key={i} className="playbutton btn btn-primary" disabled={true} onClick={openiframe}>{i + 1}</button>);
+        } else {
+            buttons.push(<button key={i} className="playbutton btn btn-primary" onClick={openiframe}>{i + 1}</button>);
+        }
     }
+    return buttons;
 }
 
-const openlink = (value) => {
-    let iframe = document.getElementById("iframeplayer");
-    document.getElementById("eptitleplace").textContent = `EP ${value}`;
+function showMore() {
+    let hidecomment = document.querySelector('#comments');
+    const info = document.querySelector('#info');
+    const animeBtn2 = document.getElementById('animebtn2');
 
-    if (sourceType === "yt") {
-        iframe.src = `https://www.youtube.com/embed/${videoLinks[value - 1]}`;
-    } else if (sourceType === "gdrive") {
-        iframe.src = `https://drive.google.com/file/d/${videoLinks[value - 1]}/preview`;
-    } else if (sourceType === "archive") {
-        plyrIo(value);
-    }
+    const isInfoVisible = info.style.display === 'block';
+    info.style.display = isInfoVisible ? 'none' : 'block';
+    animeBtn2.textContent = isInfoVisible ? 'More info' : 'Less info';
+    hidecomment.style.margin = isInfoVisible ? '1.66rem 0' : '0';
 }
 
 class VideoPlayer extends React.Component {
@@ -108,40 +105,15 @@ class VideoPlayer extends React.Component {
     }
 }
 
-const plyrIo = (value) => {
-    return <VideoPlayer videoSources={[videoLinks[value - 1]]} />;
-  };
-  
-function generateButton(btnEpNum) {
-    let buttons = [];
-    for (let i = 0; i < btnEpNum; i++) {
-        if (i == 0) {
-            buttons.push(<button key={i} className="playbutton btn btn-primary" disabled={true} onClick={openiframe}>{i + 1}</button>);
-        } else {
-            buttons.push(<button key={i} className="playbutton btn btn-primary" onClick={openiframe}>{i + 1}</button>);
-        }
-    }
-    return buttons;
-}
-
-function showMore() {
-    let hidecomment = document.querySelector('#comments');
-    const info = document.querySelector('#info');
-    const animeBtn2 = document.getElementById('animebtn2');
-
-    const isInfoVisible = info.style.display === 'block';
-    info.style.display = isInfoVisible ? 'none' : 'block';
-    animeBtn2.textContent = isInfoVisible ? 'More info' : 'Less info';
-    hidecomment.style.margin = isInfoVisible ? '1.66rem 0' : '0';
-}
-
-
 function PlayerSection() {
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
 
     const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
     const [isFollowed, setIsFollowed] = React.useState(followedPosts.includes(postTitle));
+    const [iframeSrc, setIframeSrc] = React.useState("");
+    const [currentEpisode, setCurrentEpisode] = React.useState(1);
+    const [player, setPlayer] = React.useState(null);
 
     const followToggle = () => {
         const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
@@ -212,9 +184,49 @@ function PlayerSection() {
         return streamType;
     }
 
+    const openiframe = (event) => {
+        if (event.target.matches('.playbutton')) {
+            // Re-enable all buttons
+            const buttons = document.querySelectorAll('.playbutton');
+            buttons.forEach((button) => {
+                button.disabled = false;
+            });
+
+            // Disable the clicked button
+            const value = event.target.textContent;
+            setCurrentEpisode(value);
+            event.target.disabled = true;
+        }
+    }
+
     React.useEffect(() => {
-        openlink(1);
+        if (sourceType === "archive") {
+            const playerInstance = new VideoPlayer({
+                videoSources: videoLinks,
+            });
+            setPlayer(playerInstance);
+        } else {
+            openlink(1);
+        }
     }, []);
+
+    const openlink = (value) => {
+        document.getElementById("eptitleplace").textContent = `EP ${value}`;
+
+        if (sourceType === "yt") {
+            setIframeSrc(`https://www.youtube.com/embed/${videoLinks[value - 1]}`);
+        } else if (sourceType === "gdrive") {
+            setIframeSrc(`https://drive.google.com/file/d/${videoLinks[value - 1]}/preview`);
+        } else if (sourceType === "archive") {
+            plyrIo(value);
+        }
+    }
+
+    const plyrIo = (value) => {
+        if (player) {
+            player.handleButtonClick(videoLinks[value - 1]);
+        }
+    }
 
     return (
         <div className="playerpage">
@@ -241,13 +253,10 @@ function PlayerSection() {
                 </div>
             </div>
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
-                {sourceType === 'archive' ? plyrIo() : (
-                    <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
-                )}
-                {sourceType === 'gdrive' && (
-                    <div id="overlay" onClick={(e) => {
-                        e.preventDefault();
-                    }}></div>
+                {sourceType === 'archive' ? (
+                    player && player
+                ) : (
+                    <iframe id="iframeplayer" src={iframeSrc} allowFullScreen={true} scrolling="no" style={{ minHeight: '0px' }}></iframe>
                 )}
             </div>
             <div id="lowerplayerpage">
