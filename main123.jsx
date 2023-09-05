@@ -78,43 +78,43 @@ function showMore() {
 
 class VideoPlayer extends React.Component {
     constructor(props) {
-      super(props);
-      this.videoRef = React.createRef();
-      this.state = {
-        videoSrc: props.videoSources[props.currentEpisode - 1]
-      };
+        super(props);
+        this.videoRef = React.createRef();
+        this.state = {
+            videoSrc: props.videoSources[props.currentEpisode - 1]
+        };
     }
-  
+
     componentDidMount() {
-      this.player = new Plyr(this.videoRef.current, {});
+        this.player = new Plyr(this.videoRef.current, {});
     }
-  
+
     componentWillUnmount() {
-      this.player.destroy();
+        this.player.destroy();
     }
-  
+
     componentDidUpdate(prevProps) {
-      if (prevProps.currentEpisode !== this.props.currentEpisode) {
-        this.setState({
-          videoSrc: this.props.videoSources[this.props.currentEpisode - 1]
-        });
-      }
+        if (prevProps.currentEpisode !== this.props.currentEpisode) {
+            this.setState({
+                videoSrc: this.props.videoSources[this.props.currentEpisode - 1]
+            });
+        }
     }
-  
+
     restartVideo = () => {
-      if (this.player) {
-        this.player.restart();
-      }
+        if (this.player) {
+            this.player.restart();
+        }
     };
-  
+
     render() {
-      return (
-        <div>
-          <video ref={this.videoRef} src={this.state.videoSrc} controls></video>
-        </div>
-      );
+        return (
+            <div>
+                <video ref={this.videoRef} src={this.state.videoSrc} controls></video>
+            </div>
+        );
     }
-  }
+}
 
 function PlayerSection() {
     let postTitle = document.querySelector('.info .title').textContent;
@@ -291,7 +291,13 @@ function PlayerSection() {
             </div>
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
                 {sourceType === 'archive' ? (
-                    <VideoPlayer videoSources={videoLinks} currentEpisode={currentEpisode} />
+                    <VideoPlayer
+                        ref={ref => {
+                            videoPlayerRef.current = ref;
+                        }}
+                        videoSources={videoLinks}
+                        currentEpisode={currentEpisode}
+                    />
                 ) : (
                     <iframe id="iframeplayer" src={iframeSrc} allowFullScreen={true} scrolling="no" style={{ minHeight: '0px' }}></iframe>
                 )}
