@@ -238,6 +238,7 @@ function PlayerSection() {
     const plyrIo = (value) => {
         if (player) {
             player.setState({ videoSrc: videoLinks[value - 1] });
+            console.log(value);
         }
     }
     return (
