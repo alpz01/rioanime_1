@@ -212,16 +212,17 @@ function PlayerSection() {
     }
 
     React.useEffect(() => {
+        openlink(currentEpisode);
+    }, [currentEpisode]);
+
+    React.useEffect(() => {
         if (sourceType === "archive") {
             const playerInstance = new VideoPlayer({
                 videoSources: videoLinks,
             });
             setPlayer(playerInstance);
-        } else {
-            openlink(1);
         }
     }, []);
-
     const openlink = (value) => {
         document.getElementById("eptitleplace").textContent = `EP ${value}`;
 
@@ -236,10 +237,9 @@ function PlayerSection() {
 
     const plyrIo = (value) => {
         if (player) {
-            player.handleButtonClick(videoLinks[value - 1]);
+            player.setState({ videoSrc: videoLinks[value - 1] });
         }
     }
-
     return (
         <div className="playerpage">
             <div className="subpart eptitle">
@@ -266,7 +266,7 @@ function PlayerSection() {
             </div>
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
                 {sourceType === 'archive' ? (
-                    player && player
+                    <VideoPlayer videoSources={videoLinks} />
                 ) : (
                     <iframe id="iframeplayer" src={iframeSrc} allowFullScreen={true} scrolling="no" style={{ minHeight: '0px' }}></iframe>
                 )}
