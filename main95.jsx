@@ -75,38 +75,43 @@ const openlink = (value) => {
     } else if (sourceType === "gdrive") {
         iframe.src = `https://drive.google.com/file/d/${videoLinks[value - 1]}/preview`;
     } else if (sourceType === "archive") {
-        playerIO();
-        let video = document.querySelector("#player");
-        let source = video.querySelector("source");
-        source.src = videoLinks[value - 1];
-        video.load();
+        plyrIo(value);
     }
 }
 
+class VideoPlayer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.videoRef = React.createRef();
+        this.state = { videoSrc: props.videoSources[0] };
+    }
 
-const playerIO = () => {
-    const controls = [
-        'play-large', // The large play button in the center
-        //'restart', 
-        'rewind', // Rewind by the seek time (default 10 seconds)
-        'play', // Play/pause playback
-        'fast-forward', // Fast forward by the seek time (default 10 seconds)
-        'progress', // The progress bar and scrubber for playback and buffering
-        'current-time', // The current time of playback
-        'duration', // The full duration of the media
-        'mute', // Toggle mute
-        'volume', // Volume control
-        'captions', // Toggle captions
-        //'settings',
-        'pip', // Picture-in-picture (currently Safari only)
-        'airplay', // Airplay (currently Safari only)
-        //'download',
-        'fullscreen' // Toggle fullscreen
-    ];
+    componentDidMount() {
+        this.player = new Plyr(this.videoRef.current, {});
+    }
 
-    const player = Plyr.setup('#player', { controls });
+    componentWillUnmount() {
+        this.player.destroy();
+    }
+
+    handleButtonClick = (videoSrc) => {
+        this.setState({ videoSrc });
+    };
+
+    render() {
+        const { videoSources } = this.props;
+        return (
+            <div>
+                <video ref={this.videoRef} src={this.state.videoSrc} controls></video>
+            </div>
+        );
+    }
 }
 
+const plyrIo = (value) => {
+    return <VideoPlayer videoSources={[videoLinks[value - 1]]} />;
+  };
+  
 function generateButton(btnEpNum) {
     let buttons = [];
     for (let i = 0; i < btnEpNum; i++) {
@@ -124,16 +129,12 @@ function showMore() {
     const info = document.querySelector('#info');
     const animeBtn2 = document.getElementById('animebtn2');
 
-    if (info.style.display === 'block') {
-        info.style.display = 'none';
-        animeBtn2.textContent = 'More info';
-        hidecomment.style.margin = '1.66rem 0';
-    } else {
-        info.style.display = 'block';
-        animeBtn2.textContent = 'Less info';
-        hidecomment.style.margin = '0';
-    }
-};
+    const isInfoVisible = info.style.display === 'block';
+    info.style.display = isInfoVisible ? 'none' : 'block';
+    animeBtn2.textContent = isInfoVisible ? 'More info' : 'Less info';
+    hidecomment.style.margin = isInfoVisible ? '1.66rem 0' : '0';
+}
+
 
 function PlayerSection() {
     let postTitle = document.querySelector('.info .title').textContent;
@@ -240,11 +241,7 @@ function PlayerSection() {
                 </div>
             </div>
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
-                {sourceType === 'archive' ? (
-                    <video controls="" crossOrigin="" playsInline="" poster="" id="player">
-                        <source src="" type="video/mp4" accesscontrolalloworigin="true" />
-                    </video>
-                ) : (
+                {sourceType === 'archive' ? plyrIo(1) : (
                     <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
                 )}
                 {sourceType === 'gdrive' && (
