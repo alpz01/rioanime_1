@@ -120,7 +120,6 @@ function PlayerSection() {
     const [currentEpisode, setCurrentEpisode] = React.useState(1);
     const [player, setPlayer] = React.useState(null);
 
-
     const openiframe = (event) => {
         if (event.target.matches('.playbutton')) {
             // Re-enable all buttons
@@ -186,24 +185,28 @@ function PlayerSection() {
         }
     }
 
-    let isRealoded = false;
+    const [isReloaded, setReloaded] = React.useState(false);
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
         const iframe = document.getElementById('iframeplayer');
 
-        if (!isRealoded) {
-            const tempSrc = iframe.src;
-            iframe.src = "";
-            notif.style.display = 'block';
-            notif.textContent = "Reloading";
-            iframe.src = tempSrc;
-            setTimeout(() => {
-                notif.style.display = 'none';
-            }, 2000);
-            isRealoded = true;
-            setTimeout(() => {
-                isRealoded = false;
-            }, 10000);
+        if (!isReloaded) {
+            if (sourceType === "archive" && player) {
+                player.restart();
+            } else {
+                const tempSrc = iframe.src;
+                iframe.src = "";
+                notif.style.display = 'block';
+                notif.textContent = "Reloading";
+                iframe.src = tempSrc;
+                setTimeout(() => {
+                    notif.style.display = 'none';
+                }, 2000);
+                setReloaded(true);
+                setTimeout(() => {
+                    setReloaded(false);
+                }, 10000);
+            }
         } else {
             notif.style.display = 'block';
             notif.textContent = "Don't Spam";
@@ -211,7 +214,7 @@ function PlayerSection() {
                 notif.style.display = 'none';
             }, 2000);
         }
-    }
+    };
 
     function generateButton(btnEpNum) {
         let buttons = [];
