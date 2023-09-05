@@ -158,6 +158,18 @@ function PlayerSection() {
         }
     }
 
+    function generateButton(btnEpNum) {
+        let buttons = [];
+        for (let i = 0; i < btnEpNum; i++) {
+            if (i == 0) {
+                buttons.push(<button key={i} className="playbutton btn btn-primary" disabled={true} onClick={openiframe}>{i + 1}</button>);
+            } else {
+                buttons.push(<button key={i} className="playbutton btn btn-primary" onClick={openiframe}>{i + 1}</button>);
+            }
+        }
+        return buttons;
+    }
+
     function postGenres() {
         const genresSpan = document.getElementById('postDGenre');
         const genreLinks = genresSpan.getElementsByTagName('a');
@@ -301,7 +313,7 @@ function PlayerSection() {
                         <br /><br /><br />Try clear cache &amp; make sure your browser extension not block javascript<br /><br /><br />
                     </span>
                 </div>
-                <div id="epslistplace">
+                <div id="epslistplace" onClick={openiframe}>
                     {generateButton(btnEpNum)}
                 </div>
                 <div id="flexbottom">
