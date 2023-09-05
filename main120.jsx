@@ -65,50 +65,45 @@ function generateButton(btnEpNum) {
     return buttons;
 }
 
-function showMore() {
-    let hidecomment = document.querySelector('#comments');
-    const info = document.querySelector('#info');
-    const animeBtn2 = document.getElementById('animebtn2');
-
-    const isInfoVisible = info.style.display === 'block';
-    info.style.display = isInfoVisible ? 'none' : 'block';
-    animeBtn2.textContent = isInfoVisible ? 'More info' : 'Less info';
-    hidecomment.style.margin = isInfoVisible ? '1.66rem 0' : '0';
-}
-
 class VideoPlayer extends React.Component {
     constructor(props) {
-        super(props);
-        this.videoRef = React.createRef();
-        this.state = {
-            videoSrc: props.videoSources[props.currentEpisode - 1]
-        };
+      super(props);
+      this.videoRef = React.createRef();
+      this.state = {
+        videoSrc: props.videoSources[props.currentEpisode - 1]
+      };
     }
-
+  
     componentDidMount() {
-        this.player = new Plyr(this.videoRef.current, {});
+      this.player = new Plyr(this.videoRef.current, {});
     }
-
+  
     componentWillUnmount() {
-        this.player.destroy();
+      this.player.destroy();
     }
-
+  
     componentDidUpdate(prevProps) {
-        if (prevProps.currentEpisode !== this.props.currentEpisode) {
-            this.setState({
-                videoSrc: this.props.videoSources[this.props.currentEpisode - 1]
-            });
-        }
+      if (prevProps.currentEpisode !== this.props.currentEpisode) {
+        this.setState({
+          videoSrc: this.props.videoSources[this.props.currentEpisode - 1]
+        });
+      }
     }
-
+  
+    restartVideo = () => {
+      if (this.player) {
+        this.player.restart();
+      }
+    };
+  
     render() {
-        return (
-            <div>
-                <video ref={this.videoRef} src={this.state.videoSrc} controls></video>
-            </div>
-        );
+      return (
+        <div>
+          <video ref={this.videoRef} src={this.state.videoSrc} controls></video>
+        </div>
+      );
     }
-}
+  }
 
 function PlayerSection() {
     let postTitle = document.querySelector('.info .title').textContent;
@@ -186,15 +181,17 @@ function PlayerSection() {
     }
 
     const [isReloaded, setReloaded] = React.useState(false);
+    const videoPlayerRef = React.useRef(null);
+    
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
         const iframe = document.getElementById('iframeplayer');
-
+    
         if (!isReloaded) {
             if (sourceType === "archive" && player) {
                 console.log("working");
                 console.log(player);
-                player.restart();
+                videoPlayerRef.current.restartVideo();
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
@@ -217,7 +214,7 @@ function PlayerSection() {
             }, 2000);
         }
     };
-
+    
     function generateButton(btnEpNum) {
         let buttons = [];
         for (let i = 0; i < btnEpNum; i++) {
