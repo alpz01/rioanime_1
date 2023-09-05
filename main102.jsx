@@ -78,32 +78,29 @@ function showMore() {
 
 class VideoPlayer extends React.Component {
     constructor(props) {
-        super(props);
-        this.videoRef = React.createRef();
-        this.state = { videoSrc: props.videoSources[0] };
+      super(props);
+      this.videoRef = React.createRef();
+      this.state = {
+        videoSrc: props.videoSources[props.currentEpisode - 1]
+      };
     }
-
+  
     componentDidMount() {
-        this.player = new Plyr(this.videoRef.current, {});
+      this.player = new Plyr(this.videoRef.current, {});
     }
-
+  
     componentWillUnmount() {
-        this.player.destroy();
+      this.player.destroy();
     }
-
-    handleButtonClick = (videoSrc) => {
-        this.setState({ videoSrc });
-    };
-
+  
     render() {
-        const { videoSources } = this.props;
-        return (
-            <div>
-                <video ref={this.videoRef} src={this.state.videoSrc} controls></video>
-            </div>
-        );
+      return (
+        <div>
+          <video ref={this.videoRef} src={this.state.videoSrc} controls></video>
+        </div>
+      );
     }
-}
+  }
 
 function PlayerSection() {
     let postTitle = document.querySelector('.info .title').textContent;
@@ -267,7 +264,7 @@ function PlayerSection() {
             </div>
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
                 {sourceType === 'archive' ? (
-                    <VideoPlayer videoSources={videoLinks} />
+                    <VideoPlayer videoSources={videoLinks} currentEpisode={currentEpisode} />
                 ) : (
                     <iframe id="iframeplayer" src={iframeSrc} allowFullScreen={true} scrolling="no" style={{ minHeight: '0px' }}></iframe>
                 )}
