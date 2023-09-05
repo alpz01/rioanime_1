@@ -191,7 +191,7 @@ function PlayerSection() {
         const iframe = document.getElementById('iframeplayer');
 
         if (!isReloaded) {
-            if (sourceType === "archive") {
+            if (sourceType === "archive" && player) {
                 console.log("working");
             } else {
                 const tempSrc = iframe.src;
