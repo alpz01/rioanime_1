@@ -191,7 +191,7 @@ function PlayerSection() {
         const iframe = document.getElementById('iframeplayer');
 
         if (!isReloaded) {
-            if (sourceType === "archive" && player && typeof player.restart === 'function') {
+            if (sourceType === "archive") {
                 player.restart();
                 console.log("working");
             } else {
