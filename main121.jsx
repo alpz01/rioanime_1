@@ -65,6 +65,17 @@ function generateButton(btnEpNum) {
     return buttons;
 }
 
+function showMore() {
+    let hidecomment = document.querySelector('#comments');
+    const info = document.querySelector('#info');
+    const animeBtn2 = document.getElementById('animebtn2');
+
+    const isInfoVisible = info.style.display === 'block';
+    info.style.display = isInfoVisible ? 'none' : 'block';
+    animeBtn2.textContent = isInfoVisible ? 'More info' : 'Less info';
+    hidecomment.style.margin = isInfoVisible ? '1.66rem 0' : '0';
+}
+
 class VideoPlayer extends React.Component {
     constructor(props) {
       super(props);
