@@ -200,10 +200,8 @@ function PlayerSection() {
         if (!isReloaded) {
             if (sourceType === "archive" && player) {
                 console.log("working");
-                console.log(player);
-                if (videoPlayerRef.current) {
-                    videoPlayerRef.current.restartVideo();
-                }
+                console.log(player);       
+                videoPlayerRef.current.restartVideo();        
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
