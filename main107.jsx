@@ -78,29 +78,37 @@ function showMore() {
 
 class VideoPlayer extends React.Component {
     constructor(props) {
-      super(props);
-      this.videoRef = React.createRef();
-      this.state = {
-        videoSrc: props.videoSources[props.currentEpisode - 1]
-      };
+        super(props);
+        this.videoRef = React.createRef();
+        this.state = {
+            videoSrc: props.videoSources[props.currentEpisode - 1]
+        };
     }
-  
+
     componentDidMount() {
-      this.player = new Plyr(this.videoRef.current, {});
+        this.player = new Plyr(this.videoRef.current, {});
     }
-  
+
     componentWillUnmount() {
-      this.player.destroy();
+        this.player.destroy();
     }
-  
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.currentEpisode !== this.props.currentEpisode) {
+            this.setState({
+                videoSrc: this.props.videoSources[this.props.currentEpisode - 1]
+            });
+        }
+    }
+
     render() {
-      return (
-        <div>
-          <video ref={this.videoRef} src={this.state.videoSrc} controls></video>
-        </div>
-      );
+        return (
+            <div>
+                <video ref={this.videoRef} src={this.state.videoSrc} controls></video>
+            </div>
+        );
     }
-  }
+}
 
 function PlayerSection() {
     let postTitle = document.querySelector('.info .title').textContent;
@@ -111,6 +119,56 @@ function PlayerSection() {
     const [iframeSrc, setIframeSrc] = React.useState("");
     const [currentEpisode, setCurrentEpisode] = React.useState(1);
     const [player, setPlayer] = React.useState(null);
+
+
+    const openiframe = (event) => {
+        if (event.target.matches('.playbutton')) {
+            // Re-enable all buttons
+            const buttons = document.querySelectorAll('.playbutton');
+            buttons.forEach((button) => {
+                button.disabled = false;
+            });
+
+            // Disable the clicked button
+            const value = event.target.textContent;
+            setCurrentEpisode(value);
+            event.target.disabled = true;
+        }
+    }
+
+    React.useEffect(() => {
+        openlink(currentEpisode);
+    }, [currentEpisode]);
+
+    React.useEffect(() => {
+        if (sourceType === "archive") {
+            const playerInstance = new VideoPlayer({
+                videoSources: videoLinks,
+            });
+            setPlayer(playerInstance);
+        }
+    }, []);
+
+    const openlink = (value) => {
+        document.getElementById("eptitleplace").textContent = `EP ${value}`;
+
+        if (sourceType === "yt") {
+            setIframeSrc(`https://www.youtube.com/embed/${videoLinks[value - 1]}`);
+        } else if (sourceType === "gdrive") {
+            setIframeSrc(`https://drive.google.com/file/d/${videoLinks[value - 1]}/preview`);
+        } else if (sourceType === "archive") {
+            plyrIo(value);
+        }
+    }
+
+    const plyrIo = (value) => {
+        if (player) {
+            player.setState({
+                videoSrc: player.props.videoSources[value - 1]
+            });
+            console.log(value);
+        }
+    };
 
     const followToggle = () => {
         const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
@@ -193,51 +251,6 @@ function PlayerSection() {
         return streamType;
     }
 
-    const openiframe = (event) => {
-        if (event.target.matches('.playbutton')) {
-            // Re-enable all buttons
-            const buttons = document.querySelectorAll('.playbutton');
-            buttons.forEach((button) => {
-                button.disabled = false;
-            });
-
-            // Disable the clicked button
-            const value = event.target.textContent;
-            setCurrentEpisode(value);
-            event.target.disabled = true;
-        }
-    }
-
-    React.useEffect(() => {
-        openlink(currentEpisode);
-    }, [currentEpisode]);
-
-    React.useEffect(() => {
-        if (sourceType === "archive") {
-            const playerInstance = new VideoPlayer({
-                videoSources: videoLinks,
-            });
-            setPlayer(playerInstance);
-        }
-    }, []);
-    const openlink = (value) => {
-        document.getElementById("eptitleplace").textContent = `EP ${value}`;
-
-        if (sourceType === "yt") {
-            setIframeSrc(`https://www.youtube.com/embed/${videoLinks[value - 1]}`);
-        } else if (sourceType === "gdrive") {
-            setIframeSrc(`https://drive.google.com/file/d/${videoLinks[value - 1]}/preview`);
-        } else if (sourceType === "archive") {
-            plyrIo(value);
-        }
-    }
-
-    const plyrIo = (value) => {
-        if (player) {
-            player.setState({ videoSrc: videoLinks[value - 1] });
-            console.log(value);
-        }
-    }
     return (
         <div className="playerpage">
             <div className="subpart eptitle">
