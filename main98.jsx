@@ -301,7 +301,7 @@ function PlayerSection() {
                         <br /><br /><br />Try clear cache &amp; make sure your browser extension not block javascript<br /><br /><br />
                     </span>
                 </div>
-                <div id="epslistplace" onClick={openiframe}>
+                <div id="epslistplace">
                     {generateButton(btnEpNum)}
                 </div>
                 <div id="flexbottom">
