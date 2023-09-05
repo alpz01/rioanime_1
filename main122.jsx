@@ -193,16 +193,17 @@ function PlayerSection() {
 
     const [isReloaded, setReloaded] = React.useState(false);
     const videoPlayerRef = React.useRef(null);
-    
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
         const iframe = document.getElementById('iframeplayer');
-    
+
         if (!isReloaded) {
             if (sourceType === "archive" && player) {
                 console.log("working");
                 console.log(player);
-                videoPlayerRef.current.restartVideo();
+                if (videoPlayerRef.current) {
+                    videoPlayerRef.current.restartVideo();
+                }
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
@@ -225,7 +226,7 @@ function PlayerSection() {
             }, 2000);
         }
     };
-    
+
     function generateButton(btnEpNum) {
         let buttons = [];
         for (let i = 0; i < btnEpNum; i++) {
