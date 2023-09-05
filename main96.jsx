@@ -241,7 +241,7 @@ function PlayerSection() {
                 </div>
             </div>
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
-                {sourceType === 'archive' ? plyrIo(1) : (
+                {sourceType === 'archive' ? plyrIo() : (
                     <iframe id="iframeplayer" allowFullScreen={true} scrolling="no" src="" style={{ minHeight: '0px' }}></iframe>
                 )}
                 {sourceType === 'gdrive' && (
