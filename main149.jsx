@@ -14,6 +14,8 @@ const updatecheck = () => {
 }
 
 const displayCountdown = (notifMessage, setNotifMessage, callback) => {
+    const notif = document.getElementById('notifprompt');
+    notif.style.display = "block";
     let counter = 8;
     const intervalId = setInterval(() => {
         if (counter >= 5) {
@@ -30,6 +32,7 @@ const displayCountdown = (notifMessage, setNotifMessage, callback) => {
             setNotifMessage("Awesome!");
             setTimeout(() => {
                 setNotifMessage("");
+                notif.style.display = "block";
                 callback();
             }, 1000);
         }
@@ -174,7 +177,6 @@ function PlayerSection() {
         }
     }
 
-    const [isReloaded, setReloaded] = React.useState(false);
     const showNotification = (message, duration = 2000) => {
         setNotifMessage(message);
         const notif = document.getElementById('notifprompt');
@@ -184,6 +186,7 @@ function PlayerSection() {
         }, duration);
     };
 
+    const [isReloaded, setReloaded] = React.useState(false);
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
         const iframe = document.getElementById('iframeplayer');
