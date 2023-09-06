@@ -64,19 +64,42 @@ function showMore() {
     hidecomment.style.margin = isInfoVisible ? '1.66rem 0' : '0';
 }
 
-function Notification({ message }) {
-    const [isVisible, setIsVisible] = React.useState(false);
-    console.log(message);
-    React.useEffect(() => {
+class Notification extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isVisible: false
+        };
+    }
+
+    componentDidMount() {
+        const { message } = this.props;
         if (message) {
-            setIsVisible(true);
+            this.setState({ isVisible: true });
             setTimeout(() => {
-                setIsVisible(false);
+                this.setState({ isVisible: false });
             }, 2000);
         }
-    }, [message]);
+    }
 
-    return isVisible ? <div>{message}</div> : null;
+    componentDidUpdate(prevProps) {
+        const { message } = this.props;
+        if (message !== prevProps.message) {
+            if (message) {
+                this.setState({ isVisible: true });
+                setTimeout(() => {
+                    this.setState({ isVisible: false });
+                }, 2000);
+            }
+        }
+    }
+
+    render() {
+        const { message } = this.props;
+        const { isVisible } = this.state;
+
+        return isVisible ? <div>{message}</div> : null;
+    }
 }
 
 class VideoPlayer extends React.Component {
