@@ -15,14 +15,14 @@ const updatecheck = () => {
 
 const displayCountdown = (notifMessage, setNotifMessage, callback) => {
     const notif = document.getElementById("notifprompt");
-    notif.style.display = "block";
-    let counter = 10;
+    notif.style.display = "Downloading Setup ...";
+    let counter = 8;
     const intervalId = setInterval(() => {
         if (counter >= 7) {
             setNotifMessage(`Please wait ... ${counter}`);
         } else if (counter >= 6) {
             setNotifMessage(`Getting Ready!!! ${counter}`);
-        } else if (counter >= 3) {
+        } else if (counter >= 2) {
             setNotifMessage(`Let's Go!!! ${counter}`);
         }
         counter--;
