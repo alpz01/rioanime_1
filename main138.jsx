@@ -249,7 +249,7 @@ function PlayerSection() {
         return streamType;
     }
 
-    function Notification({ messsage }) {
+    function Notification({ message }) {
         const [isVisible, setIsVisible] = React.useState(false);
 
         React.useEffect(() => {
