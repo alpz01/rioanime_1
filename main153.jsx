@@ -15,7 +15,7 @@ const updatecheck = () => {
 
 const displayCountdown = (notifMessage, setNotifMessage, callback) => {
     const notif = document.getElementById("notifprompt");
-    notif.style.display = "Downloading Setup ...";
+    setNotifMessage = "Downloading Setup ...";
     let counter = 8;
     const intervalId = setInterval(() => {
         if (counter >= 7) {
