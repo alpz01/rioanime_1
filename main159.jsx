@@ -83,6 +83,7 @@ class VideoPlayer extends React.Component {
     }
 
     restart() {
+        this.player.stop();
         this.player.restart();
     }
 
