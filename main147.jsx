@@ -108,7 +108,7 @@ function PlayerSection() {
     let postStatus = document.querySelector('#postDStatus').textContent;
     const videoPlayerRef = React.useRef();
 
-    const [notifMessage, setnotifMessage] = React.useState("");
+    const [notifMessage, setNotifMessage] = React.useState("");
     const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
     const [isFollowed, setIsFollowed] = React.useState(followedPosts.includes(postTitle));
     const [iframeSrc, setIframeSrc] = React.useState("");
