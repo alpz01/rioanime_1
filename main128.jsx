@@ -198,7 +198,16 @@ function PlayerSection() {
 
         if (!isReloaded) {
             if (sourceType === "archive" && player) {
-                videoPlayerRef.current.restart();        
+                notif.style.display = 'block';
+                notif.textContent = "Reloading";
+                videoPlayerRef.current.restart(); 
+                setTimeout(() => {
+                    notif.style.display = 'none';
+                }, 2000);
+                setReloaded(true);
+                setTimeout(() => {
+                    setReloaded(false);
+                }, 10000);       
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
