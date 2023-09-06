@@ -122,6 +122,7 @@ function PlayerSection() {
             button.disabled = false;
         });
 
+        buttons[episodeNumber - 1].disabled = true;
         setCurrentEpisode(episodeNumber);
     };
 
