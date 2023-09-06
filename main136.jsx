@@ -114,15 +114,15 @@ function PlayerSection() {
     const [currentEpisode, setCurrentEpisode] = React.useState(1);
     const [player, setPlayer] = React.useState(null);
 
-    const handleButtonClick = (episodeNumber) => {
+    const handleButtonClick = (button, episodeNumber) => {
         // Re-enable all buttons
         const buttons = document.querySelectorAll('.playbutton');
-        console.log(buttons);
-        buttons.forEach((button) => {
-            button.disabled = false;
+        buttons.forEach((btn) => {
+            btn.disabled = false;
         });
 
-        buttons[episodeNumber - 1].disabled = true;
+        // Disable the clicked button
+        button.disabled = true;
         setCurrentEpisode(episodeNumber);
     };
 
@@ -223,7 +223,7 @@ function PlayerSection() {
                 <button
                     key={i}
                     className="playbutton btn btn-primary"
-                    disabled={i === 0} 
+                    disabled={i + 1 === currentEpisode}
                     onClick={(event) => onClick(event.target, i + 1)}
                 >
                     {i + 1}
@@ -231,10 +231,10 @@ function PlayerSection() {
             );
             buttons.push(button);
         }
-    
+
         return <>{buttons}</>;
     }
-    
+
     function postGenres() {
         const genresSpan = document.getElementById('postDGenre');
         const genreLinks = genresSpan.getElementsByTagName('a');
