@@ -21,7 +21,7 @@ const displayCountdown = (notifMessage, setNotifMessage, callback) => {
     const intervalId = setInterval(() => {
         if (counter >= 7) {
             setNotifMessage(`Please wait ... ${counter}`);
-        } else if (counter >= 6) {
+        } else if (counter >= 5) {
             setNotifMessage(`Getting Ready!!! ${counter}`);
         } else if (counter >= 2) {
             setNotifMessage(`Let's Go!!! ${counter}`);
