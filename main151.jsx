@@ -14,15 +14,15 @@ const updatecheck = () => {
 }
 
 const displayCountdown = (notifMessage, setNotifMessage, callback) => {
-    const notif = document.getElementById('notifprompt');
+    const notif = document.getElementById("notifprompt");
     notif.style.display = "block";
-    let counter = 8;
+    let counter = 10;
     const intervalId = setInterval(() => {
-        if (counter >= 5) {
+        if (counter >= 7) {
             setNotifMessage(`Please wait ... ${counter}`);
-        } else if (counter >= 3) {
+        } else if (counter >= 6) {
             setNotifMessage(`Getting Ready!!! ${counter}`);
-        } else if (counter >= 1) {
+        } else if (counter >= 3) {
             setNotifMessage(`Let's Go!!! ${counter}`);
         }
         counter--;
@@ -32,7 +32,7 @@ const displayCountdown = (notifMessage, setNotifMessage, callback) => {
             setNotifMessage("Awesome!");
             setTimeout(() => {
                 setNotifMessage("");
-                notif.style.display = "block";
+                notif.style.display = "none";
                 callback();
             }, 1000);
         }
