@@ -135,12 +135,15 @@ function PlayerSection() {
 
     const downloadVideo = () => {
         const iframe = document.getElementById("iframeplayer");
-
-        if (iframe.src.includes("drive.google.com")) {
-            displayCountdown(notifMessage, setNotifMessage, () => {
-                const id = iframe.src.split("/")[5];
-                location.href = `https://drive.google.com/u/0/uc?id=${id}&export=download`;
-            });
+        if (sourceType === "yt") {
+            if (iframe.src.includes("drive.google.com")) {
+                displayCountdown(notifMessage, setNotifMessage, () => {
+                    const id = iframe.src.split("/")[5];
+                    location.href = `https://drive.google.com/u/0/uc?id=${id}&export=download`;
+                });
+            }
+        } else {
+            showNotification("Not Applicable", 1500);
         }
     };
 
