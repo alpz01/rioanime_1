@@ -118,6 +118,7 @@ class VideoPlayer extends React.Component {
 function PlayerSection() {
     let postTitle = document.querySelector('.info .title').textContent;
     let postStatus = document.querySelector('#postDStatus').textContent;
+    const videoPlayerRef = React.useRef();
 
     const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
     const [isFollowed, setIsFollowed] = React.useState(followedPosts.includes(postTitle));
@@ -197,9 +198,7 @@ function PlayerSection() {
 
         if (!isReloaded) {
             if (sourceType === "archive" && player) {
-                console.log("working");
-                console.log(player); 
-                videoPlayerRef.current.restart();         
+                videoPlayerRef.current.restart();        
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
@@ -288,6 +287,7 @@ function PlayerSection() {
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
                 {sourceType === 'archive' ? (
                     <VideoPlayer
+                        ref={videoPlayerRef}
                         videoSources={videoLinks}
                         currentEpisode={currentEpisode}
                     />
