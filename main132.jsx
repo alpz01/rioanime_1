@@ -89,7 +89,7 @@ class VideoPlayer extends React.Component {
         }
     }
 
-    
+
     restart() {
         this.player.restart();
     }
@@ -114,18 +114,18 @@ function PlayerSection() {
     const [currentEpisode, setCurrentEpisode] = React.useState(1);
     const [player, setPlayer] = React.useState(null);
 
-    const handleButtonClick = (episodeNumber) => {
+    const handleButtonClick = (buttonElement, episodeNumber) => {
         // Re-enable all buttons
         const buttons = document.querySelectorAll('.playbutton');
         buttons.forEach((button) => {
             button.disabled = false;
         });
-        console.log(episodeNumber);
+
         // Disable the clicked button
-        buttons[episodeNumber - 1].disabled = true;
+        buttonElement.disabled = true;
         setCurrentEpisode(episodeNumber);
     };
-    
+
     React.useEffect(() => {
         openlink(currentEpisode);
     }, [currentEpisode]);
@@ -185,14 +185,14 @@ function PlayerSection() {
             if (sourceType === "archive" && player) {
                 notif.style.display = 'block';
                 notif.textContent = "Reloading";
-                videoPlayerRef.current.restart(); 
+                videoPlayerRef.current.restart();
                 setTimeout(() => {
                     notif.style.display = 'none';
                 }, 2000);
                 setReloaded(true);
                 setTimeout(() => {
                     setReloaded(false);
-                }, 10000);       
+                }, 10000);
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
@@ -219,17 +219,19 @@ function PlayerSection() {
     function ButtonGroup({ numberOfButtons, onClick }) {
         const buttons = [];
         for (let i = 0; i < numberOfButtons; i++) {
-            buttons.push(
+            const button = (
                 <button
                     key={i}
                     className="playbutton btn btn-primary"
                     disabled={i === 0}
-                    onClick={() => onClick(i + 1)}
+                    onClick={(event) => onClick(event.target, i + 1)}
                 >
                     {i + 1}
                 </button>
             );
+            buttons.push(button);
         }
+
         return <>{buttons}</>;
     }
 
