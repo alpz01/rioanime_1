@@ -25,6 +25,8 @@ const displayCountdown = (notifMessage, setNotifMessage, callback) => {
             setNotifMessage(`Getting Ready!!! ${counter}`);
         } else if (counter >= 2) {
             setNotifMessage(`Let's Go!!! ${counter}`);
+        } else if (counter === 1) {
+            setNotifMessage(`Almost there!!! ${counter}`);
         }
         counter--;
 
