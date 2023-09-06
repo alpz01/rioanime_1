@@ -114,7 +114,7 @@ function PlayerSection() {
     const [currentEpisode, setCurrentEpisode] = React.useState(1);
     const [player, setPlayer] = React.useState(null);
 
-    const handleButtonClick = (buttonElement, episodeNumber) => {
+    const handleButtonClick = (episodeNumber) => {
         // Re-enable all buttons
         const buttons = document.querySelectorAll('.playbutton');
         buttons.forEach((button) => {
@@ -122,7 +122,7 @@ function PlayerSection() {
         });
 
         // Disable the clicked button
-        buttonElement.disabled = true;
+        buttons[episodeNumber - 1].disabled = true;
         setCurrentEpisode(episodeNumber);
     };
 
