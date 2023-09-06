@@ -64,6 +64,21 @@ function showMore() {
     hidecomment.style.margin = isInfoVisible ? '1.66rem 0' : '0';
 }
 
+function Notification({ message }) {
+    const [isVisible, setIsVisible] = React.useState(false);
+
+    React.useEffect(() => {
+        if (message) {
+            setIsVisible(true);
+            setTimeout(() => {
+                setIsVisible(false);
+            }, 2000);
+        }
+    }, [message]);
+
+    return isVisible ? <div>{message}</div> : null;
+}
+
 class VideoPlayer extends React.Component {
     constructor(props) {
         super(props);
@@ -200,7 +215,7 @@ function PlayerSection() {
                 }, 10000);
             }
         } else {
-            setnotifMessage("Don't Spam")
+            setnotifMessage("Don't Spam");
         }
     };
 
@@ -247,21 +262,6 @@ function PlayerSection() {
         }
 
         return streamType;
-    }
-
-    function Notification({ message }) {
-        const [isVisible, setIsVisible] = React.useState(false);
-
-        React.useEffect(() => {
-            if (message) {
-                setIsVisible(true);
-                setTimeout(() => {
-                    setIsVisible(false);
-                }, 2000);
-            }
-        }, [message]);
-
-        return isVisible ? <div>{message}</div> : null;
     }
 
     return (
