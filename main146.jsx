@@ -178,41 +178,40 @@ function PlayerSection() {
     }
 
     const [isReloaded, setReloaded] = React.useState(false);
+    const showNotification = (message, duration = 2000) => {
+        setNotifMessage(message);
+        const notif = document.getElementById('notifprompt');
+        notif.style.display = 'block';
+        setTimeout(() => {
+            notif.style.display = 'none';
+        }, duration);
+    };
+
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
         const iframe = document.getElementById('iframeplayer');
 
         if (!isReloaded) {
             if (sourceType === "archive" && player) {
-                notif.style.display = 'block';
-                setnotifMessage("Restarting");
+                showNotification("Restarting");
                 videoPlayerRef.current.restart();
-                setTimeout(() => {
-                    notif.style.display = 'none';
-                }, 2000);
-                setReloaded(true);
-                setTimeout(() => {
-                    setReloaded(false);
-                }, 10000);
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
-                notif.style.display = 'block';
-                setnotifMessage("Reloading");
+                showNotification("Reloading");
                 console.log("Reloading");
-                setTimeout(() => {
-                    notif.style.display = 'none';
-                }, 2000);
-                setReloaded(true);
-                setTimeout(() => {
-                    setReloaded(false);
-                }, 10000);
             }
+
+            setReloaded(true);
+            setTimeout(() => {
+                setReloaded(false);
+            }, 10000);
         } else {
-            setnotifMessage("Don't Spam");
+            showNotification("Don't Spam");
             console.log("Don't Spam");
         }
     };
+
 
     function ButtonGroup({ numberOfButtons, onClick }) {
         const buttons = [];
