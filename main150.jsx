@@ -177,7 +177,7 @@ function PlayerSection() {
         }
     }
 
-    const showNotification = (message, duration = 2000) => {
+    const showNotification = (message, duration = 1000) => {
         setNotifMessage(message);
         const notif = document.getElementById('notifprompt');
         notif.style.display = 'block';
