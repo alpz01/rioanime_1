@@ -64,44 +64,6 @@ function showMore() {
     hidecomment.style.margin = isInfoVisible ? '1.66rem 0' : '0';
 }
 
-class Notification extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isVisible: false
-        };
-    }
-
-    componentDidMount() {
-        const { message } = this.props;
-        if (message) {
-            this.setState({ isVisible: true });
-            setTimeout(() => {
-                this.setState({ isVisible: false });
-            }, 2000);
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        const { message } = this.props;
-        if (message !== prevProps.message) {
-            if (message) {
-                this.setState({ isVisible: true });
-                setTimeout(() => {
-                    this.setState({ isVisible: false });
-                }, 2000);
-            }
-        }
-    }
-
-    render() {
-        const { message } = this.props;
-        const { isVisible } = this.state;
-
-        return isVisible ? <div>{message}</div> : null;
-    }
-}
-
 class VideoPlayer extends React.Component {
     constructor(props) {
         super(props);
@@ -222,8 +184,12 @@ function PlayerSection() {
 
         if (!isReloaded) {
             if (sourceType === "archive" && player) {
+                notif.style.display = 'block';
                 setnotifMessage("Restarting");
                 videoPlayerRef.current.restart();
+                setTimeout(() => {
+                    notif.style.display = 'none';
+                }, 2000);
                 setReloaded(true);
                 setTimeout(() => {
                     setReloaded(false);
@@ -231,8 +197,12 @@ function PlayerSection() {
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
+                notif.style.display = 'block';
                 setnotifMessage("Reloading");
                 console.log("Reloading");
+                setTimeout(() => {
+                    notif.style.display = 'none';
+                }, 2000);
                 setReloaded(true);
                 setTimeout(() => {
                     setReloaded(false);
@@ -381,7 +351,7 @@ function PlayerSection() {
                     </div>
                 </div>
             </div>
-            <div id="notifprompt"><Notification message={notifMessage} /></div>
+            <div id="notifprompt">{notifMessage}</div>
         </div>
     )
 }
