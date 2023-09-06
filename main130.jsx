@@ -120,7 +120,7 @@ function PlayerSection() {
         buttons.forEach((button) => {
             button.disabled = false;
         });
-    
+        console.log(episodeNumber);
         // Disable the clicked button
         buttons[episodeNumber - 1].disabled = true;
         setCurrentEpisode(episodeNumber);
