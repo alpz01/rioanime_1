@@ -108,6 +108,7 @@ function PlayerSection() {
     let postStatus = document.querySelector('#postDStatus').textContent;
     const videoPlayerRef = React.useRef();
 
+    const [notifMessage, setnotifMessage] = React.useState("");
     const followedPosts = JSON.parse(localStorage.getItem('rioAnimePostData')) || [];
     const [isFollowed, setIsFollowed] = React.useState(followedPosts.includes(postTitle));
     const [iframeSrc, setIframeSrc] = React.useState("");
@@ -183,12 +184,8 @@ function PlayerSection() {
 
         if (!isReloaded) {
             if (sourceType === "archive" && player) {
-                notif.style.display = 'block';
-                notif.textContent = "Reloading";
+                setnotifMessage("Restarting");
                 videoPlayerRef.current.restart();
-                setTimeout(() => {
-                    notif.style.display = 'none';
-                }, 2000);
                 setReloaded(true);
                 setTimeout(() => {
                     setReloaded(false);
@@ -196,23 +193,14 @@ function PlayerSection() {
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
-                notif.style.display = 'block';
-                notif.textContent = "Reloading";
-                iframe.src = tempSrc;
-                setTimeout(() => {
-                    notif.style.display = 'none';
-                }, 2000);
+                setnotifMessage("Reloading");
                 setReloaded(true);
                 setTimeout(() => {
                     setReloaded(false);
                 }, 10000);
             }
         } else {
-            notif.style.display = 'block';
-            notif.textContent = "Don't Spam";
-            setTimeout(() => {
-                notif.style.display = 'none';
-            }, 2000);
+            setnotifMessage("Don't Spam")
         }
     };
 
@@ -259,6 +247,21 @@ function PlayerSection() {
         }
 
         return streamType;
+    }
+
+    function Notification({ messsage }) {
+        const [isVisible, setIsVisible] = React.useState(false);
+
+        React.useEffect(() => {
+            if (message) {
+                setIsVisible(true);
+                setTimeout(() => {
+                    setIsVisible(false);
+                }, 2000);
+            }
+        }, [message]);
+
+        return isVisible ? <div>{message}</div> : null;
     }
 
     return (
@@ -353,7 +356,7 @@ function PlayerSection() {
                     </div>
                 </div>
             </div>
-            <div id="notifprompt">Don't Spam</div>
+            <div id="notifprompt"><Notification message={notifMessage} /></div>
         </div>
     )
 }
