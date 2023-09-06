@@ -101,6 +101,11 @@ class VideoPlayer extends React.Component {
         }
     }
 
+    
+    restart() {
+        this.player.restart();
+    }
+
     render() {
         return (
             <div>
@@ -186,7 +191,6 @@ function PlayerSection() {
     }
 
     const [isReloaded, setReloaded] = React.useState(false);
-    const videoPlayerRef = React.useRef(null);
     const reloadIframe = () => {
         const notif = document.getElementById('notifprompt');
         const iframe = document.getElementById('iframeplayer');
@@ -194,7 +198,8 @@ function PlayerSection() {
         if (!isReloaded) {
             if (sourceType === "archive" && player) {
                 console.log("working");
-                console.log(player);          
+                console.log(player); 
+                videoPlayerRef.current.restart();         
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
