@@ -53,18 +53,6 @@ const plyrIo = (value) => {
     return <VideoPlayer videoSources={[videoLinks[value - 1]]} />;
 };
 
-function generateButton(btnEpNum) {
-    let buttons = [];
-    for (let i = 0; i < btnEpNum; i++) {
-        if (i == 0) {
-            buttons.push(<button key={i} className="playbutton btn btn-primary" disabled={true} onClick={openiframe}>{i + 1}</button>);
-        } else {
-            buttons.push(<button key={i} className="playbutton btn btn-primary" onClick={openiframe}>{i + 1}</button>);
-        }
-    }
-    return buttons;
-}
-
 function showMore() {
     let hidecomment = document.querySelector('#comments');
     const info = document.querySelector('#info');
@@ -126,21 +114,18 @@ function PlayerSection() {
     const [currentEpisode, setCurrentEpisode] = React.useState(1);
     const [player, setPlayer] = React.useState(null);
 
-    const openiframe = (event) => {
-        if (event.target.matches('.playbutton')) {
-            // Re-enable all buttons
-            const buttons = document.querySelectorAll('.playbutton');
-            buttons.forEach((button) => {
-                button.disabled = false;
-            });
-
-            // Disable the clicked button
-            const value = event.target.textContent;
-            setCurrentEpisode(value);
-            event.target.disabled = true;
-        }
-    }
-
+    const handleButtonClick = (episodeNumber) => {
+        // Re-enable all buttons
+        const buttons = document.querySelectorAll('.playbutton');
+        buttons.forEach((button) => {
+            button.disabled = false;
+        });
+    
+        // Disable the clicked button
+        buttons[episodeNumber - 1].disabled = true;
+        setCurrentEpisode(episodeNumber);
+    };
+    
     React.useEffect(() => {
         openlink(currentEpisode);
     }, [currentEpisode]);
@@ -231,16 +216,21 @@ function PlayerSection() {
         }
     };
 
-    function generateButton(btnEpNum) {
-        let buttons = [];
-        for (let i = 0; i < btnEpNum; i++) {
-            if (i == 0) {
-                buttons.push(<button key={i} className="playbutton btn btn-primary" disabled={true} onClick={openiframe}>{i + 1}</button>);
-            } else {
-                buttons.push(<button key={i} className="playbutton btn btn-primary" onClick={openiframe}>{i + 1}</button>);
-            }
+    function ButtonGroup({ numberOfButtons, onClick }) {
+        const buttons = [];
+        for (let i = 0; i < numberOfButtons; i++) {
+            buttons.push(
+                <button
+                    key={i}
+                    className="playbutton btn btn-primary"
+                    disabled={i === 0}
+                    onClick={() => onClick(i + 1)}
+                >
+                    {i + 1}
+                </button>
+            );
         }
-        return buttons;
+        return <>{buttons}</>;
     }
 
     function postGenres() {
@@ -346,8 +336,8 @@ function PlayerSection() {
                         <br /><br /><br />Try clear cache &amp; make sure your browser extension not block javascript<br /><br /><br />
                     </span>
                 </div>
-                <div id="epslistplace" onClick={openiframe}>
-                    {generateButton(btnEpNum)}
+                <div id="epslistplace">
+                    <ButtonGroup numberOfButtons={btnEpNum} onClick={handleButtonClick} />
                 </div>
                 <div id="flexbottom">
                     <div id="bottomleft">
