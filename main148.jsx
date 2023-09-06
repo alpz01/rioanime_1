@@ -13,41 +13,28 @@ const updatecheck = () => {
     console.log('update check')
 }
 
-const displayCountdown = (callback) => {
-    const notifPrompt = document.getElementById("notifprompt");
-    notifPrompt.textContent = "";
+const displayCountdown = (notifMessage, setNotifMessage, callback) => {
     let counter = 8;
     const intervalId = setInterval(() => {
         if (counter >= 5) {
-            notifPrompt.textContent = `Please wait ... ${counter}`;
+            setNotifMessage(`Please wait ... ${counter}`);
         } else if (counter >= 3) {
-            notifPrompt.textContent = `Getting Ready!!! ${counter}`;
+            setNotifMessage(`Getting Ready!!! ${counter}`);
         } else if (counter >= 1) {
-            notifPrompt.textContent = `Let's Go!!! ${counter}`;
+            setNotifMessage(`Let's Go!!! ${counter}`);
         }
-        notifPrompt.style.display = "block";
         counter--;
+
         if (counter < 0) {
             clearInterval(intervalId);
-            notifPrompt.textContent = "Awesome!";
+            setNotifMessage("Awesome!");
             setTimeout(() => {
-                notifPrompt.style.display = "none";
+                setNotifMessage("");
                 callback();
             }, 1000);
         }
     }, 1000);
-}
-
-const downloadVideo = () => {
-    const iframe = document.getElementById("iframeplayer");
-
-    if (iframe.src.includes("drive.google.com")) {
-        displayCountdown(() => {
-            const id = iframe.src.split("/")[5];
-            location.href = `https://drive.google.com/u/0/uc?id=${id}&export=download`;
-        });
-    }
-}
+};
 
 const plyrIo = (value) => {
     return <VideoPlayer videoSources={[videoLinks[value - 1]]} />;
@@ -88,7 +75,6 @@ class VideoPlayer extends React.Component {
             });
         }
     }
-
 
     restart() {
         this.player.restart();
@@ -139,6 +125,17 @@ function PlayerSection() {
             setPlayer(playerInstance);
         }
     }, []);
+
+    const downloadVideo = () => {
+        const iframe = document.getElementById("iframeplayer");
+
+        if (iframe.src.includes("drive.google.com")) {
+            displayCountdown(notifMessage, setNotifMessage, () => {
+                const id = iframe.src.split("/")[5];
+                location.href = `https://drive.google.com/u/0/uc?id=${id}&export=download`;
+            });
+        }
+    };
 
     const openlink = (value) => {
         document.getElementById("eptitleplace").textContent = `EP ${value}`;
@@ -199,7 +196,7 @@ function PlayerSection() {
                 const tempSrc = iframe.src;
                 iframe.src = "";
                 showNotification("Reloading");
-                console.log("Reloading");
+                iframe.src = tempSrc;
             }
 
             setReloaded(true);
@@ -208,7 +205,6 @@ function PlayerSection() {
             }, 10000);
         } else {
             showNotification("Don't Spam");
-            console.log("Don't Spam");
         }
     };
 
@@ -354,7 +350,6 @@ function PlayerSection() {
         </div>
     )
 }
-
 
 const container = document.getElementById('playerSection');
 const root = ReactDOM.createRoot(container);
