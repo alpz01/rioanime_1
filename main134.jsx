@@ -117,12 +117,11 @@ function PlayerSection() {
     const handleButtonClick = (episodeNumber) => {
         // Re-enable all buttons
         const buttons = document.querySelectorAll('.playbutton');
+        console.log(buttons);
         buttons.forEach((button) => {
             button.disabled = false;
         });
 
-        // Disable the clicked button
-        buttons[episodeNumber - 1].disabled = true;
         setCurrentEpisode(episodeNumber);
     };
 
@@ -223,7 +222,7 @@ function PlayerSection() {
                 <button
                     key={i}
                     className="playbutton btn btn-primary"
-                    disabled={i === 0}
+                    disabled={i === 0} 
                     onClick={(event) => onClick(event.target, i + 1)}
                 >
                     {i + 1}
@@ -231,10 +230,10 @@ function PlayerSection() {
             );
             buttons.push(button);
         }
-
+    
         return <>{buttons}</>;
     }
-
+    
     function postGenres() {
         const genresSpan = document.getElementById('postDGenre');
         const genreLinks = genresSpan.getElementsByTagName('a');
