@@ -66,7 +66,7 @@ function showMore() {
 
 function Notification({ message }) {
     const [isVisible, setIsVisible] = React.useState(false);
-
+    console.log(message);
     React.useEffect(() => {
         if (message) {
             setIsVisible(true);
@@ -209,6 +209,7 @@ function PlayerSection() {
                 const tempSrc = iframe.src;
                 iframe.src = "";
                 setnotifMessage("Reloading");
+                console.log("Reloading");
                 setReloaded(true);
                 setTimeout(() => {
                     setReloaded(false);
@@ -216,6 +217,7 @@ function PlayerSection() {
             }
         } else {
             setnotifMessage("Don't Spam");
+            console.log("Don't Spam");
         }
     };
 
