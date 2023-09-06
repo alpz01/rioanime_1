@@ -101,12 +101,6 @@ class VideoPlayer extends React.Component {
         }
     }
 
-    restartVideo = () => {
-        if (this.player) {
-            this.player.restart();
-        }
-    };
-
     render() {
         return (
             <div>
@@ -200,8 +194,7 @@ function PlayerSection() {
         if (!isReloaded) {
             if (sourceType === "archive" && player) {
                 console.log("working");
-                console.log(player);       
-                videoPlayerRef.current.restartVideo();        
+                console.log(player);          
             } else {
                 const tempSrc = iframe.src;
                 iframe.src = "";
@@ -290,9 +283,6 @@ function PlayerSection() {
             <div id="iframecontainer" className={sourceType === 'yt' || sourceType === 'gdrive' ? 'responYt' : ''}>
                 {sourceType === 'archive' ? (
                     <VideoPlayer
-                        ref={ref => {
-                            videoPlayerRef.current = ref;
-                        }}
                         videoSources={videoLinks}
                         currentEpisode={currentEpisode}
                     />
