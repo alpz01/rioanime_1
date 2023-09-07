@@ -89,7 +89,7 @@ class VideoPlayer extends React.Component {
             const notif = document.getElementById("notifprompt");
             notif.style.display = "block";
 
-            let counter = 4;
+            let counter = 5;
             this.props.setNotifMessage(`Next Video... ${counter}`);
             const intervalId = setInterval(() => {
                 counter--;
