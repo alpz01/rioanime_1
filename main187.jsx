@@ -163,7 +163,8 @@ function PlayerSection() {
     const [iframeSrc, setIframeSrc] = React.useState("");
     const [currentEpisode, setCurrentEpisode] = React.useState(1);
     const [player, setPlayer] = React.useState(null);
-    const [autoPlay, setAutoplay] = React.useState(false);
+    const [autoPlay, setAutoplay] = React.useState(localStorage.getItem("autoPlayPreference") === "on");
+    
 
     const handleButtonClick = (button, episodeNumber) => {
         // Re-enable all buttons
@@ -201,19 +202,17 @@ function PlayerSection() {
             showNotification("Not Applicable", 1500);
         }
     };
-
-    const [switchAutoPlay, setSwitchAutoPlay] = React.useState(true);
-
+    
     const autoPlayVideo = () => {
         if (sourceType === "archive") {
-            if (switchAutoPlay) {
+            if (!autoPlay) {
                 showNotification("AutoPlay On", 1000);
-                setSwitchAutoPlay(false);
                 setAutoplay(true);
+                localStorage.setItem("autoPlayPreference", "on");
             } else {
                 showNotification("AutoPlay Off", 1000);
-                setSwitchAutoPlay(true);
                 setAutoplay(false);
+                localStorage.setItem("autoPlayPreference", "off");
             }
         } else {
             showNotification("Not Applicable", 1500);
