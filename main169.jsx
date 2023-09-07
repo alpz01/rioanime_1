@@ -88,9 +88,9 @@ class VideoPlayer extends React.Component {
         // Show a notification with a countdown timer
         let timeLeft = 4;
         const intervalId = setInterval(() => {
+            timeLeft--;
             if (timeLeft > 0) {
                 this.props.showNotification(`Next Video... ${timeLeft}`, 1000);
-                timeLeft--;
             } else {
                 clearInterval(intervalId);
             }
