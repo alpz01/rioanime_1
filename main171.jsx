@@ -89,13 +89,14 @@ class VideoPlayer extends React.Component {
         notif.style.display = "block";
 
         let counter = 4;
+        setNotifMessage(`Next Video`);
         const intervalId = setInterval(() => {
-            notif.innerText = `Next Video... ${counter}`;
+            setNotifMessage(`Next Video... ${counter}`);
             counter--;
 
             if (counter === 0) {
                 clearInterval(intervalId);
-                notif.innerText = "Enjoy Watching!";
+                setNotifMessage( "Enjoy Watching!");
 
                 // Update the currentEpisode state to load the next video
                 this.props.setCurrentEpisode(this.props.currentEpisode + 1);
@@ -342,7 +343,7 @@ function PlayerSection() {
                         currentEpisode={currentEpisode}
                         autoPlay={autoPlay}
                         setCurrentEpisode={setCurrentEpisode}
-                        showNotification={showNotification}
+                        setNotifMessage={setNotifMessage}
                     />
                 ) : (
                     <iframe id="iframeplayer" src={iframeSrc} allowFullScreen={true} scrolling="no" style={{ minHeight: '0px' }}></iframe>
