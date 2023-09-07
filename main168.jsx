@@ -85,8 +85,16 @@ class VideoPlayer extends React.Component {
     }
 
     handleVideoEnd() {
-        // Show a notification
-        this.props.showNotification('Video has ended', 2000);
+        // Show a notification with a countdown timer
+        let timeLeft = 4;
+        const intervalId = setInterval(() => {
+            if (timeLeft > 0) {
+                this.props.showNotification(`Next Video... ${timeLeft}`, 1000);
+                timeLeft--;
+            } else {
+                clearInterval(intervalId);
+            }
+        }, 1000);
 
         // Add a delay before playing the next video
         setTimeout(() => {
@@ -105,7 +113,7 @@ class VideoPlayer extends React.Component {
                     nextButton.disabled = true;
                 }
             }
-        }, 2000);
+        }, 4000);
     }
 
     restart() {
