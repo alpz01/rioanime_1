@@ -61,15 +61,20 @@ class VideoPlayer extends React.Component {
         super(props);
         this.videoRef = React.createRef();
         this.state = {
-            videoSrc: props.videoSources[props.currentEpisode - 1]
+            videoSrc: props.videoSources[props.currentEpisode - 1],
         };
-        // Bind the this keyword of the handleVideoEnd method
         this.handleVideoEnd = this.handleVideoEnd.bind(this);
     }
 
     componentDidMount() {
         this.player = new Plyr(this.videoRef.current, {});
         this.player.on('ended', this.handleVideoEnd);
+
+        // Check if there is a stored time and set the video to that time
+        const storedTime = localStorage.getItem('videoTime');
+        if (storedTime) {
+            this.videoRef.current.currentTime = parseFloat(storedTime);
+        }
     }
 
     componentWillUnmount() {
@@ -79,15 +84,19 @@ class VideoPlayer extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.currentEpisode !== this.props.currentEpisode) {
             this.setState({
-                videoSrc: this.props.videoSources[this.props.currentEpisode - 1]
+                videoSrc: this.props.videoSources[this.props.currentEpisode - 1],
             });
         }
     }
 
     handleVideoEnd() {
+        if (!this.props.autoPlay) {
+            return;
+        }
+
         if (this.props.currentEpisode < this.props.videoSources.length) {
-            const notif = document.getElementById("notifprompt");
-            notif.style.display = "block";
+            const notif = document.getElementById('notifprompt');
+            notif.style.display = 'block';
 
             let counter = 5;
             this.props.setNotifMessage(`Next Video... ${counter}`);
@@ -97,30 +106,35 @@ class VideoPlayer extends React.Component {
                     this.props.setNotifMessage(`Next Video... ${counter}`);
                 } else {
                     clearInterval(intervalId);
-                    this.props.setNotifMessage("Enjoy Watching!");
+                    this.props.setNotifMessage('Enjoy Watching!');
                     setTimeout(() => {
-                        // Update the currentEpisode state to load the next video
                         this.props.setCurrentEpisode(this.props.currentEpisode + 1);
 
-                        // Update the UI
                         if (this.props.autoPlay) {
                             const buttons = document.querySelectorAll('.playbutton');
                             buttons.forEach((btn) => {
                                 btn.disabled = false;
                             });
 
-                            const nextButton = Array.from(buttons).find((btn) => btn.textContent === (this.props.currentEpisode + 1).toString());
+                            const nextButton = Array.from(buttons).find(
+                                (btn) => btn.textContent === (this.props.currentEpisode + 1).toString()
+                            );
                             if (nextButton) {
                                 nextButton.disabled = true;
                             }
                         }
                         setTimeout(() => {
-                            notif.style.display = "none";
+                            notif.style.display = 'none';
                         }, 1000);
                     }, 1000);
                 }
             }, 1000);
         }
+    }
+
+    handleVideoPause() {
+        // Store the current time of the video when it is paused
+        localStorage.setItem('videoTime', this.videoRef.current.currentTime.toString());
     }
 
     restart() {
@@ -131,7 +145,13 @@ class VideoPlayer extends React.Component {
     render() {
         return (
             <div>
-                <video ref={this.videoRef} src={this.state.videoSrc} controls autoPlay></video>
+                <video
+                    ref={this.videoRef}
+                    src={this.state.videoSrc}
+                    controls
+                    autoPlay
+                    onPause={() => this.handleVideoPause()}
+                ></video>
             </div>
         );
     }
@@ -164,16 +184,23 @@ function PlayerSection() {
 
     React.useEffect(() => {
         openlink(currentEpisode);
-    }, [currentEpisode]);
 
-    React.useEffect(() => {
         if (sourceType === "archive") {
             const playerInstance = new VideoPlayer({
                 videoSources: videoLinks,
             });
             setPlayer(playerInstance);
         }
-    }, []);
+
+        const savedPreference = localStorage.getItem("autoPlayPreference");
+        if (savedPreference === "on") {
+            setSwitchAutoPlay(true);
+            setAutoplay(true);
+        } else if (savedPreference === "off") {
+            setSwitchAutoPlay(false);
+            setAutoplay(false);
+        }
+    }, [currentEpisode, sourceType]);
 
     const downloadVideo = () => {
         const iframe = document.getElementById("iframeplayer");
@@ -189,13 +216,23 @@ function PlayerSection() {
         }
     };
 
+    const [switchAutoPlay, setSwitchAutoPlay] = React.useState(true);
     const autoPlayVideo = () => {
         if (sourceType === "archive") {
-            setAutoplay(true);
+            if (switchAutoPlay) {
+                showNotification("AutoPlay On", 1000);
+                setAutoplay(true);
+                localStorage.setItem("autoPlayPreference", "on");
+            } else {
+                showNotification("AutoPlay Off", 1000);
+                setAutoplay(false);
+                localStorage.setItem("autoPlayPreference", "off");
+            }
+            setSwitchAutoPlay(!switchAutoPlay);
         } else {
             showNotification("Not Applicable", 1500);
         }
-    }
+    };
 
     const openlink = (value) => {
         document.getElementById("eptitleplace").textContent = `EP ${value}`;
@@ -318,7 +355,7 @@ function PlayerSection() {
         <div className="playerpage">
             <div className="subpart eptitle">
                 <div id="eptitle"><span id="eptitleplace">EP 1</span><span className="altsourcenotif">
-                    {sourceType === 'yt' || sourceType === 'gdrive' ? 'External Player' : 'Internal Player'}
+                    {sourceType === 'archive' ? 'Internal Player' : 'External Player'}
                 </span></div>
                 <div id="toprightplayer">
                     <i className="fa-solid fa-repeat">
