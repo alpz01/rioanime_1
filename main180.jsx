@@ -146,7 +146,6 @@ class VideoPlayer extends React.Component {
                     src={this.state.videoSrc}
                     controls
                     autoPlay
-                    onPause={() => this.handleVideoPause()}
                 ></video>
             </div>
         );
