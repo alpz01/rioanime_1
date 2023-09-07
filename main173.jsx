@@ -85,39 +85,42 @@ class VideoPlayer extends React.Component {
     }
 
     handleVideoEnd() {
-        const notif = document.getElementById("notifprompt");
-        notif.style.display = "block";
+        if (this.props.currentEpisode < this.props.videoSources.length) {
+            const notif = document.getElementById("notifprompt");
+            notif.style.display = "block";
 
-        let counter = 4;
-        this.props.setNotifMessage(`Next Video`);
-        const intervalId = setInterval(() => {
+            let counter = 4;
             this.props.setNotifMessage(`Next Video... ${counter}`);
-            counter--;
+            const intervalId = setInterval(() => {
+                counter--;
+                if (counter > 0) {
+                    this.props.setNotifMessage(`Next Video... ${counter}`);
+                } else {
+                    clearInterval(intervalId);
+                    this.props.setNotifMessage("Enjoy Watching!");
+                    setTimeout(() => {
+                        // Update the currentEpisode state to load the next video
+                        this.props.setCurrentEpisode(this.props.currentEpisode + 1);
 
-            if (counter === 0) {
-                clearInterval(intervalId);
-                this.props.setNotifMessage("Enjoy Watching!");
+                        // Update the UI
+                        if (this.props.autoPlay) {
+                            const buttons = document.querySelectorAll('.playbutton');
+                            buttons.forEach((btn) => {
+                                btn.disabled = false;
+                            });
 
-                // Update the currentEpisode state to load the next video
-                this.props.setCurrentEpisode(this.props.currentEpisode + 1);
-
-                // Update the UI
-                if (this.props.autoPlay) {
-                    const buttons = document.querySelectorAll('.playbutton');
-                    buttons.forEach((btn) => {
-                        btn.disabled = false;
-                    });
-
-                    const nextButton = Array.from(buttons).find((btn) => btn.textContent === (this.props.currentEpisode + 1).toString());
-                    if (nextButton) {
-                        nextButton.disabled = true;
-                    }
+                            const nextButton = Array.from(buttons).find((btn) => btn.textContent === (this.props.currentEpisode + 1).toString());
+                            if (nextButton) {
+                                nextButton.disabled = true;
+                            }
+                        }
+                        setTimeout(() => {
+                            notif.style.display = "none";
+                        }, 1000);
+                    }, 1000);
                 }
-                setTimeout(() => {
-                    notif.style.display = "none";
-                }, 1000);
-            }
-        }, 1000);
+            }, 1000);
+        }
     }
 
     restart() {
