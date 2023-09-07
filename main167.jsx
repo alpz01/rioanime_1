@@ -85,21 +85,27 @@ class VideoPlayer extends React.Component {
     }
 
     handleVideoEnd() {
-        // Update the currentEpisode state to load the next video
-        this.props.setCurrentEpisode(this.props.currentEpisode + 1);
+        // Show a notification
+        this.props.showNotification('Video has ended', 2000);
 
-        // Update the UI
-        if (this.props.autoPlay) {
-            const buttons = document.querySelectorAll('.playbutton');
-            buttons.forEach((btn) => {
-                btn.disabled = false;
-            });
+        // Add a delay before playing the next video
+        setTimeout(() => {
+            // Update the currentEpisode state to load the next video
+            this.props.setCurrentEpisode(this.props.currentEpisode + 1);
 
-            const nextButton = Array.from(buttons).find((btn) => btn.textContent === (this.props.currentEpisode + 1).toString());
-            if (nextButton) {
-                nextButton.disabled = true;
+            // Update the UI
+            if (this.props.autoPlay) {
+                const buttons = document.querySelectorAll('.playbutton');
+                buttons.forEach((btn) => {
+                    btn.disabled = false;
+                });
+
+                const nextButton = Array.from(buttons).find((btn) => btn.textContent === (this.props.currentEpisode + 1).toString());
+                if (nextButton) {
+                    nextButton.disabled = true;
+                }
             }
-        }
+        }, 2000);
     }
 
     restart() {
@@ -325,6 +331,7 @@ function PlayerSection() {
                         currentEpisode={currentEpisode}
                         autoPlay={autoPlay}
                         setCurrentEpisode={setCurrentEpisode}
+                        showNotification={showNotification}
                     />
                 ) : (
                     <iframe id="iframeplayer" src={iframeSrc} allowFullScreen={true} scrolling="no" style={{ minHeight: '0px' }}></iframe>
