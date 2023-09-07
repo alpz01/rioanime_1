@@ -67,6 +67,7 @@ class VideoPlayer extends React.Component {
 
     componentDidMount() {
         this.player = new Plyr(this.videoRef.current, {});
+        this.player.on('ended', this.handleVideoEnd);
     }
 
     componentWillUnmount() {
@@ -81,11 +82,29 @@ class VideoPlayer extends React.Component {
         }
     }
 
+    handleVideoEnd() {
+        // Update the currentEpisode state to load the next video
+        this.props.setCurrentEpisode(this.props.currentEpisode + 1);
+
+        // Update the UI
+        if (this.props.autoPlay) {
+            const buttons = document.querySelectorAll('.playbutton');
+            buttons.forEach((btn) => {
+                btn.disabled = false;
+            });
+
+            const nextButton = Array.from(buttons).find((btn) => btn.textContent === (this.props.currentEpisode + 1).toString());
+            if (nextButton) {
+                nextButton.disabled = true;
+            }
+        }
+    }
+
     restart() {
         this.player.stop();
         this.player.restart();
     }
-    
+
     render() {
         return (
             <div>
