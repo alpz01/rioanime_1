@@ -63,6 +63,8 @@ class VideoPlayer extends React.Component {
         this.state = {
             videoSrc: props.videoSources[props.currentEpisode - 1]
         };
+        // Bind the this keyword of the handleVideoEnd method
+        this.handleVideoEnd = this.handleVideoEnd.bind(this);
     }
 
     componentDidMount() {
@@ -322,7 +324,7 @@ function PlayerSection() {
                         videoSources={videoLinks}
                         currentEpisode={currentEpisode}
                         autoPlay={autoPlay}
-                        setCurrentEpisode={setCurrentEpisode} 
+                        setCurrentEpisode={setCurrentEpisode}
                     />
                 ) : (
                     <iframe id="iframeplayer" src={iframeSrc} allowFullScreen={true} scrolling="no" style={{ minHeight: '0px' }}></iframe>
