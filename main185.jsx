@@ -69,12 +69,13 @@ class VideoPlayer extends React.Component {
     componentDidMount() {
         this.player = new Plyr(this.videoRef.current, {});
         this.player.on("ended", this.handleVideoEnd);
-      
-        // Set autoplay attribute based on autoPlay prop
-        if (this.props.autoPlay) {
-          this.videoRef.current.setAttribute("autoplay", "autoplay");
+
+        // Check if there is a stored time and set the video to that time
+        const storedTime = localStorage.getItem("videoTime");
+        if (storedTime) {
+            this.videoRef.current.currentTime = parseFloat(storedTime);
         }
-      }
+    }
 
     componentWillUnmount() {
         this.player.destroy();
@@ -142,7 +143,9 @@ class VideoPlayer extends React.Component {
             <div>
                 <video
                     ref={this.videoRef}
+                    src={this.state.videoSrc}
                     controls
+                    autoPlay
                 ></video>
             </div>
         );
@@ -155,11 +158,8 @@ function PlayerSection() {
     const videoPlayerRef = React.useRef();
 
     const [notifMessage, setNotifMessage] = React.useState("");
-    const followedPosts =
-        JSON.parse(localStorage.getItem("rioAnimePostData")) || [];
-    const [isFollowed, setIsFollowed] = React.useState(
-        followedPosts.includes(postTitle)
-    );
+    const followedPosts = JSON.parse(localStorage.getItem("rioAnimePostData")) || [];
+    const [isFollowed, setIsFollowed] = React.useState(followedPosts.includes(postTitle));
     const [iframeSrc, setIframeSrc] = React.useState("");
     const [currentEpisode, setCurrentEpisode] = React.useState(1);
     const [player, setPlayer] = React.useState(null);
@@ -202,22 +202,19 @@ function PlayerSection() {
         }
     };
 
-    const [switchAutoPlay, setSwitchAutoPlay] = React.useState(
-        localStorage.getItem("autoPlayPreference") === "on"
-    );
+    const [switchAutoPlay, setSwitchAutoPlay] = React.useState(true);
 
     const autoPlayVideo = () => {
         if (sourceType === "archive") {
             if (switchAutoPlay) {
                 showNotification("AutoPlay On", 1000);
+                setSwitchAutoPlay(false);
                 setAutoplay(true);
-                localStorage.setItem("autoPlayPreference", "on");
             } else {
                 showNotification("AutoPlay Off", 1000);
+                setSwitchAutoPlay(true);
                 setAutoplay(false);
-                localStorage.setItem("autoPlayPreference", "off");
             }
-            setSwitchAutoPlay(!switchAutoPlay);
         } else {
             showNotification("Not Applicable", 1500);
         }
