@@ -322,6 +322,7 @@ function PlayerSection() {
                         videoSources={videoLinks}
                         currentEpisode={currentEpisode}
                         autoPlay={autoPlay}
+                        setCurrentEpisode={setCurrentEpisode} 
                     />
                 ) : (
                     <iframe id="iframeplayer" src={iframeSrc} allowFullScreen={true} scrolling="no" style={{ minHeight: '0px' }}></iframe>
