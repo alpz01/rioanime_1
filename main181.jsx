@@ -69,13 +69,12 @@ class VideoPlayer extends React.Component {
     componentDidMount() {
         this.player = new Plyr(this.videoRef.current, {});
         this.player.on("ended", this.handleVideoEnd);
-
-        // Check if there is a stored time and set the video to that time
-        const storedTime = localStorage.getItem("videoTime");
-        if (storedTime) {
-            this.videoRef.current.currentTime = parseFloat(storedTime);
+      
+        // Set autoplay attribute based on autoPlay prop
+        if (this.props.autoPlay) {
+          this.videoRef.current.setAttribute("autoplay", "autoplay");
         }
-    }
+      }
 
     componentWillUnmount() {
         this.player.destroy();
@@ -143,9 +142,7 @@ class VideoPlayer extends React.Component {
             <div>
                 <video
                     ref={this.videoRef}
-                    src={this.state.videoSrc}
                     controls
-                    autoPlay
                 ></video>
             </div>
         );
