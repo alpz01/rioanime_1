@@ -85,35 +85,38 @@ class VideoPlayer extends React.Component {
     }
 
     handleVideoEnd() {
-        // Show a notification with a countdown timer
-        let timeLeft = 4;
+        const notif = document.getElementById("notifprompt");
+        notif.style.display = "block";
+
+        let counter = 4;
         const intervalId = setInterval(() => {
-            timeLeft--;
-            if (timeLeft > 0) {
-                this.props.showNotification(`Next Video... ${timeLeft}`, 1000);
-            } else {
+            notif.innerText = `Next Video... ${counter}`;
+            counter--;
+
+            if (counter === 0) {
                 clearInterval(intervalId);
+                notif.innerText = "Enjoy Watching!";
+
+                // Update the currentEpisode state to load the next video
+                this.props.setCurrentEpisode(this.props.currentEpisode + 1);
+
+                // Update the UI
+                if (this.props.autoPlay) {
+                    const buttons = document.querySelectorAll('.playbutton');
+                    buttons.forEach((btn) => {
+                        btn.disabled = false;
+                    });
+
+                    const nextButton = Array.from(buttons).find((btn) => btn.textContent === (this.props.currentEpisode + 1).toString());
+                    if (nextButton) {
+                        nextButton.disabled = true;
+                    }
+                }
+                setTimeout(() => {
+                    notif.style.display = "none";
+                }, 1000);
             }
         }, 1000);
-
-        // Add a delay before playing the next video
-        setTimeout(() => {
-            // Update the currentEpisode state to load the next video
-            this.props.setCurrentEpisode(this.props.currentEpisode + 1);
-
-            // Update the UI
-            if (this.props.autoPlay) {
-                const buttons = document.querySelectorAll('.playbutton');
-                buttons.forEach((btn) => {
-                    btn.disabled = false;
-                });
-
-                const nextButton = Array.from(buttons).find((btn) => btn.textContent === (this.props.currentEpisode + 1).toString());
-                if (nextButton) {
-                    nextButton.disabled = true;
-                }
-            }
-        }, 4000);
     }
 
     restart() {
