@@ -124,7 +124,7 @@ function PlayerSection() {
     const [iframeSrc, setIframeSrc] = React.useState("");
     const [currentEpisode, setCurrentEpisode] = React.useState(1);
     const [player, setPlayer] = React.useState(null);
-    const [autoplay, setAutoplay] = React.useState(false);
+    const [autoPlay, setAutoplay] = React.useState(false);
 
     const handleButtonClick = (button, episodeNumber) => {
         // Re-enable all buttons
