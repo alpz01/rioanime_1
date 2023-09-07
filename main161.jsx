@@ -34,7 +34,6 @@ const displayCountdown = (notifMessage, setNotifMessage, callback) => {
             clearInterval(intervalId);
             setNotifMessage("Awesome!");
             setTimeout(() => {
-                setNotifMessage("");
                 notif.style.display = "none";
                 callback();
             }, 1000);
@@ -46,7 +45,7 @@ const plyrIo = (value) => {
     return <VideoPlayer videoSources={[videoLinks[value - 1]]} />;
 };
 
-function showMore() {
+const showMore = () => {
     let hidecomment = document.querySelector('#comments');
     const info = document.querySelector('#info');
     const animeBtn2 = document.getElementById('animebtn2');
@@ -87,10 +86,28 @@ class VideoPlayer extends React.Component {
         this.player.restart();
     }
 
+    handleVideoEnd = () => {
+        if (this.props.autoPlay) {
+            // Update the currentEpisode state to load the next video
+            this.props.setCurrentEpisode(this.props.currentEpisode + 1);
+
+            // Update the UI
+            const buttons = document.querySelectorAll('.playbutton');
+            buttons.forEach((btn) => {
+                btn.disabled = false;
+            });
+
+            const nextButton = Array.from(buttons).find((btn) => btn.textContent === (this.props.currentEpisode + 1).toString());
+            if (nextButton) {
+                nextButton.disabled = true;
+            }
+        }
+    }
+    
     render() {
         return (
             <div>
-                <video ref={this.videoRef} src={this.state.videoSrc} controls></video>
+                <video ref={this.videoRef} src={this.state.videoSrc} controls autoPlay></video>
             </div>
         );
     }
@@ -107,6 +124,7 @@ function PlayerSection() {
     const [iframeSrc, setIframeSrc] = React.useState("");
     const [currentEpisode, setCurrentEpisode] = React.useState(1);
     const [player, setPlayer] = React.useState(null);
+    const [autoplay, setAutoplay] = React.useState(false);
 
     const handleButtonClick = (button, episodeNumber) => {
         // Re-enable all buttons
@@ -146,6 +164,14 @@ function PlayerSection() {
             showNotification("Not Applicable", 1500);
         }
     };
+
+    const autoPlayVideo = () => {
+        if (sourceType === "archive") {
+            setAutoplay(true);
+        } else {
+            showNotification("Not Applicable", 1500);
+        }
+    }
 
     const openlink = (value) => {
         document.getElementById("eptitleplace").textContent = `EP ${value}`;
@@ -280,7 +306,7 @@ function PlayerSection() {
                     <i className="fa-solid fa-download" onClick={downloadVideo}>
                         <span className="tooltiptext">Download</span>
                     </i>
-                    <i className="fa-solid fa-wand-sparkles">
+                    <i className="fa-solid fa-wand-sparkles" onClick={autoPlayVideo}>
                         <span className="tooltiptext">Autoplay</span>
                     </i>
                     <i onClick={null} id="nextbtn" className="glyphicon glyphicon-forward" style={{ color: 'gray', cursor: 'default' }}>
@@ -294,6 +320,7 @@ function PlayerSection() {
                         ref={videoPlayerRef}
                         videoSources={videoLinks}
                         currentEpisode={currentEpisode}
+                        autoPlay={autoPlay}
                     />
                 ) : (
                     <iframe id="iframeplayer" src={iframeSrc} allowFullScreen={true} scrolling="no" style={{ minHeight: '0px' }}></iframe>
