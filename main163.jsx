@@ -85,24 +85,6 @@ class VideoPlayer extends React.Component {
         this.player.stop();
         this.player.restart();
     }
-
-    handleVideoEnd = () => {
-        if (this.props.autoPlay) {
-            // Update the currentEpisode state to load the next video
-            this.props.setCurrentEpisode(this.props.currentEpisode + 1);
-
-            // Update the UI
-            const buttons = document.querySelectorAll('.playbutton');
-            buttons.forEach((btn) => {
-                btn.disabled = false;
-            });
-
-            const nextButton = Array.from(buttons).find((btn) => btn.textContent === (this.props.currentEpisode + 1).toString());
-            if (nextButton) {
-                nextButton.disabled = true;
-            }
-        }
-    }
     
     render() {
         return (
