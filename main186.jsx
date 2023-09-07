@@ -145,7 +145,7 @@ class VideoPlayer extends React.Component {
                     ref={this.videoRef}
                     src={this.state.videoSrc}
                     controls
-                    autoPlay
+                    autoPlay={this.props.autoPlay}
                 ></video>
             </div>
         );
