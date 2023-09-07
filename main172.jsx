@@ -89,14 +89,14 @@ class VideoPlayer extends React.Component {
         notif.style.display = "block";
 
         let counter = 4;
-        setNotifMessage(`Next Video`);
+        this.props.setNotifMessage(`Next Video`);
         const intervalId = setInterval(() => {
-            setNotifMessage(`Next Video... ${counter}`);
+            this.props.setNotifMessage(`Next Video... ${counter}`);
             counter--;
 
             if (counter === 0) {
                 clearInterval(intervalId);
-                setNotifMessage( "Enjoy Watching!");
+                this.props.setNotifMessage("Enjoy Watching!");
 
                 // Update the currentEpisode state to load the next video
                 this.props.setCurrentEpisode(this.props.currentEpisode + 1);
