@@ -133,9 +133,18 @@ class VideoPlayer extends React.Component {
     }
 
     handleVideoPause() {
-        // Store the current time of the video when it is paused
-        localStorage.setItem('videoTime', this.videoRef.current.currentTime.toString());
-    }
+        // Store the current time, post title, and current episode when the video is paused
+        const { currentTime } = this.videoRef.current;
+        const { postTitle, currentEpisode } = this.props;
+      
+        const videoData = {
+            videoTime: currentTime.toString(),
+            postTitle,
+            currentEpisode, 
+        };
+      
+        localStorage.setItem('videoData', JSON.stringify(videoData));
+      }
 
     restart() {
         this.player.stop();
@@ -215,8 +224,11 @@ function PlayerSection() {
             showNotification("Not Applicable", 1500);
         }
     };
-
-    const [switchAutoPlay, setSwitchAutoPlay] = React.useState(true);
+    
+    const [switchAutoPlay, setSwitchAutoPlay] = React.useState(
+        localStorage.getItem("autoPlayPreference") === "on"
+    );
+    
     const autoPlayVideo = () => {
         if (sourceType === "archive") {
             if (switchAutoPlay) {
@@ -233,7 +245,7 @@ function PlayerSection() {
             showNotification("Not Applicable", 1500);
         }
     };
-
+    
     const openlink = (value) => {
         document.getElementById("eptitleplace").textContent = `EP ${value}`;
 
@@ -338,19 +350,13 @@ function PlayerSection() {
     }
 
     function stream() {
-        let streamType = "";
-
-        if (sourceType == "yt") {
-            streamType = "YouTube Stream";
-        } else if (sourceType == "gdrive") {
-            streamType = "GDrive Stream";
-        } else {
-            streamType = "Video Stream";
-        }
-
-        return streamType;
+        return sourceType === "yt"
+            ? "YouTube Stream"
+            : sourceType === "gdrive"
+            ? "GDrive Stream"
+            : "Video Stream";
     }
-
+    
     return (
         <div className="playerpage">
             <div className="subpart eptitle">
@@ -384,6 +390,7 @@ function PlayerSection() {
                         autoPlay={autoPlay}
                         setCurrentEpisode={setCurrentEpisode}
                         setNotifMessage={setNotifMessage}
+                        postTitle={postTitle}
                     />
                 ) : (
                     <iframe id="iframeplayer" src={iframeSrc} allowFullScreen={true} scrolling="no" style={{ minHeight: '0px' }}></iframe>
