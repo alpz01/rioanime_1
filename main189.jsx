@@ -351,7 +351,7 @@ function PlayerSection() {
                     <i className="fa-solid fa-download" onClick={downloadVideo}>
                         <span className="tooltiptext">Download</span>
                     </i>
-                    <i className={`fa-solid fa-wand-sparkles ${autoplay ? 'gray' : ''}`} onClick={autoPlayVideo}>
+                    <i className={`fa-solid fa-wand-sparkles ${autoPlay ? 'gray' : ''}`} onClick={autoPlayVideo}>
                         <span className="tooltiptext">Autoplay</span>
                     </i>
                 </div>
