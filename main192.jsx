@@ -202,6 +202,14 @@ function PlayerSection() {
             showNotification("Not Applicable", 1500);
         }
     };
+
+    const switchPlayer = () => {
+        showNotification("Not Applicable", 1500);
+    }
+
+    const lightsPlayer = () => {
+        showNotification("Not Applicable", 1500);
+    }
     
     const autoPlayVideo = () => {
         if (sourceType === "archive") {
@@ -343,9 +351,9 @@ function PlayerSection() {
                 </div>
                 <div id="toprightplayer">
                     <i className="fa-solid fa-repeat">
-                        <span className="tooltiptext">Switch</span>
+                        <span className="tooltiptext" onClick={switchPlayer}>Switch</span>
                     </i>
-                    <i className="fa-solid fa-lightbulb">
+                    <i className="fa-solid fa-lightbulb" onClick={lightsPlayer}>
                         <span className="tooltiptext">Lights</span>
                     </i>
                     <i className="fa-solid fa-download" onClick={downloadVideo}>
