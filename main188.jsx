@@ -351,21 +351,12 @@ function PlayerSection() {
                     <i className="fa-solid fa-download" onClick={downloadVideo}>
                         <span className="tooltiptext">Download</span>
                     </i>
-                    <i className="fa-solid fa-wand-sparkles" onClick={autoPlayVideo}>
+                    <i className={`fa-solid fa-wand-sparkles ${autoplay ? 'gray' : ''}`} onClick={autoPlayVideo}>
                         <span className="tooltiptext">Autoplay</span>
-                    </i>
-                    <i
-                        onClick={null}
-                        id="nextbtn"
-                        className="glyphicon glyphicon-forward"
-                        style={{ color: "gray", cursor: "default" }}
-                    >
-                        <span className="tooltiptext">Next ep</span>
                     </i>
                 </div>
             </div>
-            <div
-                id="iframecontainer"
+            <div id="iframecontainer"
                 className={
                     sourceType === "yt" || sourceType === "gdrive" ? "responYt" : ""
                 }
