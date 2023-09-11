@@ -403,6 +403,10 @@ button {
     gap: 5px;
 }
 
+#resultplace ul {
+    list-style: none;
+}
+
 .searchresult li, .items li {
     background-color: #222;
     border: 2px solid #0000;
@@ -479,5 +483,15 @@ button {
 
 .details p {
     margin: 0 0 10px;
+}
+
+@keyframes zoomout {
+    0% {
+        transform: scale(0.94);
+    }
+    
+    100% {
+        transform: scale(1);
+    }
 }
 
