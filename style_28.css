@@ -426,7 +426,7 @@ button {
 .searchimg .type {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     background-color: #171717b3;
     padding: 0 5px 2px 7px;
     font-size: 12px;

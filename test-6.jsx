@@ -93,7 +93,7 @@ const generatePost = (data, page) => {
                         <div class="searchimg">
                             <img class="resultimg" alt="" src={imageLink} />
                             <div class="rating"><i class="fa-solid fa-star" style={{ color: '#ffcb00c7' }}></i> {score}</div>
-                            <div class="type">{type}</div>
+                            <div class="type">{view}</div>
                         </div>
                     </a>
                     <div class="details">
