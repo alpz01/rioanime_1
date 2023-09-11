@@ -88,18 +88,18 @@ const generatePost = (data, page) => {
 
         return (
             <>
-                    <li>
-                        <a href={postLink} title={title}>
-                            <div class="searchimg">
-                                <img class="resultimg" alt="" src={imageLink} />
-                                <div class="rating"><i class="fa-solid fa-star" style={{ color: '#ffcb00c7' }}></i> {score}</div>
-                            </div>
-                        </a>
-                        <div class="details">
-                            <span class="name"><a href={postLink} title={title}>{title}</a></span>
-                            <span class="infotext">{ep}</span>
+                <li>
+                    <a href={postLink} title={title}>
+                        <div class="searchimg">
+                            <img class="resultimg" alt="" src={imageLink} />
+                            <div class="type"><i class="fa-solid fa-star" style={{ color: '#ffcb00c7' }}></i> {score}</div>
                         </div>
-                    </li>
+                    </a>
+                    <div class="details">
+                        <span class="name"><a href={postLink} title={title}>{title}</a></span>
+                        <span class="infotext">{ep}</span>
+                    </div>
+                </li>
             </>
         );
     });
