@@ -411,7 +411,11 @@ button {
     background-color: #222;
     border: 2px solid #0000;
     position: relative;
-    animation: zoomout 0.3s;
+    transition: transform 0.3s; 
+}
+
+.searchresult li:hover, .items li:hover {
+    transform: scale(1.05); 
 }
 
 .searchimg {
@@ -428,6 +432,7 @@ button {
 .searchimg img {
     image-rendering: -webkit-optimize-contrast;
     vertical-align: middle;
+    object-fit: cover;
     border: 0;
 }
 
