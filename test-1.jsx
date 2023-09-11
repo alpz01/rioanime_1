@@ -88,7 +88,6 @@ const generatePost = (data, page) => {
 
         return (
             <>
-                <ul class="searchresult">
                     <li>
                         <a href={postLink} title={title}>
                             <div class="searchimg">
@@ -102,7 +101,6 @@ const generatePost = (data, page) => {
                             <span class="infotext">{ep}</span>
                         </div>
                     </li>
-                </ul>
             </>
         );
     });
@@ -162,7 +160,7 @@ const PostContainer = () => {
                     </div>
                 </div>
             </div>
-            <div id="resultplace"><GeneratePostComponent data={data} page={page} /></div>
+            <div id="resultplace"><ul id="resultload" class="searchresult"><GeneratePostComponent data={data} page={page} /></ul></div>
         </>
     );
 };
