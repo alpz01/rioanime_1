@@ -415,7 +415,7 @@ button {
 }
 
 .searchresult li:hover, .items li:hover {
-    transform: scale(1.02); 
+    transform: scale(1.04); 
 }
 
 .searchimg {
