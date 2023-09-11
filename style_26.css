@@ -411,8 +411,7 @@ button {
     background-color: #222;
     border: 2px solid #0000;
     position: relative;
-    transition: transform 0.3s; 
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s, background-color 0.3s ease; 
 }
 
 .searchresult li:hover, .items li:hover {
