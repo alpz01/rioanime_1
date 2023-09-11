@@ -92,7 +92,8 @@ const generatePost = (data, page) => {
                     <a href={postLink} title={title}>
                         <div class="searchimg">
                             <img class="resultimg" alt="" src={imageLink} />
-                            <div class="type"><i class="fa-solid fa-star" style={{ color: '#ffcb00c7' }}></i> {score}</div>
+                            <div class="rating"><i class="fa-solid fa-star" style={{ color: '#ffcb00c7' }}></i> {score}</div>
+                            <div class="type">{type}</div>
                         </div>
                     </a>
                     <div class="details">
