@@ -108,6 +108,9 @@ const generatePost = (data, page) => {
                         {view && <span className={view.toLowerCase()}>{view}</span>}
                     </div>
                 </a>
+                <h3 class="clamp oh tac mt-8">
+                    <a class="fs-md fw-400 c-aba" href={title}>{title}</a>
+                </h3>
             </div>
         );
     });
@@ -156,12 +159,12 @@ const PostContainer = () => {
                             Random
                         </a>
                         <span className='paging'>
-                        <a className='tablinks' onClick={() => prevPost(page, setPage)}>
-                            <i className="fa-solid fa-angle-left"></i>
-                        </a>
-                        <a className='tablinks' onClick={() => nextPost(page, setPage, data.length)}>
-                            <i className="fa-solid fa-angle-right"></i>
-                        </a>
+                            <a className='tablinks' onClick={() => prevPost(page, setPage)}>
+                                <i className="fa-solid fa-angle-left"></i>
+                            </a>
+                            <a className='tablinks' onClick={() => nextPost(page, setPage, data.length)}>
+                                <i className="fa-solid fa-angle-right"></i>
+                            </a>
                         </span>
                     </div>
                 </div>
